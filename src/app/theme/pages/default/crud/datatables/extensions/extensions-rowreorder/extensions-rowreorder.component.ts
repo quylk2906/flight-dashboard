@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-extensions-rowreorder",
-    templateUrl: "./extensions-rowreorder.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-extensions-rowreorder",
+  templateUrl: "./extensions-rowreorder.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExtensionsRowreorderComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-extensions-rowreorder',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/extensions/rowreorder.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-extensions-rowreorder',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/extensions/rowreorder.js']);
 
-    }
+  }
 
 }

@@ -6,25 +6,25 @@ import { LayoutModule } from '../../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default.component';
 
 const routes: Routes = [
-    {
+  {
+    "path": "",
+    "component": DefaultComponent,
+    "children": [
+      {
         "path": "",
-        "component": DefaultComponent,
-        "children": [
-            {
-                "path": "",
-                "component": CalendarListViewComponent
-            }
-        ]
-    }
+        "component": CalendarListViewComponent
+      }
+    ]
+  }
 ];
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule
-    ], exports: [
-        RouterModule
-    ], declarations: [
-        CalendarListViewComponent
-    ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    CalendarListViewComponent
+  ]
 })
 export class CalendarListViewModule {
 

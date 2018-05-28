@@ -6,25 +6,25 @@ import { LayoutModule } from '../../../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../../default.component';
 
 const routes: Routes = [
-    {
+  {
+    "path": "",
+    "component": DefaultComponent,
+    "children": [
+      {
         "path": "",
-        "component": DefaultComponent,
-        "children": [
-            {
-                "path": "",
-                "component": WidgetsDropzoneComponent
-            }
-        ]
-    }
+        "component": WidgetsDropzoneComponent
+      }
+    ]
+  }
 ];
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule
-    ], exports: [
-        RouterModule
-    ], declarations: [
-        WidgetsDropzoneComponent
-    ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    WidgetsDropzoneComponent
+  ]
 })
 export class WidgetsDropzoneModule {
 

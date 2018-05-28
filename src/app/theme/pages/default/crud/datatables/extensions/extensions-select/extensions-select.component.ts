@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-extensions-select",
-    templateUrl: "./extensions-select.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-extensions-select",
+  templateUrl: "./extensions-select.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExtensionsSelectComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-extensions-select',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/extensions/select.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-extensions-select',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/extensions/select.js']);
 
-    }
+  }
 
 }

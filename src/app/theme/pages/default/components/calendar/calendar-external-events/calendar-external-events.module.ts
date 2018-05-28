@@ -6,25 +6,25 @@ import { LayoutModule } from '../../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default.component';
 
 const routes: Routes = [
-    {
+  {
+    "path": "",
+    "component": DefaultComponent,
+    "children": [
+      {
         "path": "",
-        "component": DefaultComponent,
-        "children": [
-            {
-                "path": "",
-                "component": CalendarExternalEventsComponent
-            }
-        ]
-    }
+        "component": CalendarExternalEventsComponent
+      }
+    ]
+  }
 ];
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule
-    ], exports: [
-        RouterModule
-    ], declarations: [
-        CalendarExternalEventsComponent
-    ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    CalendarExternalEventsComponent
+  ]
 })
 export class CalendarExternalEventsModule {
 

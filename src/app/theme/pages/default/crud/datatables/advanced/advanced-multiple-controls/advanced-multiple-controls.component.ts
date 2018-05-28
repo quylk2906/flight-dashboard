@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-advanced-multiple-controls",
-    templateUrl: "./advanced-multiple-controls.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-advanced-multiple-controls",
+  templateUrl: "./advanced-multiple-controls.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdvancedMultipleControlsComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-advanced-multiple-controls',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/advanced/multiple-controls.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-advanced-multiple-controls',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/advanced/multiple-controls.js']);
 
-    }
+  }
 
 }

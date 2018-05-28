@@ -6,25 +6,25 @@ import { LayoutModule } from '../../../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../../default.component';
 
 const routes: Routes = [
-    {
+  {
+    "path": "",
+    "component": DefaultComponent,
+    "children": [
+      {
         "path": "",
-        "component": DefaultComponent,
-        "children": [
-            {
-                "path": "",
-                "component": ExtensionsButtonsComponent
-            }
-        ]
-    }
+        "component": ExtensionsButtonsComponent
+      }
+    ]
+  }
 ];
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule
-    ], exports: [
-        RouterModule
-    ], declarations: [
-        ExtensionsButtonsComponent
-    ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    ExtensionsButtonsComponent
+  ]
 })
 export class ExtensionsButtonsModule {
 

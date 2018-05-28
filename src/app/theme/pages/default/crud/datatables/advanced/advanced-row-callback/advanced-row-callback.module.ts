@@ -6,25 +6,25 @@ import { LayoutModule } from '../../../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../../default.component';
 
 const routes: Routes = [
-    {
+  {
+    "path": "",
+    "component": DefaultComponent,
+    "children": [
+      {
         "path": "",
-        "component": DefaultComponent,
-        "children": [
-            {
-                "path": "",
-                "component": AdvancedRowCallbackComponent
-            }
-        ]
-    }
+        "component": AdvancedRowCallbackComponent
+      }
+    ]
+  }
 ];
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule
-    ], exports: [
-        RouterModule
-    ], declarations: [
-        AdvancedRowCallbackComponent
-    ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    AdvancedRowCallbackComponent
+  ]
 })
 export class AdvancedRowCallbackModule {
 

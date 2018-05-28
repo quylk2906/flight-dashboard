@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-data-sources-javascript",
-    templateUrl: "./data-sources-javascript.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-data-sources-javascript",
+  templateUrl: "./data-sources-javascript.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class DataSourcesJavascriptComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-data-sources-javascript',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/data-sources/javascript.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-data-sources-javascript',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/data-sources/javascript.js']);
 
-    }
+  }
 
 }

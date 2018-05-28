@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-basic-headers",
-    templateUrl: "./basic-headers.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-basic-headers",
+  templateUrl: "./basic-headers.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class BasicHeadersComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-basic-headers',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/basic/headers.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-basic-headers',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/basic/headers.js']);
 
-    }
+  }
 
 }

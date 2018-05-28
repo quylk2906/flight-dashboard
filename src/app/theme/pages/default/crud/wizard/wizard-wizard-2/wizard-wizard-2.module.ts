@@ -6,25 +6,25 @@ import { LayoutModule } from '../../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default.component';
 
 const routes: Routes = [
-    {
+  {
+    "path": "",
+    "component": DefaultComponent,
+    "children": [
+      {
         "path": "",
-        "component": DefaultComponent,
-        "children": [
-            {
-                "path": "",
-                "component": WizardWizard2Component
-            }
-        ]
-    }
+        "component": WizardWizard2Component
+      }
+    ]
+  }
 ];
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule
-    ], exports: [
-        RouterModule
-    ], declarations: [
-        WizardWizard2Component
-    ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    WizardWizard2Component
+  ]
 })
 export class WizardWizard2Module {
 

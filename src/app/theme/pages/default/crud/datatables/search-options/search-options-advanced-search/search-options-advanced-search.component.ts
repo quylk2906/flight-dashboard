@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-search-options-advanced-search",
-    templateUrl: "./search-options-advanced-search.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-search-options-advanced-search",
+  templateUrl: "./search-options-advanced-search.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class SearchOptionsAdvancedSearchComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-search-options-advanced-search',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/search-options/advanced-search.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-search-options-advanced-search',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/search-options/advanced-search.js']);
 
-    }
+  }
 
 }

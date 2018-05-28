@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-data-sources-ajax-server-side",
-    templateUrl: "./data-sources-ajax-server-side.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-data-sources-ajax-server-side",
+  templateUrl: "./data-sources-ajax-server-side.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class DataSourcesAjaxServerSideComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-data-sources-ajax-server-side',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/data-sources/ajax-server-side.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-data-sources-ajax-server-side',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/data-sources/ajax-server-side.js']);
 
-    }
+  }
 
 }

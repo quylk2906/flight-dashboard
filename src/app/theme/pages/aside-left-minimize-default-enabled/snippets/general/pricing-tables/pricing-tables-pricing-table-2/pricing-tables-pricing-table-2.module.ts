@@ -6,25 +6,25 @@ import { LayoutModule } from '../../../../../../layouts/layout.module';
 import { AsideLeftMinimizeDefaultEnabledComponent } from '../../../../aside-left-minimize-default-enabled.component';
 
 const routes: Routes = [
-    {
+  {
+    "path": "",
+    "component": AsideLeftMinimizeDefaultEnabledComponent,
+    "children": [
+      {
         "path": "",
-        "component": AsideLeftMinimizeDefaultEnabledComponent,
-        "children": [
-            {
-                "path": "",
-                "component": PricingTablesPricingTable2Component
-            }
-        ]
-    }
+        "component": PricingTablesPricingTable2Component
+      }
+    ]
+  }
 ];
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule
-    ], exports: [
-        RouterModule
-    ], declarations: [
-        PricingTablesPricingTable2Component
-    ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    PricingTablesPricingTable2Component
+  ]
 })
 export class PricingTablesPricingTable2Module {
 

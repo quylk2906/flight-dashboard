@@ -6,26 +6,26 @@ import { DefaultComponent } from '../default.component';
 import { NotFoundComponent } from './not-found.component';
 
 const routes: Routes = [
-    {
+  {
+    'path': '',
+    'component': DefaultComponent,
+    'children': [
+      {
         'path': '',
-        'component': DefaultComponent,
-        'children': [
-            {
-                'path': '',
-                'component': NotFoundComponent,
-            },
-        ],
-    },
+        'component': NotFoundComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule,
-    ], exports: [
-        RouterModule,
-    ], declarations: [
-        NotFoundComponent,
-    ],
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule,
+  ], exports: [
+    RouterModule,
+  ], declarations: [
+    NotFoundComponent,
+  ],
 })
 export class NotFoundModule {
 }

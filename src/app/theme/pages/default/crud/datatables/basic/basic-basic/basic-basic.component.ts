@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-basic-basic",
-    templateUrl: "./basic-basic.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-basic-basic",
+  templateUrl: "./basic-basic.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class BasicBasicComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-basic-basic',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/basic/basic.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-basic-basic',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/basic/basic.js']);
 
-    }
+  }
 
 }

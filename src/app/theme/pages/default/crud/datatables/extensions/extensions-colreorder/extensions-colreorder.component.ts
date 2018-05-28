@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-extensions-colreorder",
-    templateUrl: "./extensions-colreorder.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-extensions-colreorder",
+  templateUrl: "./extensions-colreorder.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExtensionsColreorderComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-extensions-colreorder',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/extensions/colreorder.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-extensions-colreorder',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/extensions/colreorder.js']);
 
-    }
+  }
 
 }

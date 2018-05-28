@@ -6,26 +6,26 @@ import { DefaultComponent } from '../default.component';
 import { BlankComponent } from './blank.component';
 
 const routes: Routes = [
-    {
+  {
+    'path': '',
+    'component': DefaultComponent,
+    'children': [
+      {
         'path': '',
-        'component': DefaultComponent,
-        'children': [
-            {
-                'path': '',
-                'component': BlankComponent,
-            },
-        ],
-    },
+        'component': BlankComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
-    imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule,
-    ], exports: [
-        RouterModule,
-    ], declarations: [
-        BlankComponent,
-    ],
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule,
+  ], exports: [
+    RouterModule,
+  ], declarations: [
+    BlankComponent,
+  ],
 })
 export class BlankModule {
 }

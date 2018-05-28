@@ -15,28 +15,28 @@ import { UserService } from './_services/user.service';
 import { fakeBackendProvider } from './_helpers/index';
 
 @NgModule({
-    declarations: [
-        AuthComponent,
-        AlertComponent,
-        LogoutComponent,
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        HttpModule,
-        AuthRoutingModule,
-    ],
-    providers: [
-        AuthGuard,
-        AlertService,
-        AuthenticationService,
-        UserService,
-        // api backend simulation
-        fakeBackendProvider,
-        MockBackend,
-        BaseRequestOptions,
-    ],
-    entryComponents: [AlertComponent],
+  declarations: [
+    AuthComponent,
+    AlertComponent,
+    LogoutComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpModule,
+    AuthRoutingModule,
+  ],
+  providers: [
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    UserService,
+    // api backend simulation
+    fakeBackendProvider,
+    MockBackend,
+    BaseRequestOptions,
+  ],
+  entryComponents: [AlertComponent],
 })
 
 export class AuthModule {

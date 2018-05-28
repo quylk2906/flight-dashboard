@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-extensions-responsive",
-    templateUrl: "./extensions-responsive.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-extensions-responsive",
+  templateUrl: "./extensions-responsive.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExtensionsResponsiveComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-extensions-responsive',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/extensions/responsive.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-extensions-responsive',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/extensions/responsive.js']);
 
-    }
+  }
 
 }

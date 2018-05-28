@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-advanced-column-rendering",
-    templateUrl: "./advanced-column-rendering.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-advanced-column-rendering",
+  templateUrl: "./advanced-column-rendering.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdvancedColumnRenderingComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-advanced-column-rendering',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/advanced/column-rendering.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-advanced-column-rendering',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/advanced/column-rendering.js']);
 
-    }
+  }
 
 }

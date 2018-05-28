@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-advanced-row-grouping",
-    templateUrl: "./advanced-row-grouping.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-advanced-row-grouping",
+  templateUrl: "./advanced-row-grouping.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdvancedRowGroupingComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-advanced-row-grouping',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/advanced/row-grouping.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-advanced-row-grouping',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/advanced/row-grouping.js']);
 
-    }
+  }
 
 }

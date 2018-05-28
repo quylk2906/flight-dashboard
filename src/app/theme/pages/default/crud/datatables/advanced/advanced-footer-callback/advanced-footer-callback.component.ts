@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-advanced-footer-callback",
-    templateUrl: "./advanced-footer-callback.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-advanced-footer-callback",
+  templateUrl: "./advanced-footer-callback.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdvancedFooterCallbackComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-advanced-footer-callback',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/advanced/footer-callback.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-advanced-footer-callback',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/advanced/footer-callback.js']);
 
-    }
+  }
 
 }

@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-extensions-rowgroup",
-    templateUrl: "./extensions-rowgroup.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-extensions-rowgroup",
+  templateUrl: "./extensions-rowgroup.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExtensionsRowgroupComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-extensions-rowgroup',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/extensions/rowgroup.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-extensions-rowgroup',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/extensions/rowgroup.js']);
 
-    }
+  }
 
 }

@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-extensions-scroller",
-    templateUrl: "./extensions-scroller.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-extensions-scroller",
+  templateUrl: "./extensions-scroller.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExtensionsScrollerComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-extensions-scroller',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/extensions/scroller.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-extensions-scroller',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/extensions/scroller.js']);
 
-    }
+  }
 
 }

@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-advanced-column-visibility",
-    templateUrl: "./advanced-column-visibility.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-advanced-column-visibility",
+  templateUrl: "./advanced-column-visibility.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdvancedColumnVisibilityComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-advanced-column-visibility',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/advanced/column-visibility.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-advanced-column-visibility',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/advanced/column-visibility.js']);
 
-    }
+  }
 
 }

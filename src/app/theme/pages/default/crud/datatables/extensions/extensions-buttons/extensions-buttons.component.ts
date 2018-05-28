@@ -4,24 +4,24 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: "app-extensions-buttons",
-    templateUrl: "./extensions-buttons.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-extensions-buttons",
+  templateUrl: "./extensions-buttons.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExtensionsButtonsComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-extensions-buttons',
-            ['assets/vendors/custom/datatables/datatables.bundle.js',
-                'assets/demo/default/custom/crud/datatables/extensions/buttons.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-extensions-buttons',
+      ['assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/extensions/buttons.js']);
 
-    }
+  }
 
 }

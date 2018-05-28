@@ -4,23 +4,23 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 
 
 @Component({
-    selector: "app-widgets-general",
-    templateUrl: "./widgets-general.component.html",
-    encapsulation: ViewEncapsulation.None,
+  selector: "app-widgets-general",
+  templateUrl: "./widgets-general.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class WidgetsGeneralComponent implements OnInit, AfterViewInit {
 
 
-    constructor(private _script: ScriptLoaderService) {
+  constructor(private _script: ScriptLoaderService) {
 
-    }
-    ngOnInit() {
+  }
+  ngOnInit() {
 
-    }
-    ngAfterViewInit() {
-        this._script.loadScripts('app-widgets-general',
-            ['assets/app/js/dashboard.js']);
+  }
+  ngAfterViewInit() {
+    this._script.loadScripts('app-widgets-general',
+      ['assets/app/js/dashboard.js']);
 
-    }
+  }
 
 }
