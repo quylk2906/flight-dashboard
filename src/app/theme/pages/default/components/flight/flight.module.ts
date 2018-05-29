@@ -6,24 +6,24 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 
 const routes: Routes = [
-   {
-      "path": "",
-      "component": DefaultComponent,
-      "children": [
-         {
-            "path": "",
-            "component": FlightComponent
-         }
-      ]
-   }
+  {
+    "path": "",
+    "component": DefaultComponent,
+    "children": [
+      {
+        "path": "",
+        "component": FlightComponent
+      }
+    ]
+  }
 ];
 @NgModule({
-   imports: [
-      CommonModule, RouterModule.forChild(routes), LayoutModule
-   ], exports: [
-      RouterModule
-   ], declarations: [
-      FlightComponent
-   ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    FlightComponent
+  ]
 })
 export class FlightModule { }

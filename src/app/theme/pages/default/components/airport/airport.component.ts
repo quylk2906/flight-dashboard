@@ -13,7 +13,10 @@ export class AirportComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this._script.loadScripts('app-airport',
-      ['assets/vendors/custom/datatables/datatables.bundle.js',
-        'assets/demo/default/custom/crud/datatables/basic/paginations.js']);
+      [
+        'assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/datatables/basic/paginations.js',
+        'assets/demo/default/custom/crud/forms/validation/form-controls.js'
+      ]);
   }
 }

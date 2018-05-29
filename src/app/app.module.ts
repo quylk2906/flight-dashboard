@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { ScriptLoaderService } from "./_services/script-loader.service";
 import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
-
+import { ScrollToModule } from 'ng2-scroll-to';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { AuthModule } from "./auth/auth.module";
     AppRoutingModule,
     ThemeRoutingModule,
     AuthModule,
+    ScrollToModule.forRoot(),
   ],
   providers: [ScriptLoaderService],
   bootstrap: [AppComponent]

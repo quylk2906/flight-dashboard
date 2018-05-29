@@ -6,24 +6,24 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 
 const routes: Routes = [
-   {
-      "path": "",
-      "component": DefaultComponent,
-      "children": [
-         {
-            "path": "",
-            "component": ContactComponent
-         }
-      ]
-   }
+  {
+    "path": "",
+    "component": DefaultComponent,
+    "children": [
+      {
+        "path": "",
+        "component": ContactComponent
+      }
+    ]
+  }
 ];
 @NgModule({
-   imports: [
-      CommonModule, RouterModule.forChild(routes), LayoutModule
-   ], exports: [
-      RouterModule
-   ], declarations: [
-      ContactComponent
-   ]
+  imports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule
+  ], exports: [
+    RouterModule
+  ], declarations: [
+    ContactComponent
+  ]
 })
 export class ContactModule { }
