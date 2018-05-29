@@ -20,7 +20,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this._script.loadScripts('app-index',
       ['assets/app/js/dashboard.js']);
-
   }
 
 }

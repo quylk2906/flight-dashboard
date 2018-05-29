@@ -55,12 +55,15 @@
   },
   "defaults": {
     "styleExt": "scss",
+    "serve": {
+      "port": 8080
+    },
     "class": {
       "spec": false
     },
     "component": {
       "inlineStyle": true,
-      "inlineTemplate": true,
+      "inlineTemplate": false,
       "spec": false
     },
     "directive": {

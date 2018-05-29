@@ -11,47 +11,35 @@ const routes: Routes = [
     'children': [
       {
         'path': 'index',
-        'loadChildren': '.\/pages\/default\/blank\/blank.module#BlankModule',
+        'loadChildren': '.\/pages\/default\/index\/index.module#IndexModule'
       },
       {
-        "path": "components\/base\/typography",
-        "loadChildren": ".\/pages\/default\/components\/base\/base-typography\/base-typography.module#BaseTypographyModule"
+        'path': 'components\/airline-agent',
+        'loadChildren': '.\/pages\/default\/components\/airline-agent\/airline-agent.module#AirlineAgentModule'
       },
       {
-        "path": "components\/base\/state",
-        "loadChildren": ".\/pages\/default\/components\/base\/base-state\/base-state.module#BaseStateModule"
+        'path': 'components\/airport',
+        'loadChildren': '.\/pages\/default\/components\/airport\/airport.module#AirportModule'
       },
       {
-        "path": "components\/base\/stack",
-        "loadChildren": ".\/pages\/default\/components\/base\/base-stack\/base-stack.module#BaseStackModule"
+        'path': 'components\/contact',
+        'loadChildren': '.\/pages\/default\/components\/contact\/contact.module#ContactModule'
       },
       {
-        "path": "components\/base\/tables",
-        "loadChildren": ".\/pages\/default\/components\/base\/base-tables\/base-tables.module#BaseTablesModule"
+        'path': 'components\/flight',
+        'loadChildren': '.\/pages\/default\/components\/flight\/flight.module#FlightModule'
       },
       {
-        "path": "crud\/forms\/widgets\/bootstrap-datepicker",
-        "loadChildren": ".\/pages\/default\/crud\/forms\/widgets\/widgets-bootstrap-datepicker\/widgets-bootstrap-datepicker.module#WidgetsBootstrapDatepickerModule"
+        'path': 'components\/flight-schedule',
+        'loadChildren': '.\/pages\/default\/components\/flight-schedule\/flight-schedule.module#FlightScheduleModule'
       },
       {
-        "path": "crud\/forms\/widgets\/bootstrap-datetimepicker",
-        "loadChildren": ".\/pages\/default\/crud\/forms\/widgets\/widgets-bootstrap-datetimepicker\/widgets-bootstrap-datetimepicker.module#WidgetsBootstrapDatetimepickerModule"
+        'path': 'components\/payment',
+        'loadChildren': '.\/pages\/default\/components\/payment\/payment.module#PaymentModule'
       },
       {
-        "path": "crud\/forms\/widgets\/bootstrap-timepicker",
-        "loadChildren": ".\/pages\/default\/crud\/forms\/widgets\/widgets-bootstrap-timepicker\/widgets-bootstrap-timepicker.module#WidgetsBootstrapTimepickerModule"
-      },
-      {
-        "path": "crud\/forms\/widgets\/bootstrap-daterangepicker",
-        "loadChildren": ".\/pages\/default\/crud\/forms\/widgets\/widgets-bootstrap-daterangepicker\/widgets-bootstrap-daterangepicker.module#WidgetsBootstrapDaterangepickerModule"
-      },
-      {
-        "path": "crud\/forms\/widgets\/bootstrap-select",
-        "loadChildren": ".\/pages\/default\/crud\/forms\/widgets\/widgets-bootstrap-select\/widgets-bootstrap-select.module#WidgetsBootstrapSelectModule"
-      },
-      {
-        "path": "crud\/forms\/widgets\/select2",
-        "loadChildren": ".\/pages\/default\/crud\/forms\/widgets\/widgets-select2\/widgets-select2.module#WidgetsSelect2Module"
+        'path': 'components\/plane',
+        'loadChildren': '.\/pages\/default\/components\/plane\/plane.module#PlaneModule'
       }
     ],
   },
