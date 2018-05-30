@@ -17,12 +17,13 @@ import { find } from 'lodash';
 export class AirlineAgentComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   private list: AirlineAgent[]
-  private currentItem: AirlineAgent =  {
+  private currentItem: AirlineAgent = {
     id: '',
     airlineAgentName: '',
     airlineAgentCode: '',
     description: '',
- }
+  }
+  
   constructor(private _script: ScriptLoaderService, private _service: AirlineAgentService) {
   }
 
@@ -55,9 +56,8 @@ export class AirlineAgentComponent implements OnInit, OnDestroy, AfterViewInit {
     })
     console.log(this.currentItem);
   }
-  
+
   ngOnDestroy(): void {
     this.subs.unsubscribe()
   }
-
 }
