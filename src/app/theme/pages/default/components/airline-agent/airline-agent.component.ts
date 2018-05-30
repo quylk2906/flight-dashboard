@@ -16,14 +16,14 @@ import { find } from 'lodash';
 
 export class AirlineAgentComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
-  private list: AirlineAgent[]
-  private currentItem: AirlineAgent = {
+  public list: AirlineAgent[]
+  public currentItem: AirlineAgent = {
     id: '',
     airlineAgentName: '',
     airlineAgentCode: '',
     description: '',
   }
-  
+
   constructor(private _script: ScriptLoaderService, private _service: AirlineAgentService) {
   }
 
