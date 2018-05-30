@@ -13,8 +13,12 @@ import { ScriptLoaderService } from "./_services/script-loader.service";
 import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
 import { AirlineAgentService } from './_services/airline-agent.service';
+import { LayoutComponent } from '../app/theme/layouts/layout/layout.component';
+import { AsideLeftMinimizeDefaultEnabledComponent } from '../app/theme/pages/aside-left-minimize-default-enabled/aside-left-minimize-default-enabled.component';
 @NgModule({
   declarations: [
+    AsideLeftMinimizeDefaultEnabledComponent,
+    LayoutComponent,
     ThemeComponent,
     AppComponent,
   ],
