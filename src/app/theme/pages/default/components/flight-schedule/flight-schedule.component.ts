@@ -12,8 +12,8 @@ export class FlightScheduleComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this._script.loadScripts('app-flight-schedule',
       [
-        'assets/demo/default/custom/crud/forms/widgets/select2.js',
         'assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/forms/widgets/select2.js',
         'assets/demo/default/custom/crud/datatables/basic/paginations.js',
         'assets/demo/default/custom/crud/forms/validation/form-controls.js',
         'assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js'

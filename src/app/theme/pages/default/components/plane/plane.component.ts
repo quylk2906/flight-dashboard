@@ -12,7 +12,7 @@ export class PlaneComponent implements OnInit, AfterViewInit {
   constructor(private _script: ScriptLoaderService) { }
   ngOnInit() { }
   ngAfterViewInit() {
-    this._script.loadScripts('app-airport',
+    this._script.loadScripts('app-plane',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
         'assets/demo/default/custom/crud/datatables/basic/paginations.js',

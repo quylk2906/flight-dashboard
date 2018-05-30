@@ -9,22 +9,19 @@ import { AppComponent } from './app.component';
 import { ScriptLoaderService } from "./_services/script-loader.service";
 import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
-import { HttpClientModule } from '@angular/common/http';  // replaces previous Http servic
-
 
 @NgModule({
   declarations: [
-    ThemeComponent,
+ThemeComponent,
     AppComponent,
   ],
   imports: [
-    LayoutModule,
+LayoutModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ThemeRoutingModule,
     AuthModule,
-    HttpClientModule
   ],
   providers: [ScriptLoaderService],
   bootstrap: [AppComponent]
