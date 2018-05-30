@@ -19,7 +19,6 @@ export class FlightComponent implements OnInit, AfterViewInit {
         'assets/demo/default/custom/crud/datatables/basic/paginations.js',
         'assets/demo/default/custom/crud/forms/validation/form-controls.js',
         'assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js'
-      
       ]);
   }
 }

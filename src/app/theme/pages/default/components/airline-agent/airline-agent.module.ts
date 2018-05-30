@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AirlineAgentComponent } from './airline-agent.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
-
+import { AirlineAgentService } from '../../../../../_services/airline-agent.service';
 const routes: Routes = [
   {
     "path": "",
@@ -22,9 +22,12 @@ const routes: Routes = [
   imports: [
     CommonModule, RouterModule.forChild(routes), LayoutModule,
     FormsModule
-  ], exports: [
+  ],
+  exports: [
     RouterModule
-  ], declarations: [
+  ],
+  providers: [AirlineAgentService],
+  declarations: [
     AirlineAgentComponent
   ]
 })
