@@ -121,7 +121,7 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="m-input-icon m-input-icon--right">
-                     <input type="text" class="form-control m-input" name="airport-code" required placeholder="Nhập mã chuyến bay">
+                     <input type="text" class="form-control m-input" name="flightCode" required placeholder="Nhập mã chuyến bay">
                      <span class="m-input-icon__icon m-input-icon__icon--right">
                         <span>
                            <i class="la la-edit"></i>
@@ -136,7 +136,7 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="m-input-icon m-input-icon--right">
-                     <input type="text" class="form-control m-input" name="departure-airport" required placeholder="Nhập tên sân bay đi">
+                     <input type="text" class="form-control m-input" name="departureAirport" required placeholder="Nhập tên sân bay đi">
                      <span class="m-input-icon__icon m-input-icon__icon--right">
                         <span>
                            <i class="la la-map-marker"></i>
@@ -151,7 +151,7 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="m-input-icon m-input-icon--right">
-                     <input type="text" class="form-control m-input" name="arrival-airport" required placeholder="Nhập tên sân bay đến">
+                     <input type="text" class="form-control m-input" name="arrivalAirport" required placeholder="Nhập tên sân bay đến">
                      <span class="m-input-icon__icon m-input-icon__icon--right">
                         <span>
                            <i class="la la-map-marker"></i>
@@ -166,8 +166,8 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="input-group date">
-                     <input type="text" class="form-control m-input" name="departure-time" required readonly placeholder="Chọn ngày và thời gian"
-                        id="m_datetimepicker_2" />
+                     <input type="text" class="form-control m-input" name="departureTime" required readonly placeholder="Chọn ngày và thời gian"
+                        id="m_datetimepicker_1_1" />
                      <div class="input-group-append">
                         <span class="input-group-text">
                            <i class="la la-calendar-check-o glyphicon-th"></i>
@@ -182,9 +182,8 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="input-group date">
-                     <input type="text" class="form-control m-input" name="arrival-time" required readonly placeholder="Chọn ngày và thời gian" 
-                     id="m_datetimepicker_2"
-                     />
+                     <input type="text" class="form-control m-input" name="arrivalTime" required readonly placeholder="Chọn ngày và thời gian"
+                        id="m_datetimepicker_1" />
                      <div class="input-group-append">
                         <span class="input-group-text">
                            <i class="la la-calendar-check-o glyphicon-th"></i>
@@ -199,30 +198,14 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="input-group m-input-group">
-                     <select class="form-control m-select2" id="m_select2_4" name="param">
+                     <select class="form-control m-select2" id="m_select2_4" name="airportId" required>
                         <option></option>
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                           <option value="AK">
-                              Alaska
-                           </option>
-                           <option value="HI">
-                              Hawaii
-                           </option>
-                        </optgroup>
-                        <optgroup label="Pacific Time Zone">
-                           <option value="CA">
-                              California
-                           </option>
-                           <option value="NV">
-                              Nevada
-                           </option>
-                           <option value="OR">
-                              Oregon
-                           </option>
-                           <option value="WA">
-                              Washington
-                           </option>
-                        </optgroup>
+                        <option value="AK">
+                           Alaska
+                        </option>
+                        <option value="HI">
+                           Hawaii
+                        </option>
                      </select>
                      <div class="input-group-append">
                         <span class="input-group-text">

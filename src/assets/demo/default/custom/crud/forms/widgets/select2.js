@@ -7,10 +7,10 @@ var Select2 = {
       }), $("#m_select2_3, #m_select2_3_validate").select2({
          placeholder: "Select a state"
       }), $("#m_select2_4").select2({
-         placeholder: "Chọn một hãng bay",
+         placeholder: "Chọn một option",
          allowClear: !0
       }),$("#m_select2_4_1").select2({
-         placeholder: "Chọn máy bay",
+         placeholder: "Chọn một option",
          allowClear: !0
       }), $("#m_select2_5").select2({
          placeholder: "Select a value",

@@ -3,7 +3,7 @@
   <div class="d-flex align-items-center">
     <div class="mr-auto">
       <h3 class="m-subheader__title m-subheader__title--separator">
-        Hãng máy bay
+        Giá vé bay
       </h3>
       <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
         <li class="m-nav__item m-nav__item--home">
@@ -94,13 +94,13 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Thêm mới hãng bay.
+            Thêm giá vé
           </h3>
         </div>
       </div>
     </div>
     <!--begin::Form-->
-    <form #crudForm="ngForm" (ngSubmit)="onSubmit(crudForm)" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
+    <form class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
       <div class="m-portlet__body">
         <div class="m-form__content">
           <div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
@@ -117,14 +117,60 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Tên hãng bay *
+            Mã hãng bay
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="input-group m-input-group">
+              <select class="form-control m-select2" id="m_select2_4" required name="airlineAgentId">
+                <option></option>
+                <option value="AK">
+                  Alaska
+                </option>
+                <option value="HI">
+                  Hawaii
+                </option>
+              </select>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="la la-plane"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Mã lịch chuyến bay
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="input-group m-input-group">
+              <select class="form-control m-select2" id="m_select2_4_1" required name="flightScheduleId">
+                <option></option>
+                <option value="AK">
+                  Alaska
+                </option>
+                <option value="HI">
+                  Hawaii
+                </option>
+              </select>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="la la-plane"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Giá vé người lớn *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" ngModel name="airlineAgentCode" required placeholder="Nhập tên hãng bay">
+              <input type="text" class="form-control m-input" required name="adultPrice" placeholder="Nhập giá vé người lớn">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
-                  <i class="la la-check"></i>
+                  <i class="la la-edit"></i>
                 </span>
               </span>
             </div>
@@ -132,14 +178,14 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Tên hãng bay *
+            Giá thuế người lớn *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" ngModel name="airlineAgentName" required placeholder="Nhập tên hãng bay">
+              <input type="text" class="form-control m-input" required name="adultTax" placeholder="Nhập giá thuế người lớn">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
-                  <i class="la la-check"></i>
+                  <i class="la la-edit"></i>
                 </span>
               </span>
             </div>
@@ -147,10 +193,32 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Mô tả
+            Giá vé trẻ em *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <textarea class="form-control m-input" name="desciption" ngModel placeholder="Enter a description"></textarea>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" required name="kidPrice" placeholder="Nhập giá vé trẻ em">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Giá thuế trẻ em *
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" required name="kidTax" placeholder="Nhập giá thuế trẻ em">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -177,7 +245,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Danh sách hãng bay.
+            Danh sách.
           </h3>
         </div>
       </div>

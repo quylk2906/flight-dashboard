@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AirlineAgentComponent } from './airline-agent.component';
+import { TicketPriceComponent } from './ticket-price.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 
@@ -13,19 +12,18 @@ const routes: Routes = [
     "children": [
       {
         "path": "",
-        "component": AirlineAgentComponent
+        "component": TicketPriceComponent
       }
     ]
   }
 ];
 @NgModule({
   imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule,
-    FormsModule
+    CommonModule, RouterModule.forChild(routes), LayoutModule
   ], exports: [
     RouterModule
   ], declarations: [
-    AirlineAgentComponent
+    TicketPriceComponent
   ]
 })
-export class AirlineAgentModule { }
+export class TicketPriceModule { }

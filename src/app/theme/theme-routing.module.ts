@@ -30,6 +30,10 @@ const routes: Routes = [
         'loadChildren': '.\/pages\/default\/components\/flight\/flight.module#FlightModule'
       },
       {
+        'path': 'components\/ticket-price',
+        'loadChildren': '.\/pages\/default\/components\/ticket-price\/ticket-price.module#TicketPriceModule'
+      },
+      {
         'path': 'components\/flight-schedule',
         'loadChildren': '.\/pages\/default\/components\/flight-schedule\/flight-schedule.module#FlightScheduleModule'
       },
