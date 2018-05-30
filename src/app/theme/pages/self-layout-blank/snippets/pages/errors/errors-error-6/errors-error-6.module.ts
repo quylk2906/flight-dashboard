@@ -5,21 +5,19 @@ import { ErrorsError6Component } from './errors-error-6.component';
 import { LayoutModule } from '../../../../../../layouts/layout.module';
 
 const routes: Routes = [
-  {
-    "path": "",
-    "component": ErrorsError6Component
-  }
+    {
+        "path": "",
+        "component": ErrorsError6Component
+    }
 ];
-@NgModule({
-  imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule
-  ], exports: [
-    RouterModule
-  ], declarations: [
-    ErrorsError6Component
-  ]
-})
-export class ErrorsError6Module {
+@NgModule({imports: [
+CommonModule,RouterModule.forChild(routes),LayoutModule
+],exports: [
+RouterModule
+],declarations: [
+ErrorsError6Component
+]})
+export class ErrorsError6Module  {
 
 
 

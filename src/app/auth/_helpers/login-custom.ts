@@ -50,7 +50,7 @@ export class LoginCustom {
 
     login.addClass('m-login--forget-password');
     (<any>login.find('.m-login__forget-password')).animateClass(
-      'flipInX animated');
+        'flipInX animated');
   }
 
   static handleFormSwitch() {

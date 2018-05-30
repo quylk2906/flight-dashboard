@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "default"
+    "name": "demo5"
   },
   "apps": [
     {
@@ -55,15 +55,15 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "serve": {
-      "port": 8080
-    },
     "class": {
       "spec": false
     },
+    "serve": {
+      "port": 8080
+    },
     "component": {
       "inlineStyle": true,
-      "inlineTemplate": false,
+      "inlineTemplate": true,
       "spec": false
     },
     "directive": {

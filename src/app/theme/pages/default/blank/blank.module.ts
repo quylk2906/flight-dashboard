@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { LayoutModule } from '../../../layouts/layout.module';
-import { DefaultComponent } from '../default.component';
-import { BlankComponent } from './blank.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Routes, RouterModule} from '@angular/router';
+import {LayoutModule} from '../../../layouts/layout.module';
+import {DefaultComponent} from '../default.component';
+import {BlankComponent} from './blank.component';
 
 const routes: Routes = [
   {

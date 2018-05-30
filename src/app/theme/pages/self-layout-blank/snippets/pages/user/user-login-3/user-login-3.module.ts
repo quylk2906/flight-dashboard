@@ -5,21 +5,19 @@ import { UserLogin3Component } from './user-login-3.component';
 import { LayoutModule } from '../../../../../../layouts/layout.module';
 
 const routes: Routes = [
-  {
-    "path": "",
-    "component": UserLogin3Component
-  }
+    {
+        "path": "",
+        "component": UserLogin3Component
+    }
 ];
-@NgModule({
-  imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule
-  ], exports: [
-    RouterModule
-  ], declarations: [
-    UserLogin3Component
-  ]
-})
-export class UserLogin3Module {
+@NgModule({imports: [
+CommonModule,RouterModule.forChild(routes),LayoutModule
+],exports: [
+RouterModule
+],declarations: [
+UserLogin3Component
+]})
+export class UserLogin3Module  {
 
 
 
