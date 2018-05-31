@@ -198,8 +198,8 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="input-group date">
-                     <input type="text" class="form-control m-input" #datePicker name="arrivalTime" (blur)="currentItem.arrivalTime = datePicker.value" [ngModel]="currentItem.arrivalTime | date: 'yyyy-MM-dd hh:mm'"
-                        required readonly placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1" />
+                     <input type="text" class="form-control m-input" name="arrivalTime" [ngModel]="currentItem.arrivalTime | date: 'yyyy-MM-dd hh:mm'"
+                        required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1" />
                      <div class="input-group-append">
                         <span class="input-group-text">
                            <i class="la la-calendar-check-o glyphicon-th"></i>
@@ -214,9 +214,9 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="input-group m-input-group">
-                     <select class="form-control m-select2" id="m_select2_4" name="airportId" required [(ngModel)]="currentItem.airportId">
+                     <select class="form-control m-select2" id="m_select2_4" name="airportId" required [ngModel]="currentItem.airportId">
                         <option></option>
-                        <option *ngFor="let airport of listAirport" [ngValue]="airport.id">
+                        <option *ngFor="let airport of listAirport" [ngValue]="airport.id" [selected]="airport.id === '3: 5b0a5f848ba2c40037532c6f'">
                            {{airport.airportName}}
                         </option>
                      </select>
@@ -399,16 +399,16 @@
                      {{item.departureAirport}}
                   </td>
                   <td>
-                     {{item.arrivalTime}}
+                     {{item.arrivalTime | date: 'yyyy-MM-dd hh:mm'}}
                   </td>
                   <td>
-                     {{item.departureTime}}
+                     {{item.departureTime | date: 'yyyy-MM-dd hh:mm'}}
                   </td>
                   <td>
                      {{item.airportId}}
                   </td>
                   <td>
-                     {{item.createdAt}}
+                     {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
                   </td>
                   <td>
                      <span class="m-badge m-badge--success m-badge--dot"></span>
