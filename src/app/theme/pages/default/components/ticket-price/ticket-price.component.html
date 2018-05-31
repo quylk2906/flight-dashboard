@@ -115,13 +115,29 @@
             </div>
           </div>
         </div>
+        <div class="form-group m-form__group row" *ngIf="currentItem.id">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Uniqued ID
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-check"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Mã hãng bay
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4" required name="airlineAgentId">
+              <select class="form-control m-select2" id="m_select2_4" [(ngModel)]="currentItem"
+              required name="airlineAgentId">
                 <option></option>
                 <option value="AK">
                   Alaska
@@ -144,7 +160,8 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" required name="flightScheduleId">
+              <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem"
+              required name="flightScheduleId">
                 <option></option>
                 <option value="AK">
                   Alaska
@@ -167,7 +184,8 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" required name="adultPrice" placeholder="Nhập giá vé người lớn">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem"
+              required name="adultPrice" placeholder="Nhập giá vé người lớn">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -182,7 +200,8 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" required name="adultTax" placeholder="Nhập giá thuế người lớn">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem"
+              required name="adultTax" placeholder="Nhập giá thuế người lớn">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -197,7 +216,8 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" required name="kidPrice" placeholder="Nhập giá vé trẻ em">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem"
+              required name="kidPrice" placeholder="Nhập giá vé trẻ em">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -212,7 +232,8 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" required name="kidTax" placeholder="Nhập giá thuế trẻ em">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem"
+              required name="kidTax" placeholder="Nhập giá thuế trẻ em">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>

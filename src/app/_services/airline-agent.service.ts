@@ -22,4 +22,12 @@ export class AirlineAgentService {
     return this.http.post(this.baseURL + 'airlineAgents', body, httpOptions)
   }
 
+  deleteAirlineAgent(id) {
+    return this.http.delete(`${this.baseURL}airlineAgents/${id}`)
+  }
+
+  putAirlineAgent(airlineAgent) {
+    const body = airlineAgent
+    return this.http.put(`${this.baseURL}airlineAgents/'${body.id}`, body, httpOptions)
+  }
 }

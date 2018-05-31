@@ -115,6 +115,21 @@
             </div>
           </div>
         </div>
+        <div class="form-group m-form__group row" *ngIf="currentItem.id">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Uniqued ID
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-check"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Mã hãng bay *
@@ -294,21 +309,6 @@
               Ngày tạo
             </th>
             <th>
-              CompanyAgent
-            </th>
-            <th>
-              CompanyName
-            </th>
-            <th>
-              ShipDate
-            </th>
-            <th>
-              Status
-            </th>
-            <th>
-              Type
-            </th>
-            <th>
               Actions
             </th>
           </tr>
@@ -331,54 +331,21 @@
               {{item.createdAt}}
             </td>
             <td>
-              Nixie Sailor
-            </td>
-            <td>
               <span class="dropdown">
                 <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
                   <i class="la la-ellipsis-h"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-143px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="#" (click)="onEdit(item.id)">
                     <i class="la la-edit"></i> Edit</a>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="#" (click)="onDelete(item.id)">
                     <i class="la la-leaf"></i> Delete</a>
                 </div>
               </span>
-              <a href="#" (click)="onEdit(item.id)" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
-                title="View">
+              <a href="#" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
                 <i class="la la-edit"></i>
               </a>
             </td>
-            <td>
-              <a href="#" (click)="onEdit(item.id)" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
-                title="View">
-                <i class="la la-edit"></i>
-              </a>
-            </td>
-            <td>
-              <span class="m-badge m-badge--info m-badge--dot"></span>&nbsp;
-              <span class="m--font-bold m--font-info">Active</span>
-              <td>
-                2
-              </td>
-              <td>
-                <span class="dropdown">
-                  <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
-                    <i class="la la-ellipsis-h"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-143px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                    <a class="dropdown-item" href="#">
-                      <i class="la la-edit"></i> Edit</a>
-                    <a class="dropdown-item" href="#">
-                      <i class="la la-leaf"></i> Delete</a>
-                  </div>
-                </span>
-                <a href="#" (click)="onEdit(item.id)" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
-                  title="View">
-                  <i class="la la-edit"></i>
-                </a>
-              </td>
           </tr>
         </tbody>
       </table>

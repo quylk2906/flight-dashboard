@@ -115,13 +115,29 @@
                   </div>
                </div>
             </div>
+            <div class="form-group m-form__group row" *ngIf="currentItem.id">
+               <label class="col-form-label col-lg-3 col-sm-12">
+                  Uniqued ID
+               </label>
+               <div class="col-lg-4 col-md-9 col-sm-12">
+                  <div class="m-input-icon m-input-icon--right">
+                     <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
+                     <span class="m-input-icon__icon m-input-icon__icon--right">
+                        <span>
+                           <i class="la la-check"></i>
+                        </span>
+                     </span>
+                  </div>
+               </div>
+            </div>
             <div class="form-group m-form__group row">
                <label class="col-form-label col-lg-3 col-sm-12">
                   Mã chuyến bay *
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="m-input-icon m-input-icon--right">
-                     <input type="text" class="form-control m-input" name="flightCode" required placeholder="Nhập mã chuyến bay">
+                     <input type="text" class="form-control m-input" name="flightCode" [(ngModel)]="currentItem"
+                     required placeholder="Nhập mã chuyến bay">
                      <span class="m-input-icon__icon m-input-icon__icon--right">
                         <span>
                            <i class="la la-edit"></i>
@@ -136,7 +152,8 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="m-input-icon m-input-icon--right">
-                     <input type="text" class="form-control m-input" name="departureAirport" required placeholder="Nhập tên sân bay đi">
+                     <input type="text" class="form-control m-input" name="departureAirport" [(ngModel)]="currentItem"
+                     required placeholder="Nhập tên sân bay đi">
                      <span class="m-input-icon__icon m-input-icon__icon--right">
                         <span>
                            <i class="la la-map-marker"></i>
@@ -151,7 +168,8 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="m-input-icon m-input-icon--right">
-                     <input type="text" class="form-control m-input" name="arrivalAirport" required placeholder="Nhập tên sân bay đến">
+                     <input type="text" class="form-control m-input" name="arrivalAirport" [(ngModel)]="currentItem"
+                     required placeholder="Nhập tên sân bay đến">
                      <span class="m-input-icon__icon m-input-icon__icon--right">
                         <span>
                            <i class="la la-map-marker"></i>
@@ -166,7 +184,8 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="input-group date">
-                     <input type="text" class="form-control m-input" name="departureTime" required readonly placeholder="Chọn ngày và thời gian"
+                     <input type="text" class="form-control m-input" name="departureTime" [(ngModel)]="currentItem"
+                     required readonly placeholder="Chọn ngày và thời gian"
                         id="m_datetimepicker_1_1" />
                      <div class="input-group-append">
                         <span class="input-group-text">
@@ -182,7 +201,8 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="input-group date">
-                     <input type="text" class="form-control m-input" name="arrivalTime" required readonly placeholder="Chọn ngày và thời gian"
+                     <input type="text" class="form-control m-input" name="arrivalTime"  [(ngModel)]="currentItem"
+                     required readonly placeholder="Chọn ngày và thời gian"
                         id="m_datetimepicker_1" />
                      <div class="input-group-append">
                         <span class="input-group-text">

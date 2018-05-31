@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AirportComponent } from './airport.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
+import { AirportService } from '../../../../../_services/airport.service';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -19,10 +21,15 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule
-  ], exports: [
+    CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule
+  ],
+  exports: [
     RouterModule
-  ], declarations: [
+  ],
+  providers: [
+    AirportService
+  ],
+  declarations: [
     AirportComponent
   ]
 })

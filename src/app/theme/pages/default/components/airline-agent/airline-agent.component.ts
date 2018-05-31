@@ -18,10 +18,10 @@ export class AirlineAgentComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   public list: AirlineAgent[]
   public currentItem: AirlineAgent = {
-    id: '',
-    airlineAgentName: '',
-    airlineAgentCode: '',
-    description: '',
+    id: undefined,
+    airlineAgentName: undefined,
+    airlineAgentCode: undefined,
+    description: undefined,
   }
 
   constructor(private _script: ScriptLoaderService, private _service: AirlineAgentService) {
@@ -33,20 +33,37 @@ export class AirlineAgentComponent implements OnInit, OnDestroy, AfterViewInit {
       console.log(this.list);
     })
   }
-
   ngAfterViewInit() {
     this._script.loadScripts('app-airline-agent',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
-        'assets/demo/default/custom/crud/datatables/basic/paginations.js',
+        'assets/demo/default/custom/crud/datatables/standard/paginations.js',
         'assets/demo/default/custom/crud/forms/validation/form-controls.js'
       ]);
   }
 
   onSubmit(from: NgForm) {
     const agent = trimObjectAfterSave(from.value)
-    this.subs = this._service.postAirlineAgent(agent).subscribe(rs => {
-      this.list.push(rs as AirlineAgent)
+    if (this.currentItem.id) {
+      this.subs = this._service.putAirlineAgent(agent).subscribe(rs => {
+        // you have to call api to reload datable without reload page
+        window.location.reload()
+      })
+    } else {
+      this.subs = this._service.postAirlineAgent(agent).subscribe(rs => {
+        this.list.push(rs as AirlineAgent)
+        // you have to call api to reload datable without reload page
+        window.location.reload()
+      })
+    }
+  }
+
+  onDelete(id) {
+    this.subs = this._service.deleteAirlineAgent(id).subscribe(rs => {
+      if (rs['count'] !== 0) {
+        // you have to call api to reload datable without reload page
+        window.location.reload()
+      }
     })
   }
 
@@ -54,7 +71,6 @@ export class AirlineAgentComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem = find(this.list, (item) => {
       return item.id == id
     })
-    console.log(this.currentItem);
   }
 
   ngOnDestroy(): void {

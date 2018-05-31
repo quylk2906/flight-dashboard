@@ -1,6 +1,10 @@
-export interface AirlineAgent {
+export interface FlightSchedule {
+   flightScheduleCode: string,
+   flightId: string,
+   planeId: string,
+   departureDate: string,
+   returnDate: string,
    id: string,
-   airlineAgentName: string,
-   airlineAgentCode: string,
-   description: string,
+   createdAt: string,
+   updatedAt: string
 }
