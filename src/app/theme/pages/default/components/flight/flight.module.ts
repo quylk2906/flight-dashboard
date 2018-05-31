@@ -6,8 +6,8 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 import { FlightService } from '../../../../../_services/flight.service';
 import { FormsModule } from '@angular/forms';
-
-
+import { AirportService } from '../../../../../_services/airport.service';
+import { formatDatePipe } from './flight.pipe';
 const routes: Routes = [
   {
     "path": "",
@@ -25,12 +25,13 @@ const routes: Routes = [
     CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule
   ], exports: [
     RouterModule
-  ], 
+  ],
   providers: [
-    FlightService
+    FlightService, AirportService
   ],
   declarations: [
-    FlightComponent
+    FlightComponent,
+    formatDatePipe
   ]
 })
 export class FlightModule { }

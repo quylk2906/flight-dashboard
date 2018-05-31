@@ -2,10 +2,13 @@ import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from '
 import { ScriptLoaderService } from '../../../../../_services/script-loader.service';
 import { NgForm } from '@angular/forms';
 import { FlightService } from '../../../../../_services/flight.service';
+import { AirportService } from '../../../../../_services/airport.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Flight } from '../../../../../_models/flight.model';
 import { trimObjectAfterSave } from '../../../../../_utils/trimObject';
 import { find } from 'lodash';
+import { Airport } from '../../../../../_models/airport.model';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: "app-flight",
@@ -16,6 +19,7 @@ import { find } from 'lodash';
 export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   public list: Flight[]
+  public listAirport: Airport[]
   public currentItem: Flight = {
     flightCode: undefined,
     arrivalAirport: undefined,
@@ -28,31 +32,36 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
     updatedAt: undefined
   }
 
-  constructor(private _script: ScriptLoaderService, private _service: FlightService) {
+  constructor(private _script: ScriptLoaderService, private _service: FlightService, private _airportService: AirportService) {
   }
 
 
   ngOnInit() {
-    this.subs = this._service.getFlight().subscribe(rs => {
-      this.list = rs as Flight[]
-      console.log(this.list);
+    const airportApi = this._airportService.getAirport()
+    const flightApi = this._service.getFlight()
+
+    this.subs = forkJoin([airportApi, flightApi]).subscribe(rs => {
+      this.list = rs[1] as Flight[]
+      this.listAirport = rs[0] as Airport[]
+      console.log(rs);
     })
   }
 
   onSubmit(from: NgForm) {
-    const agent = trimObjectAfterSave(from.value)
-    if (this.currentItem.id) {
-      this.subs = this._service.putFlight(agent).subscribe(rs => {
-        // you have to call api to reload datable without reload page
-        window.location.reload()
-      })
-    } else {
-      this.subs = this._service.postFlight(agent).subscribe(rs => {
-        this.list.push(rs as Flight)
-        // you have to call api to reload datable without reload page
-        window.location.reload()
-      })
-    }
+    // const flight = trimObjectAfterSave(from.value)
+    console.log(from.value);
+    // if (this.currentItem.id) {
+    //   this.subs = this._service.putFlight(agent).subscribe(rs => {
+    //     // you have to call api to reload datable without reload page
+    //     window.location.reload()
+    //   })
+    // } else {
+    //   this.subs = this._service.postFlight(agent).subscribe(rs => {
+    //     this.list.push(rs as Flight)
+    //     // you have to call api to reload datable without reload page
+    //     window.location.reload()
+    //   })
+    // }
   }
 
   onDelete(id) {
@@ -79,7 +88,7 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
         'assets/demo/default/custom/crud/forms/widgets/select2.js',
-        'assets/demo/default/custom/crud/datatables/standard/paginations.js',,
+        'assets/demo/default/custom/crud/datatables/standard/paginations.js', ,
         'assets/demo/default/custom/crud/forms/validation/form-controls.js',
         'assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js'
       ]);
