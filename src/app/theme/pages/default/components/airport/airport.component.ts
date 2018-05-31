@@ -15,6 +15,7 @@ import { find } from 'lodash';
 export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   public list: Airport[]
+  public listRegion = ['Bắc', 'Trung', 'Nam']
   public currentItem: Airport = {
     airportCode: undefined,
     airportName: undefined,

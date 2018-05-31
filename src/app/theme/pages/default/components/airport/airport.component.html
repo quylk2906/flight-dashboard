@@ -100,7 +100,7 @@
       </div>
     </div>
     <!--begin::Form-->
-    <form class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
+    <form #crudForm="ngForm" (ngSubmit)="onSubmit(crudForm)" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
       <div class="m-portlet__body">
         <div class="m-form__content">
           <div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
@@ -136,8 +136,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="airportCode"  [(ngModel)]="currentItem.airportCode"
-              required placeholder="Nhập mã sân bay">
+              <input type="text" class="form-control m-input" name="airportCode" [(ngModel)]="currentItem.airportCode" required placeholder="Nhập mã sân bay">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -152,8 +151,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="airportName"  [(ngModel)]="currentItem.airportName"
-              required placeholder="Nhập tên sân bay">
+              <input type="text" class="form-control m-input" name="airportName" [(ngModel)]="currentItem.airportName" required placeholder="Nhập tên sân bay">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-check"></i>
@@ -167,15 +165,9 @@
             Miền *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <select class="form-control m-input" name="region"  [(ngModel)]="currentItem.region">
-              <option value="Bắc">
-                Bắc
-              </option>
-              <option value="Trung">
-                Trung
-              </option>
-              <option value="Nam">
-                Nam
+            <select class="form-control m-input" name="region" [(ngModel)]="currentItem.region">
+              <option *ngFor="let item of listRegion" [value]="item">
+                {{item}}
               </option>
             </select>
             <span class="m-form__help">
@@ -188,8 +180,7 @@
             Mô tả
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <textarea class="form-control m-input" name="description" placeholder="Enter a description" [(ngModel)]="currentItem.description"
-            ></textarea>
+            <textarea class="form-control m-input" name="description" placeholder="Enter a description" [(ngModel)]="currentItem.description"></textarea>
           </div>
         </div>
       </div>
@@ -335,6 +326,9 @@
               Ngày tạo
             </th>
             <th>
+              Status
+            </th>
+            <th>
               Actions
             </th>
           </tr>
@@ -358,6 +352,11 @@
             </td>
             <td>
               {{item.createdAt}}
+            </td>
+            <td>
+              <span class="m-badge m-badge--success m-badge--dot"></span>
+              &nbsp;
+              <span class="m--font-bold m--font-success">Active</span>
             </td>
             <td>
               <span class="dropdown">

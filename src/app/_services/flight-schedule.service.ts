@@ -26,6 +26,6 @@ export class FlightScheduleService {
 
   putFlightSchedule(flightSchedule) {
     const body = flightSchedule
-    return this.http.put(`${this.baseURL}flightSchedules/'${body.id}`, body, httpOptions)
+    return this.http.put(`${this.baseURL}flightSchedules/${body.id}`, body, httpOptions)
   }
 }

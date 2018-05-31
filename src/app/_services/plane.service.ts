@@ -26,6 +26,6 @@ export class PlaneService {
 
   putPlane(plane) {
     const body = plane
-    return this.http.put(`${this.baseURL}planes/'${body.id}`, body, httpOptions)
+    return this.http.put(`${this.baseURL}planes/${body.id}`, body, httpOptions)
   }
 }

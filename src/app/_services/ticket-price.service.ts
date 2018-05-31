@@ -28,6 +28,6 @@ export class TicketPriceService {
 
   putTicketPrice(ticket) {
     const body = ticket
-    return this.http.put(`${this.baseURL}ticketPrices/'${body.id}`, body, httpOptions)
+    return this.http.put(`${this.baseURL}ticketPrices/${body.id}`, body, httpOptions)
   }
 }

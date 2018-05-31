@@ -27,6 +27,6 @@ export class AirportService {
 
   putAirport(airport) {
     const body = airport
-    return this.http.put(`${this.baseURL}airports/'${body.id}`, body, httpOptions)
+    return this.http.put(`${this.baseURL}airports/${body.id}`, body, httpOptions)
   }
 }

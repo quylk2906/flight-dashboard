@@ -28,7 +28,7 @@ export class FlightService {
 
   putFlight(flight) {
     const body = flight
-    return this.http.put(`${this.baseURL}flights/'${body.id}`, body, httpOptions)
+    return this.http.put(`${this.baseURL}flights/${body.id}`, body, httpOptions)
   }
 
 }
