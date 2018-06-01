@@ -53,6 +53,7 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
       this.list = rs[0] as TicketPrice[]
       this.listFlightSchedule = rs[1] as FlightSchedule[]
       this.listAirline = rs[2] as AirlineAgent[]
+      this.loadScript()
       console.log(rs);
     })
   }
@@ -61,21 +62,25 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log('it works');
   }
   onSubmit(form: NgForm) {
+    if (form.invalid) {
+      return
+    }
     const selectAirline = $("#m_select2_4").val().toString()
     const selectFlightSchedule = $("#m_select2_4_1").val().toString()
     this.currentItem = form.value
-    this.currentItem.flightScheduleId = selectFlightSchedule.slice(3, selectFlightSchedule.length).trim()
-    this.currentItem.airlineAgentId = selectAirline.slice(3, selectAirline.length).trim()
+    this.currentItem.flightScheduleId = selectFlightSchedule
+    this.currentItem.airlineAgentId = selectAirline
 
     if (this.currentItem.id) {
-      this.subs = this._service.putTicketPrice(this.currentItem).subscribe(rs => {
-        window.location.reload()
-      })
+      this.subs = this._service.putTicketPrice(this.currentItem).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err) }
+      )
     } else {
-      this.subs = this._service.postTicketPrice(this.currentItem).subscribe(rs => {
-        this.list.push(rs as TicketPrice)
-        window.location.reload()
-      })
+      this.subs = this._service.postTicketPrice(this.currentItem).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err) }
+      )
     }
     console.log(this.currentItem);
   }
@@ -92,13 +97,23 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem = find(this.list, (item) => {
       return item.id == id
     })
+    console.log(this.currentItem.airlineAgentId);
+    $("#m_select2_4_1").val(this.currentItem.flightScheduleId).trigger('change')
+    $("#m_select2_4").val(this.currentItem.airlineAgentId).trigger('change')
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe()
   }
 
-  ngAfterViewInit() {
+  loadScript() {
+   
+    const dataAirlineAgent = this.listAirline.map(item => { return { id: item.id, text: item.airlineAgentName } })
+    console.log(dataAirlineAgent);
+    const dataFlightSchedule = this.listFlightSchedule.map(item => { return { id: item.id, text: item.flightScheduleCode } })
+    $("#m_select2_4_1").select2({ data: dataFlightSchedule })
+    $("#m_select2_4").select2({ data: dataAirlineAgent })
+
     this._script.loadScripts('app-ticket-price',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
@@ -107,5 +122,8 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
         'assets/demo/default/custom/crud/forms/validation/form-controls.js',
         'assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js'
       ]);
+  }
+  ngAfterViewInit() {
+
   }
 }

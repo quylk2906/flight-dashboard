@@ -36,7 +36,6 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private _script: ScriptLoaderService, private _service: FlightService, private _airportService: AirportService) {
   }
 
-
   ngOnInit() {
     const airportApi = this._airportService.getAirport()
     const flightApi = this._service.getFlight()
@@ -49,6 +48,8 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadScript() {
+    const dataAirport = this.listAirport.map(item => { return { id: item.id, text: item.airportName } })
+    $("#m_select2_4").select2({ data: dataAirport })
     this._script.loadScripts('app-flight',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
@@ -60,21 +61,23 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(this.currentItem);
+    if (form.invalid) {
+      return
+    }
     const flight = form.value as Flight
     if (this.currentItem.id) {
-      this.subs = this._service.putFlight(flight).subscribe(rs => {
-        window.location.reload()
-      })
+      this.subs = this._service.putFlight(flight).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err) }
+      )
     } else {
-      const selectValue = $("#m_select2_4").val().toString()
       flight.departureTime = $('#m_datetimepicker_1_1').val().toString()
       flight.arrivalTime = $('#m_datetimepicker_1').val().toString()
-      flight.airportId = selectValue.slice(2, selectValue.length).trim()
-      this.subs = this._service.postFlight(flight).subscribe(rs => {
-        // you have to call api to reload datable without reload page
-        window.location.reload()
-      })
+      flight.airportId = $("#m_select2_4").val().toString()
+      this.subs = this._service.postFlight(flight).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err) }
+      )
     }
   }
 
@@ -91,6 +94,7 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem = find(this.list, (item) => {
       return item.id == id
     })
+    $("#m_select2_4").val(this.currentItem.airportId).trigger('change')
   }
 
   loadData() {

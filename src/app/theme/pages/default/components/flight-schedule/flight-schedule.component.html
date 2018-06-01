@@ -132,11 +132,12 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-           Mã lịch chuyến bay *
+            Mã lịch chuyến bay *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [ngModel]="currentItem.flightScheduleCode" required name="flightScheduleCode" placeholder="Nhập mã lịch chuyến bay">
+              <input type="text" class="form-control m-input" [ngModel]="currentItem.flightScheduleCode" required name="flightScheduleCode"
+                placeholder="Nhập mã lịch chuyến bay">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -153,9 +154,6 @@
             <div class="input-group m-input-group">
               <select class="form-control m-select2" id="m_select2_4" name="flightId" required [ngModel]="currentItem.flightId">
                 <option></option>
-                <option *ngFor="let flight of listFlight" [ngValue]="flight.id">
-                  {{flight.flightCode}}
-                </option>
               </select>
               <div class="input-group-append">
                 <span class="input-group-text">
@@ -173,9 +171,6 @@
             <div class="input-group m-input-group">
               <select class="form-control m-select2" id="m_select2_4_1" name="planeId" required [ngModel]="currentItem.planeId">
                 <option></option>
-                <option *ngFor="let plane of listPlane" [ngValue]="plane.id">
-                  {{plane.planeName}}
-                </option>
               </select>
               <div class="input-group-append">
                 <span class="input-group-text">
@@ -249,13 +244,13 @@
         <ul class="m-portlet__nav">
           <li class="m-portlet__nav-item">
             <!-- <a scrollTo href="#m_form_1" target="_self" class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air">
-              <span>
-                <i class="la la-plus"></i>
-                <span>
-                  Tạo mới
-                </span>
-              </span>
-            </a> -->
+                  <span>
+                    <i class="la la-plus"></i>
+                    <span>
+                      Tạo mới
+                    </span>
+                  </span>
+                </a> -->
           </li>
           <li class="m-portlet__nav-item"></li>
           <li class="m-portlet__nav-item">
@@ -399,19 +394,19 @@
               <span class="m--font-bold m--font-success">Active</span>
             </td>
             <td>
-                <span class="dropdown">
-                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
-                       <i class="la la-ellipsis-h"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-143px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                       <a class="dropdown-item" href="#" (click)="onEdit(item.id)">
-                          <i class="la la-edit"></i> Edit</a>
-                       <a class="dropdown-item" href="#" (click)="onDelete(item.id)">
-                          <i class="la la-leaf"></i> Delete</a>
-                       <a class="dropdown-item" href="#">
-                          <i class="la la-leaf"></i> Clone</a>
-                    </div>
-                 </span>
+              <span class="dropdown">
+                <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+                  <i class="la la-ellipsis-h"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-143px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                  <a class="dropdown-item" href="#" (click)="onEdit(item.id)">
+                    <i class="la la-edit"></i> Edit</a>
+                  <a class="dropdown-item" href="#" (click)="onDelete(item.id)">
+                    <i class="la la-leaf"></i> Delete</a>
+                  <a class="dropdown-item" href="#">
+                    <i class="la la-leaf"></i> Clone</a>
+                </div>
+              </span>
             </td>
           </tr>
         </tbody>

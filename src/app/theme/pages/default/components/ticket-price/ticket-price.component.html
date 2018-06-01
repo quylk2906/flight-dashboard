@@ -136,11 +136,8 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4" name="airlineAgentId" (change) ="changeShape($event)" [ngModel]="currentItem.airlineAgentId">
-                <option value="">&nbsp;</option>
-                <option *ngFor="let item of listAirline" [ngValue]="item.id">
-                  {{item.airlineAgentName}}
-                </option>
+              <select class="form-control m-select2" id="m_select2_4" name="airlineAgentId" [ngModel]="currentItem.airlineAgentId">
+                <option></option>
               </select>
               <div class="input-group-append">
                 <span class="input-group-text">
@@ -157,10 +154,7 @@
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
               <select class="form-control m-select2" id="m_select2_4_1" name="flightScheduleId" [ngModel]="currentItem.flightScheduleId">
-                <option value="">&nbsp;</option>
-                <option *ngFor="let item of listFlightSchedule" [ngValue]="item.id">
-                  {{item.flightScheduleCode}}
-                </option>
+                  <option></option>
               </select>
               <div class="input-group-append">
                 <span class="input-group-text">

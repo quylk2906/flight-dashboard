@@ -12,6 +12,7 @@ import { trimObjectAfterSave } from '../../../../../_utils/trimObject';
 import { find } from 'lodash';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 // import moduleName from './assets/vendors/base/vendors.bundle.js';
+import { Select2, DataFormat } from 'select2';
 
 @Component({
   selector: 'app-flight-schedule',
@@ -40,7 +41,6 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
     private _servicePlane: PlaneService) {
   }
 
-
   ngOnInit() {
     const flightApi = this._serviceFlight.getFlight()
     const planeApi = this._servicePlane.getPlane()
@@ -49,36 +49,38 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
       this.list = rs[0] as [FlightSchedule]
       this.listFlight = rs[1] as [Flight]
       this.listPlane = rs[2] as [Plane]
+      this.loadScript()
       console.log(rs);
     })
   }
 
   onSubmit(form: NgForm) {
+    if (form.invalid) {
+      return
+    }
     const selectFlight = $("#m_select2_4").val().toString()
     const selectPlane = $("#m_select2_4_1").val().toString()
     const departDate = $('#m_datetimepicker_1').val().toString()
     const returnDate = $('#m_datetimepicker_1_1').val().toString()
     this.currentItem = form.value
-    this.currentItem.flightId = selectFlight.slice(2, selectFlight.length).trim()
-    this.currentItem.planeId = selectPlane.slice(2, selectPlane.length).trim()
+    this.currentItem.flightId = selectFlight
+    this.currentItem.planeId = selectPlane
     this.currentItem.returnDate = returnDate
     this.currentItem.departureDate = departDate
 
     if (this.currentItem.id) {
-      this.subs = this._service.putFlightSchedule(this.currentItem).subscribe(rs => {
-        window.location.reload()
-      })
+      this.subs = this._service.putFlightSchedule(this.currentItem).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err) }
+      )
     } else {
-      this.subs = this._service.postFlightSchedule(this.currentItem).subscribe(rs => {
-        window.location.reload()
-      })
+      this.subs = this._service.postFlightSchedule(this.currentItem).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err) }
+      )
     }
-    // console.log(form.value);
   }
 
-  test(event) {
-    console.log(event);
-  }
   onDelete(id) {
     this.subs = this._service.deleteFlightSchedule(id).subscribe(rs => {
       if (rs['count'] !== 0) {
@@ -89,9 +91,9 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   onEdit(id) {
-    this.currentItem = find(this.list, (item) => {
-      return item.id == id
-    })
+    this.currentItem = find(this.list, (item) => { return item.id == id })
+    $("#m_select2_4_1").val(this.currentItem.planeId).trigger('change')
+    $("#m_select2_4").val(this.currentItem.flightId).trigger('change')
   }
 
   ngOnDestroy(): void {
@@ -99,6 +101,15 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngAfterViewInit() {
+
+  }
+
+  loadScript() {
+    const dataPlane = this.listPlane.map(item => { return { id: item.id, text: item.planeName } })
+    const dataFlight = this.listFlight.map(item => { return { id: item.id, text: item.flightCode } })
+    $("#m_select2_4_1").select2({ data: dataPlane })
+    $("#m_select2_4").select2({ data: dataFlight })
+
     this._script.loadScripts('app-flight-schedule',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',

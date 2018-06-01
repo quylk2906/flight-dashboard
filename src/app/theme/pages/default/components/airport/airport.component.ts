@@ -37,8 +37,11 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
-  onSubmit(from: NgForm) {
-    const agent = trimObjectAfterSave(from.value)
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
+      return
+    }
+    const agent = trimObjectAfterSave(form.value)
     if (this.currentItem.id) {
       this.subs = this._service.putAirport(agent).subscribe(rs => {
         // you have to call api to reload datable without reload page

@@ -216,9 +216,6 @@
                   <div class="input-group m-input-group">
                      <select class="form-control m-select2" id="m_select2_4" name="airportId" required [ngModel]="currentItem.airportId">
                         <option></option>
-                        <option *ngFor="let airport of listAirport" [ngValue]="airport.id">
-                           {{airport.airportName}}
-                        </option>
                      </select>
                      <div class="input-group-append">
                         <span class="input-group-text">
