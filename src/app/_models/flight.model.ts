@@ -4,7 +4,7 @@ export interface Flight {
    departureAirport: string,
    arrivalTime: string,
    departureTime: string,
-   airportId: string,
+   airlineAgentId: string,
    id: string,
    createdAt: string,
    updatedAt: string

@@ -74,12 +74,12 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.currentItem.id) {
       this.subs = this._service.putTicketPrice(this.currentItem).subscribe(
         rs => { window.location.reload() },
-        err => { alert(err) }
+        err => { alert(err.error.error.message) }
       )
     } else {
       this.subs = this._service.postTicketPrice(this.currentItem).subscribe(
         rs => { window.location.reload() },
-        err => { alert(err) }
+        err => { alert(err.error.error.message) }
       )
     }
     console.log(this.currentItem);
@@ -107,7 +107,7 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadScript() {
-   
+
     const dataAirlineAgent = this.listAirline.map(item => { return { id: item.id, text: item.airlineAgentName } })
     console.log(dataAirlineAgent);
     const dataFlightSchedule = this.listFlightSchedule.map(item => { return { id: item.id, text: item.flightScheduleCode } })

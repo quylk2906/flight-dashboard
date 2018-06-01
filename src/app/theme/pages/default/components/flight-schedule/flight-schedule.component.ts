@@ -55,9 +55,9 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid) {
-      return
-    }
+    // if (form.invalid) {
+    //   return
+    // }
     const selectFlight = $("#m_select2_4").val().toString()
     const selectPlane = $("#m_select2_4_1").val().toString()
     const departDate = $('#m_datetimepicker_1').val().toString()
@@ -71,12 +71,12 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
     if (this.currentItem.id) {
       this.subs = this._service.putFlightSchedule(this.currentItem).subscribe(
         rs => { window.location.reload() },
-        err => { alert(err) }
+        err => { alert(err.error.error.message) }
       )
     } else {
       this.subs = this._service.postFlightSchedule(this.currentItem).subscribe(
         rs => { window.location.reload() },
-        err => { alert(err) }
+        err => { alert(err.error.error.message) }
       )
     }
   }

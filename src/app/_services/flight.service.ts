@@ -5,10 +5,10 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const baseURL = 'https://mysterious-atoll-89393.herokuapp.com/api/';
-
 @Injectable()
+
 export class FlightService {
+
   private baseURL = 'https://mysterious-atoll-89393.herokuapp.com/api/';
 
   constructor(private http: HttpClient) { }

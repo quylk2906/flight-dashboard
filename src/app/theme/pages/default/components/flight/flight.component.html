@@ -150,14 +150,15 @@
                   Sân bay đi *
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
-                  <div class="m-input-icon m-input-icon--right">
-                     <input type="text" class="form-control m-input" name="departureAirport" [(ngModel)]="currentItem.departureAirport" required
-                        placeholder="Nhập tên sân bay đi">
-                     <span class="m-input-icon__icon m-input-icon__icon--right">
-                        <span>
-                           <i class="la la-map-marker"></i>
+                  <div class="input-group m-input-group">
+                     <select class="form-control m-select2" id="m_select2_4_1" name="departureAirport" required [ngModel]="currentItem.departureAirport">
+                        <option></option>
+                     </select>
+                     <div class="input-group-append">
+                        <span class="input-group-text">
+                           <i class="la la-plane"></i>
                         </span>
-                     </span>
+                     </div>
                   </div>
                </div>
             </div>
@@ -166,13 +167,15 @@
                   Sân bay đến *
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
-                  <div class="m-input-icon m-input-icon--right">
-                     <input type="text" class="form-control m-input" name="arrivalAirport" [ngModel]="currentItem.arrivalAirport" required placeholder="Nhập tên sân bay đến">
-                     <span class="m-input-icon__icon m-input-icon__icon--right">
-                        <span>
-                           <i class="la la-map-marker"></i>
+                  <div class="input-group m-input-group">
+                     <select class="form-control m-select2" id="m_select2_4_2" name="arrivalAirport" required [ngModel]="currentItem.arrivalAirport">
+                        <option></option>
+                     </select>
+                     <div class="input-group-append">
+                        <span class="input-group-text">
+                           <i class="la la-plane"></i>
                         </span>
-                     </span>
+                     </div>
                   </div>
                </div>
             </div>
@@ -214,7 +217,7 @@
                </label>
                <div class="col-lg-4 col-md-9 col-sm-12">
                   <div class="input-group m-input-group">
-                     <select class="form-control m-select2" id="m_select2_4" name="airportId" required [ngModel]="currentItem.airportId">
+                     <select class="form-control m-select2" id="m_select2_4_3" name="airlineAgentId" required [ngModel]="currentItem.airlineAgentId">
                         <option></option>
                      </select>
                      <div class="input-group-append">
@@ -368,7 +371,7 @@
                      Thời gian đến
                   </th>
                   <th>
-                     Tên sân bay
+                     Tên hãng bay
                   </th>
                   <th>
                      Ngày tạo
@@ -402,7 +405,7 @@
                      {{item.arrivalTime | date: 'yyyy-MM-dd hh:mm'}}
                   </td>
                   <td>
-                     {{item.airportId}}
+                     {{item.airlineAgentId}}
                   </td>
                   <td>
                      {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}

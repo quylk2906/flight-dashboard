@@ -43,21 +43,20 @@ export class AirlineAgentComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid) {
-      return
-    }
+    // if (form.invalid) {
+    //   return
+    // }
     const agent = trimObjectAfterSave(form.value)
     if (this.currentItem.id) {
-      this.subs = this._service.putAirlineAgent(agent).subscribe(rs => {
-        // you have to call api to reload datable without reload page
-        window.location.reload()
-      })
+      this.subs = this._service.putAirlineAgent(agent).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err.error.error.message) }
+      )
     } else {
-      this.subs = this._service.postAirlineAgent(agent).subscribe(rs => {
-        this.list.push(rs as AirlineAgent)
-        // you have to call api to reload datable without reload page
-        window.location.reload()
-      })
+      this.subs = this._service.postAirlineAgent(agent).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err.error.error.message) }
+      )
     }
   }
 

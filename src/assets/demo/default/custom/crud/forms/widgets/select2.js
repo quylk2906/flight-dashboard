@@ -1,12 +1,12 @@
 var Select2 = {
    init: function () {
-      $("#m_select2_1, #m_select2_1_validate, #m_select2_2").select2({
+      $("#m_select2_1, #m_select2_3, #m_select2_2").select2({
          placeholder: "Select a state"
       }), $("#m_select2_2, #m_select2_2_validate").select2({
          placeholder: "Select a state"
       }), $("#m_select2_3, #m_select2_3_validate").select2({
          placeholder: "Select a state"
-      }), $("#m_select2_4").select2({
+      }), $("#m_select2_4_1, #m_select2_4_2, #m_select2_4_3").select2({
          placeholder: "Chọn một option",
          allowClear: !0
       }), $("#m_select2_4_1").select2({
