@@ -40,10 +40,6 @@ export class PlaneComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-
-    if (form.invalid) {
-      return
-    }
     const agent = trimObjectAfterSave(form.value)
     
     if (this.currentItem.id) {

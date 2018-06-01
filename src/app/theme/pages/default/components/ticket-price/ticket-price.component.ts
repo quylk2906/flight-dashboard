@@ -2,10 +2,15 @@ import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from '
 import { ScriptLoaderService } from '../../../../../_services/script-loader.service';
 import { NgForm } from '@angular/forms';
 import { TicketPriceService } from '../../../../../_services/ticket-price.service';
+import { FlightScheduleService } from '../../../../../_services/flight-schedule.service';
+import { AirlineAgentService } from '../../../../../_services/airline-agent.service';
 import { Subscription } from 'rxjs/Subscription';
 import { TicketPrice } from '../../../../../_models/ticket-price.model';
+import { FlightSchedule } from '../../../../../_models/flight-schedule.model';
+import { AirlineAgent } from '../../../../../_models/airline-agent.model';
 import { trimObjectAfterSave } from '../../../../../_utils/trimObject';
 import { find } from 'lodash';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-ticket-price',
@@ -15,52 +20,69 @@ import { find } from 'lodash';
 export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   public list: TicketPrice[]
-  
+  public listFlightSchedule: FlightSchedule[]
+  public listAirline: AirlineAgent[]
+
   public currentItem: TicketPrice = {
     ticketPriceCode: undefined,
-   airlineAgentId: undefined,
-   ticketClassId: undefined,
-   flightScheduleId: undefined,
-   adultPrice: undefined,
-   kidPrice: undefined,
-   adultTax:undefined,
-   kidTax: undefined,
-   id: undefined,
-   createdAt: undefined,
-   updatedAt: undefined
+    airlineAgentId: undefined,
+    ticketClassId: undefined,
+    flightScheduleId: undefined,
+    adultPrice: undefined,
+    kidPrice: undefined,
+    adultTax: undefined,
+    kidTax: undefined,
+    id: undefined,
+    createdAt: undefined,
+    updatedAt: undefined
   }
 
-  constructor(private _script: ScriptLoaderService, private _service: TicketPriceService) {
+  constructor(private _script: ScriptLoaderService,
+    private _service: TicketPriceService,
+    private _serviceSchedule: FlightScheduleService,
+    private _serviceAirline: AirlineAgentService
+  ) {
   }
 
 
   ngOnInit() {
-    this.subs = this._service.getTicketPrice().subscribe(rs => {
-      this.list = rs as TicketPrice[]
-      console.log(this.list);
+    const flightScheduleApi = this._serviceSchedule.getFlightSchedule()
+    const airlineApi = this._serviceAirline.getAirlineAgent()
+    const ticketPriceApi = this._service.getTicketPrice()
+    this.subs = forkJoin([ticketPriceApi, flightScheduleApi, airlineApi]).subscribe(rs => {
+      this.list = rs[0] as TicketPrice[]
+      this.listFlightSchedule = rs[1] as FlightSchedule[]
+      this.listAirline = rs[2] as AirlineAgent[]
+      console.log(rs);
     })
   }
 
-  onSubmit(from: NgForm) {
-    const agent = trimObjectAfterSave(from.value)
+  changeShape() {
+    console.log('it works');
+  }
+  onSubmit(form: NgForm) {
+    const selectAirline = $("#m_select2_4").val().toString()
+    const selectFlightSchedule = $("#m_select2_4_1").val().toString()
+    this.currentItem = form.value
+    this.currentItem.flightScheduleId = selectFlightSchedule.slice(3, selectFlightSchedule.length).trim()
+    this.currentItem.airlineAgentId = selectAirline.slice(3, selectAirline.length).trim()
+
     if (this.currentItem.id) {
-      this.subs = this._service.putTicketPrice(agent).subscribe(rs => {
-        // you have to call api to reload datable without reload page
+      this.subs = this._service.putTicketPrice(this.currentItem).subscribe(rs => {
         window.location.reload()
       })
     } else {
-      this.subs = this._service.postTicketPrice(agent).subscribe(rs => {
+      this.subs = this._service.postTicketPrice(this.currentItem).subscribe(rs => {
         this.list.push(rs as TicketPrice)
-        // you have to call api to reload datable without reload page
         window.location.reload()
       })
     }
+    console.log(this.currentItem);
   }
 
   onDelete(id) {
     this.subs = this._service.deleteTicketPrice(id).subscribe(rs => {
       if (rs['count'] !== 0) {
-        // you have to call api to reload datable without reload page
         window.location.reload()
       }
     })

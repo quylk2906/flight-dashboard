@@ -6,6 +6,8 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 import { TicketPriceService } from '../../../../../_services/ticket-price.service';
 import { FormsModule } from '@angular/forms';
+import { FlightScheduleService } from '../../../../../_services/flight-schedule.service';
+import { AirlineAgentService } from '../../../../../_services/airline-agent.service';
 
 const routes: Routes = [
   {
@@ -26,7 +28,8 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    TicketPriceService
+    TicketPriceService, FlightScheduleService
+    , AirlineAgentService
   ],
   declarations: [
     TicketPriceComponent

@@ -6,7 +6,8 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 import { FlightScheduleService } from '../../../../../_services/flight-schedule.service';
 import { FormsModule } from '@angular/forms';
-
+import { FlightService } from '../../../../../_services/flight.service';
+import { PlaneService } from '../../../../../_services/plane.service';
 
 
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    FlightScheduleService
+    FlightScheduleService, FlightService, PlaneService
   ],
   declarations: [
     FlightScheduleComponent

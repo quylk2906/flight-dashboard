@@ -9,7 +9,7 @@ import { trimObjectAfterSave } from '../../../../../_utils/trimObject';
 import { find, some } from 'lodash';
 import { Airport } from '../../../../../_models/airport.model';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { Select2 } from 'select2';
+// import { Select2 } from 'select2';
 
 @Component({
   selector: "app-flight",
@@ -40,33 +40,42 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     const airportApi = this._airportService.getAirport()
     const flightApi = this._service.getFlight()
-
     this.subs = forkJoin([airportApi, flightApi]).subscribe(rs => {
       this.list = rs[1] as Flight[]
       this.listAirport = rs[0] as Airport[]
+      this.loadScript()
       console.log(rs);
     })
+  }
+
+  loadScript() {
+    this._script.loadScripts('app-flight',
+      [
+        'assets/vendors/custom/datatables/datatables.bundle.js',
+        'assets/demo/default/custom/crud/forms/widgets/select2.js',
+        'assets/demo/default/custom/crud/datatables/standard/paginations.js', ,
+        'assets/demo/default/custom/crud/forms/validation/form-controls.js',
+        'assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js'
+      ]);
   }
 
   onSubmit(form: NgForm) {
     console.log(this.currentItem);
     const flight = form.value as Flight
-
-    // if (this.currentItem.id) {
-    //   this.subs = this._service.putFlight(flight).subscribe(rs => {
-    //     // you have to call api to reload datable without reload page
-    //     window.location.reload()
-    //   })
-    // } else {
-    //   const selectValue = $("#m_select2_4").val().toString()
-    //   flight.departureTime = $('#m_datetimepicker_1_1').val().toString()
-    //   flight.arrivalTime = $('#m_datetimepicker_1').val().toString()
-    //   flight.airportId = selectValue.slice(2, selectValue.length)
-    //   this.subs = this._service.postFlight(flight).subscribe(rs => {
-    //     // you have to call api to reload datable without reload page
-    //     window.location.reload()
-    //   })
-    // }
+    if (this.currentItem.id) {
+      this.subs = this._service.putFlight(flight).subscribe(rs => {
+        window.location.reload()
+      })
+    } else {
+      const selectValue = $("#m_select2_4").val().toString()
+      flight.departureTime = $('#m_datetimepicker_1_1').val().toString()
+      flight.arrivalTime = $('#m_datetimepicker_1').val().toString()
+      flight.airportId = selectValue.slice(2, selectValue.length).trim()
+      this.subs = this._service.postFlight(flight).subscribe(rs => {
+        // you have to call api to reload datable without reload page
+        window.location.reload()
+      })
+    }
   }
 
   onDelete(id) {
@@ -82,7 +91,10 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem = find(this.list, (item) => {
       return item.id == id
     })
-    $("#m_select2_4").select2();
+  }
+
+  loadData() {
+    console.log('loadData');
   }
 
   ngOnDestroy(): void {
@@ -91,13 +103,5 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
 
-    this._script.loadScripts('app-flight',
-      [
-        'assets/vendors/custom/datatables/datatables.bundle.js',
-        'assets/demo/default/custom/crud/forms/widgets/select2.js',
-        'assets/demo/default/custom/crud/datatables/standard/paginations.js', ,
-        'assets/demo/default/custom/crud/forms/validation/form-controls.js',
-        'assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js'
-      ]);
   }
 }
