@@ -82,18 +82,18 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
     flight.departureAirport = $("#m_select2_4_1").val().toString()
     flight.arrivalAirport = $("#m_select2_4_2").val().toString()
     console.log(flight);
-    // if (this.currentItem.id) {
-    //   this.subs = this._service.putFlight(flight).subscribe(
-    //     rs => { window.location.reload() },
-    //     err => { alert(err.error.error.message) }
-    //   )
-    // } else {
+    if (this.currentItem.id) {
+      this.subs = this._service.putFlight(flight).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err.error.error.message) }
+      )
+    } else {
 
-    //   this.subs = this._service.postFlight(flight).subscribe(
-    //     rs => { window.location.reload() },
-    //     err => { alert(err.error.error.message) }
-    //   )
-    // }
+      this.subs = this._service.postFlight(flight).subscribe(
+        rs => { window.location.reload() },
+        err => { alert(err.error.error.message) }
+      )
+    }
   }
 
   onDelete(id) {
