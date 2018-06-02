@@ -9,8 +9,8 @@ const httpOptions = {
 
 export class FlightService {
 
-  private baseURL = 'https://mysterious-atoll-89393.herokuapp.com/api/';
-
+  // private baseURL = 'https://mysterious-atoll-89393.herokuapp.com/api/';
+  private baseURL = 'http://localhost:4200/api/';
   constructor(private http: HttpClient) { }
 
   getFlight() {
