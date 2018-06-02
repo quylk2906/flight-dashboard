@@ -46,7 +46,7 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     const aorlineAgentApi = this._agentService.getAirlineAgent()
-    const flightApi = this._service.getFlight()
+    const flightApi = this._service.getFlightInclude()
     const airportApi = this._airportService.getAirport()
 
     this.subs = forkJoin([aorlineAgentApi, flightApi, airportApi]).subscribe(rs => {

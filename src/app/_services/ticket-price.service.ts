@@ -9,12 +9,15 @@ const httpOptions = {
 export class TicketPriceService {
 
 
-  private baseURL = 'https://mysterious-atoll-89393.herokuapp.com/api/';
+  private baseURL = 'https://vast-journey-12423.herokuapp.com/api/';
 
   constructor(private http: HttpClient) { }
 
-  getTicketPrice() {
+  getTicketPrices() {
     return this.http.get(this.baseURL + 'ticketPrices')
+  }
+  getTicketPricesInclude() {
+    return this.http.get(this.baseURL + 'ticketPrices/ticketprices-included')
   }
 
   postTicketPrice(ticket) {

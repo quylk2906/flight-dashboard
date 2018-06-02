@@ -46,9 +46,9 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   ngOnInit() {
-    const flightScheduleApi = this._serviceSchedule.getFlightSchedule()
+    const flightScheduleApi = this._serviceSchedule.getFlightSchedules()
     const airlineApi = this._serviceAirline.getAirlineAgent()
-    const ticketPriceApi = this._service.getTicketPrice()
+    const ticketPriceApi = this._service.getTicketPricesInclude()
     this.subs = forkJoin([ticketPriceApi, flightScheduleApi, airlineApi]).subscribe(rs => {
       this.list = rs[0] as TicketPrice[]
       this.listFlightSchedule = rs[1] as FlightSchedule[]
@@ -65,8 +65,8 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
     if (form.invalid) {
       return
     }
-    const selectAirline = $("#m_select2_4").val().toString()
-    const selectFlightSchedule = $("#m_select2_4_1").val().toString()
+    const selectAirline = $("#m_select2_4_1").val().toString()
+    const selectFlightSchedule = $("#m_select2_4_2").val().toString()
     this.currentItem = form.value
     this.currentItem.flightScheduleId = selectFlightSchedule
     this.currentItem.airlineAgentId = selectAirline
@@ -98,8 +98,8 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
       return item.id == id
     })
     console.log(this.currentItem.airlineAgentId);
-    $("#m_select2_4_1").val(this.currentItem.flightScheduleId).trigger('change')
-    $("#m_select2_4").val(this.currentItem.airlineAgentId).trigger('change')
+    $("#m_select2_4_2").val(this.currentItem.flightScheduleId).trigger('change')
+    $("#m_select2_4_1").val(this.currentItem.airlineAgentId).trigger('change')
   }
 
   ngOnDestroy(): void {
@@ -111,8 +111,8 @@ export class TicketPriceComponent implements OnInit, OnDestroy, AfterViewInit {
     const dataAirlineAgent = this.listAirline.map(item => { return { id: item.id, text: item.airlineAgentName } })
     console.log(dataAirlineAgent);
     const dataFlightSchedule = this.listFlightSchedule.map(item => { return { id: item.id, text: item.flightScheduleCode } })
-    $("#m_select2_4_1").select2({ data: dataFlightSchedule })
-    $("#m_select2_4").select2({ data: dataAirlineAgent })
+    $("#m_select2_4_2").select2({ data: dataFlightSchedule })
+    $("#m_select2_4_1").select2({ data: dataAirlineAgent })
 
     this._script.loadScripts('app-ticket-price',
       [

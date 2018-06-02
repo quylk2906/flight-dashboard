@@ -152,7 +152,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4" name="flightId" required [ngModel]="currentItem.flightId">
+              <select class="form-control m-select2" id="m_select2_4_1" name="flightId" required [ngModel]="currentItem.flightId">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -169,7 +169,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" name="planeId" required [ngModel]="currentItem.planeId">
+              <select class="form-control m-select2" id="m_select2_4_2" name="planeId" required [ngModel]="currentItem.planeId">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -374,10 +374,10 @@
               {{item.flightScheduleCode}}
             </td>
             <td>
-              {{item.flightId}}
+              {{item.flight.flightCode}}
             </td>
             <td>
-              {{item.planeId}}
+              {{item.plane.planeCode}}
             </td>
             <td>
               {{item.departureDate | date: 'yyyy-MM-dd hh:mm'}}

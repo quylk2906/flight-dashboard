@@ -42,9 +42,9 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngOnInit() {
-    const flightApi = this._serviceFlight.getFlight()
+    const flightApi = this._serviceFlight.getFlights()
     const planeApi = this._servicePlane.getPlane()
-    const flightScheduleApi = this._service.getFlightSchedule()
+    const flightScheduleApi = this._service.getFlightSchedulesIncluded()
     this.subs = forkJoin([flightScheduleApi, flightApi, planeApi,]).subscribe(rs => {
       this.list = rs[0] as [FlightSchedule]
       this.listFlight = rs[1] as [Flight]
@@ -58,8 +58,8 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
     // if (form.invalid) {
     //   return
     // }
-    const selectFlight = $("#m_select2_4").val().toString()
-    const selectPlane = $("#m_select2_4_1").val().toString()
+    const selectFlight = $("#m_select2_4_1").val().toString()
+    const selectPlane = $("#m_select2_4_2").val().toString()
     const departDate = $('#m_datetimepicker_1').val().toString()
     const returnDate = $('#m_datetimepicker_1_1').val().toString()
     this.currentItem = form.value
@@ -92,8 +92,8 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
 
   onEdit(id) {
     this.currentItem = find(this.list, (item) => { return item.id == id })
-    $("#m_select2_4_1").val(this.currentItem.planeId).trigger('change')
-    $("#m_select2_4").val(this.currentItem.flightId).trigger('change')
+    $("#m_select2_4_2").val(this.currentItem.planeId).trigger('change')
+    $("#m_select2_4_1").val(this.currentItem.flightId).trigger('change')
   }
 
   ngOnDestroy(): void {
@@ -107,8 +107,8 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
   loadScript() {
     const dataPlane = this.listPlane.map(item => { return { id: item.id, text: item.planeName } })
     const dataFlight = this.listFlight.map(item => { return { id: item.id, text: item.flightCode } })
-    $("#m_select2_4_1").select2({ data: dataPlane })
-    $("#m_select2_4").select2({ data: dataFlight })
+    $("#m_select2_4_2").select2({ data: dataPlane })
+    $("#m_select2_4_1").select2({ data: dataFlight })
 
     this._script.loadScripts('app-flight-schedule',
       [

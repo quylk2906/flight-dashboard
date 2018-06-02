@@ -136,7 +136,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4" name="airlineAgentId" [ngModel]="currentItem.airlineAgentId">
+              <select class="form-control m-select2" id="m_select2_4_1" name="airlineAgentId" [ngModel]="currentItem.airlineAgentId">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -153,7 +153,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" name="flightScheduleId" [ngModel]="currentItem.flightScheduleId">
+              <select class="form-control m-select2" id="m_select2_4_2" name="flightScheduleId" [ngModel]="currentItem.flightScheduleId">
                   <option></option>
               </select>
               <div class="input-group-append">
@@ -352,7 +352,7 @@
               #
             </th>
             <th>
-              Đại lý máy bay
+              Hãng máy bay
             </th>
             <th>
               Lịch chuyến bay
@@ -386,10 +386,10 @@
               {{item.ticketPriceCode}}
             </td> -->
             <td>
-              {{item.airlineAgentId}}
+              {{item.airlineAgent.airlineAgentCode}}
             </td>
             <td>
-              {{item.flightScheduleId}}
+              {{item.flightSchedule.flightScheduleCode}}
             </td>
             <td>
               {{item.adultPrice}}

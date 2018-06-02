@@ -9,12 +9,15 @@ const httpOptions = {
 
 export class FlightService {
 
-  // private baseURL = 'https://mysterious-atoll-89393.herokuapp.com/api/';
-  private baseURL = 'http://localhost:4200/api/';
+  private baseURL = 'https://vast-journey-12423.herokuapp.com/api/';
+
   constructor(private http: HttpClient) { }
 
-  getFlight() {
+  getFlights() {
     return this.http.get(this.baseURL + 'flights')
+  }
+  getFlightInclude() {
+    return this.http.get(this.baseURL + 'flights/flights-included')
   }
 
   postFlight(flight) {
