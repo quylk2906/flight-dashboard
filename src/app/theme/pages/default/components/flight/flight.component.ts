@@ -60,7 +60,7 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
 
   loadScript() {
     const dataAirlineAgent = this.listAirlineAgent.map(item => { return { id: item.id, text: item.airlineAgentName } })
-    const dataAirport = this.listAirport.map(item => { return { id: item.id, text: item.airportName } })
+    const dataAirport = this.listAirport.map(item => { return { id: item.airportName, text: item.airportName } })
     $("#m_select2_4_1").select2({ data: dataAirport })
     $("#m_select2_4_2").select2({ data: dataAirport })
     $("#m_select2_4_3").select2({ data: dataAirlineAgent })
@@ -78,6 +78,7 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
     const flight = form.value as Flight
     flight.departureTime = $('#m_datetimepicker_1_1').val().toString()
     flight.arrivalTime = $('#m_datetimepicker_1').val().toString()
+
     flight.airlineAgentId = $("#m_select2_4_3").val().toString()
     flight.departureAirport = $("#m_select2_4_1").val().toString()
     flight.arrivalAirport = $("#m_select2_4_2").val().toString()
@@ -101,9 +102,7 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subs = this._service.deleteFlight(id).subscribe(rs => {
       if (rs['count'] !== 0) {
         // you have to call api to reload datable without reload page
-
-        console.log('window.location.reload()');
-        // window.location.reload()
+        window.location.reload()
       }
     })
   }
@@ -112,7 +111,7 @@ export class FlightComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem = find(this.list, (item) => {
       return item.id == id
     })
-    $("#m_select2_4_1").text(this.currentItem.departureAirport).trigger('change')
+    $("#m_select2_4_1").val(this.currentItem.departureAirport).trigger('change')
     $("#m_select2_4_2").val(this.currentItem.arrivalAirport).trigger('change')
     $("#m_select2_4_3").val(this.currentItem.airlineAgentId).trigger('change')
   }
