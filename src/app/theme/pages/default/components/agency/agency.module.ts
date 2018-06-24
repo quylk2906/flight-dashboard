@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PlaneComponent } from './plane.component';
+import { AgencyComponent } from './agency.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 import { PlaneService } from '../../../../../_services/plane.service';
@@ -14,7 +14,7 @@ const routes: Routes = [
     "children": [
       {
         "path": "",
-        "component": PlaneComponent
+        "component": AgencyComponent
       }
     ]
   }
@@ -29,7 +29,7 @@ const routes: Routes = [
     PlaneService
   ], 
   declarations: [
-    PlaneComponent
+    AgencyComponent
   ]
 })
-export class PlaneModule { }
+export class AgencyModule { }

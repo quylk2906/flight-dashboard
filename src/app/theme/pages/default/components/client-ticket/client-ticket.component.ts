@@ -3,12 +3,12 @@ import { ScriptLoaderService } from '../../../../../_services/script-loader.serv
 
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: './payment.component.html',
+  selector: 'app-client-ticket',
+  templateUrl: './client-ticket.component.html',
   encapsulation: ViewEncapsulation.None,
   styles: []
 })
-export class PaymentComponent implements OnInit, AfterViewInit {
+export class ClientTicketComponent implements OnInit, AfterViewInit {
   constructor(private _script: ScriptLoaderService) { }
   ngOnInit() { }
   ngAfterViewInit() {

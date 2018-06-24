@@ -18,37 +18,41 @@ const routes: Routes = [
             "loadChildren": ".\/pages\/default\/profile\/profile.module#ProfileModule"
          },
          {
-            'path': 'components\/airline-agent',
-            'loadChildren': '.\/pages\/default\/components\/airline-agent\/airline-agent.module#AirlineAgentModule'
-         },
-         {
             'path': 'components\/airport',
             'loadChildren': '.\/pages\/default\/components\/airport\/airport.module#AirportModule'
          },
          {
-            'path': 'components\/contact',
-            "loadChildren": ".\/pages\/default\/profile\/profile.module#ProfileModule"
+            'path': 'components\/client',
+            'loadChildren': '.\/pages\/default\/components\/client\/client.module#ClientModule'
          },
          {
-            'path': 'components\/flight',
-            'loadChildren': '.\/pages\/default\/components\/flight\/flight.module#FlightModule'
+            'path': 'components\/client-ticket',
+            'loadChildren': '.\/pages\/default\/components\/client-ticket\/client-ticket.module#ClientTicketModule'
          },
          {
-            'path': 'components\/ticket-price',
-            'loadChildren': '.\/pages\/default\/components\/ticket-price\/ticket-price.module#TicketPriceModule'
+            'path': 'components\/deposit',
+            'loadChildren': '.\/pages\/default\/components\/deposit\/deposit.module#DepositModule'
          },
          {
-            'path': 'components\/flight-schedule',
-            'loadChildren': '.\/pages\/default\/components\/flight-schedule\/flight-schedule.module#FlightScheduleModule'
+            'path': 'components\/agency',
+            'loadChildren': '.\/pages\/default\/components\/agency\/agency.module#AgencyModule'
          },
          {
-            'path': 'components\/payment',
-            'loadChildren': '.\/pages\/default\/components\/payment\/payment.module#PaymentModule'
+            'path': 'components\/deposit-progress',
+            'loadChildren': '.\/pages\/default\/components\/deposit-progress\/deposit-progress.module#DepositProgressModule'
          },
          {
-            'path': 'components\/plane',
-            'loadChildren': '.\/pages\/default\/components\/plane\/plane.module#PlaneModule'
-         }
+            'path': 'components\/payment-detail',
+            'loadChildren': '.\/pages\/default\/components\/payment-detail\/payment-detail.module#PaymentDetailModule'
+         },
+         // {
+         //    'path': 'components\/payment',
+         //    'loadChildren': '.\/pages\/default\/components\/payment\/payment.module#PaymentModule'
+         // },
+         // {
+         //    'path': 'components\/plane',
+         //    'loadChildren': '.\/pages\/default\/components\/plane\/plane.module#PlaneModule'
+         // }
       ],
    },
    {

@@ -1,32 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
+import WebControl from "./base";
+import { Observable, Subject } from 'rxjs';
+import { Airport } from "../_models/airport.model";
 @Injectable()
 export class AirportService {
+  // private baseURL = 'https://vast-journey-12423.herokuapp.com/api/';
 
-  private baseURL = 'https://vast-journey-12423.herokuapp.com/api/';
+  listAirportsChanged = new Subject<Airport[]>()
+  private listAirports: Airport[] = []
 
   constructor(private http: HttpClient) { }
 
   getAirport() {
-    return this.http.get(this.baseURL + 'airports')
+    return this.listAirports
+  }
+
+  loadData() {
+    this.http.get(WebControl.baseURL + 'Airports').subscribe(
+      res => {
+        this.listAirportsChanged.next(res as Airport[])
+      }
+    )
   }
 
   postAirport(airport) {
     const body = airport
-    return this.http.post(this.baseURL + 'airports', body, httpOptions)
+    return this.http.post(WebControl.baseURL + 'Airports', body, WebControl.httpOptions)
   }
 
   deleteAirport(id) {
-    return this.http.delete(`${this.baseURL}airports/${id}`)
+    return this.http.delete(`${WebControl.baseURL}Airports/${id}`)
   }
 
   putAirport(airport) {
     const body = airport
-    return this.http.put(`${this.baseURL}airports/${body.id}`, body, httpOptions)
+    return this.http.put(`${WebControl.baseURL}Airports/${body.id}`, body, WebControl.httpOptions)
   }
 }

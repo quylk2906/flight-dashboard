@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PaymentComponent } from './payment.component';
+import { DepositComponent } from './deposit.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
+import { PlaneService } from '../../../../../_services/plane.service';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -12,18 +14,22 @@ const routes: Routes = [
     "children": [
       {
         "path": "",
-        "component": PaymentComponent
+        "component": DepositComponent
       }
     ]
   }
 ];
 @NgModule({
   imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule
+    CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule
   ], exports: [
     RouterModule
-  ], declarations: [
-    PaymentComponent
+  ],
+  providers: [
+    PlaneService
+  ], 
+  declarations: [
+    DepositComponent
   ]
 })
-export class PaymentModule { }
+export class DepositModule { }

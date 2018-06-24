@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { ContactComponent } from './contact.component';
+import { DepositProgressComponent } from './deposit-progress.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
+import { PlaneService } from '../../../../../_services/plane.service';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -12,18 +14,22 @@ const routes: Routes = [
     "children": [
       {
         "path": "",
-        "component": ContactComponent
+        "component": DepositProgressComponent
       }
     ]
   }
 ];
 @NgModule({
   imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule
+    CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule
   ], exports: [
     RouterModule
-  ], declarations: [
-    ContactComponent
+  ],
+  providers: [
+    PlaneService
+  ], 
+  declarations: [
+    DepositProgressComponent
   ]
 })
-export class ContactModule { }
+export class DepositProgressModule { }

@@ -13,13 +13,14 @@ import { find } from 'lodash';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 // import moduleName from './assets/vendors/base/vendors.bundle.js';
 import { Select2, DataFormat } from 'select2';
+import { Helpers } from '../../../../../helpers';
 
 @Component({
-  selector: 'app-flight-schedule',
-  templateUrl: './flight-schedule.component.html',
+  selector: 'app-client-schedule',
+  templateUrl: './client.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   public list: FlightSchedule[]
   public listFlight: Flight[]
@@ -45,13 +46,13 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
     const flightApi = this._serviceFlight.getFlights()
     const planeApi = this._servicePlane.getPlane()
     const flightScheduleApi = this._service.getFlightSchedulesIncluded()
-    this.subs = forkJoin([flightScheduleApi, flightApi, planeApi,]).subscribe(rs => {
-      this.list = rs[0] as [FlightSchedule]
-      this.listFlight = rs[1] as [Flight]
-      this.listPlane = rs[2] as [Plane]
-      this.loadScript()
-      console.log(rs);
-    })
+    // this.subs = forkJoin([flightScheduleApi, flightApi, planeApi,]).subscribe(rs => {
+    //   this.list = rs[0] as [FlightSchedule]
+    //   this.listFlight = rs[1] as [Flight]
+    //   this.listPlane = rs[2] as [Plane]
+    //   this.loadScript()
+    //   console.log(rs);
+    // })
   }
 
   onSubmit(form: NgForm) {
@@ -97,7 +98,8 @@ export class FlightScheduleComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe()
+    Helpers.setLoading(true)
+    // this.subs.unsubscribe()
   }
 
   ngAfterViewInit() {

@@ -1,9 +1,9 @@
-<!-- BEGIN: Subheader -->
+BEGIN: Subheader
 <div class="m-subheader" appunwraptag="">
   <div class="d-flex align-items-center">
     <div class="mr-auto">
       <h3 class="m-subheader__title m-subheader__title--separator">
-        Giá vé bay
+        Khách hàng
       </h3>
       <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
         <li class="m-nav__item m-nav__item--home">
@@ -94,7 +94,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Thêm giá vé
+            Thêm mới khách hàng.
           </h3>
         </div>
       </div>
@@ -121,7 +121,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
+              <input type="text" class="form-control m-input" [ngModel]="currentItem.id" name="id" readonly>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-check"></i>
@@ -132,16 +132,57 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Mã hãng bay
+            Họ tên *
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" [ngModel]="currentItem.flightScheduleCode" required name="flightScheduleCode"
+                placeholder="Nhập họ tên">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Số ĐT *
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <input type="number" class="form-control m-input" [ngModel]="currentItem.flightScheduleCode" required name="flightScheduleCode"
+                placeholder="Nhập số điện thoại">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Địa chỉ *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" name="airlineAgentId" [ngModel]="currentItem.airlineAgentId">
-                <option></option>
-              </select>
+              <textarea class="form-control m-input" name="desciption" placeholder="Enter a menu"></textarea>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Ngày đi
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="input-group date">
+              <input type="text" class="form-control m-input" name="departureDate" [ngModel]="currentItem.departureDate | date: 'yyyy-MM-dd hh:mm'"
+                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1" />
               <div class="input-group-append">
                 <span class="input-group-text">
-                  <i class="la la-plane"></i>
+                  <i class="la la-calendar-check-o glyphicon-th"></i>
                 </span>
               </div>
             </div>
@@ -149,87 +190,26 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Mã lịch chuyến bay
+            Ngày về
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_2" name="flightScheduleId" [ngModel]="currentItem.flightScheduleId">
-                  <option></option>
-              </select>
+            <div class="input-group date">
+              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.returnDate  | date: 'yyyy-MM-dd hh:mm'"
+                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_1" />
               <div class="input-group-append">
                 <span class="input-group-text">
-                  <i class="la la-plane"></i>
+                  <i class="la la-calendar-check-o glyphicon-th"></i>
                 </span>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Giá vé người lớn *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [ngModel]="currentItem.adultPrice" required name="adultPrice" placeholder="Nhập giá vé người lớn">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Giá thuế người lớn *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [ngModel]="currentItem.adultTax" required name="adultTax" placeholder="Nhập giá thuế người lớn">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Giá vé trẻ em *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [ngModel]="currentItem.kidPrice" required name="kidPrice" placeholder="Nhập giá vé trẻ em">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Giá thuế trẻ em *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [ngModel]="currentItem.kidTax" required name="kidTax" placeholder="Nhập giá thuế trẻ em">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
+        </div> -->
       </div>
       <div class="m-portlet__foot m-portlet__foot--fit">
         <div class="m-form__actions m-form__actions">
           <div class="row">
             <div class="col-lg-9 ml-lg-auto">
-              <button type="submit" class="btn m-btn--pill m-btn--air btn-info">
+              <button type="submit" class="btn m-btn--pill m-btn--air btn-info mr-2">
                 Submit
               </button>
               <button type="reset" class="btn m-btn--pill m-btn--air btn-danger">
@@ -248,21 +228,21 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Danh sách.
+            Danh sách lịch chuyến bay.
           </h3>
         </div>
       </div>
       <div class="m-portlet__head-tools">
         <ul class="m-portlet__nav">
           <li class="m-portlet__nav-item">
-            <a href="#m_form_1" class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air">
-              <span>
-                <i class="la la-plus"></i>
-                <span>
-                  Tạo mới
-                </span>
-              </span>
-            </a>
+            <!-- <a scrollTo href="#m_form_1" target="_self" class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air">
+                  <span>
+                    <i class="la la-plus"></i>
+                    <span>
+                      Tạo mới
+                    </span>
+                  </span>
+                </a> -->
           </li>
           <li class="m-portlet__nav-item"></li>
           <li class="m-portlet__nav-item">
@@ -352,25 +332,25 @@
               #
             </th>
             <th>
-              Hãng máy bay
+              Mã lịch chuyến bay
             </th>
             <th>
-              Lịch chuyến bay
+              Chuyến bay
             </th>
             <th>
-              Giá người lớn
+              Máy bay
             </th>
             <th>
-              Thuế người lớn
+              Ngày đi
             </th>
             <th>
-              Giá trẻ em
-            </th>
-            <th>
-              Thuế trẻ em
+              Ngày về
             </th>
             <th>
               Ngày tạo
+            </th>
+            <th>
+              Status
             </th>
             <th>
               Actions
@@ -382,31 +362,29 @@
             <td>
               {{i + 1}}
             </td>
-            <!-- <td>
-              {{item.ticketPriceCode}}
-            </td> -->
             <td>
-              {{item.airlineAgent.airlineAgentCode}}
+              {{item.flightScheduleCode}}
             </td>
             <td>
-              {{item.flightSchedule.flightScheduleCode}}
+              {{item.flight.flightCode}}
             </td>
             <td>
-              {{item.adultPrice}}
+              {{item.plane.planeCode}}
             </td>
             <td>
-              {{item.kidPrice}}
+              {{item.departureDate | date: 'yyyy-MM-dd hh:mm'}}
             </td>
             <td>
-              {{item.adultTax}}
-            </td>
-            <td>
-              {{item.kidTax}}
+              {{item.returnDate | date: 'yyyy-MM-dd hh:mm'}}
             </td>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
             </td>
-
+            <td>
+              <span class="m-badge m-badge--success m-badge--dot"></span>
+              &nbsp;
+              <span class="m--font-bold m--font-success">Active</span>
+            </td>
             <td>
               <span class="dropdown">
                 <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">

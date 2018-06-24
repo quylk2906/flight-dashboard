@@ -6,7 +6,7 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 import { AirportService } from '../../../../../_services/airport.service';
 import { FormsModule } from '@angular/forms';
-
+import { DataTablesModule } from 'angular-datatables';
 const routes: Routes = [
   {
     "path": "",
@@ -22,6 +22,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule
+    , DataTablesModule
   ],
   exports: [
     RouterModule

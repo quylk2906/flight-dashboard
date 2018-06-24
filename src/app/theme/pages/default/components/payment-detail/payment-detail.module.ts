@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { FlightComponent } from './flight.component';
+import { PaymentDetailComponent } from './payment-detail.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
-import { FlightService } from '../../../../../_services/flight.service';
+import { PlaneService } from '../../../../../_services/plane.service';
 import { FormsModule } from '@angular/forms';
-import { AirlineAgentService } from '../../../../../_services/airline-agent.service';
-import { AirportService } from '../../../../../_services/airport.service';
 
 const routes: Routes = [
   {
@@ -16,7 +14,7 @@ const routes: Routes = [
     "children": [
       {
         "path": "",
-        "component": FlightComponent
+        "component": PaymentDetailComponent
       }
     ]
   }
@@ -28,11 +26,10 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    FlightService, AirlineAgentService, AirportService
-  ],
+    PlaneService
+  ], 
   declarations: [
-    FlightComponent
+    PaymentDetailComponent
   ]
 })
-export class FlightModule { }
-FlightService
+export class PaymentDetailModule { }

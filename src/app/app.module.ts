@@ -13,7 +13,7 @@ import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
 import { LayoutComponent } from '../app/theme/layouts/layout/layout.component';
 import { AsideLeftMinimizeDefaultEnabledComponent } from '../app/theme/pages/aside-left-minimize-default-enabled/aside-left-minimize-default-enabled.component';
-
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   declarations: [
     AsideLeftMinimizeDefaultEnabledComponent,
@@ -28,7 +28,8 @@ import { AsideLeftMinimizeDefaultEnabledComponent } from '../app/theme/pages/asi
     AppRoutingModule,
     ThemeRoutingModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    DataTablesModule
   ],
   providers: [ScriptLoaderService],
   bootstrap: [AppComponent]

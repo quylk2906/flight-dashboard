@@ -10,12 +10,12 @@ import { ObjectUnsubscribedError } from 'rxjs';
 
 
 @Component({
-  selector: 'app-plane',
-  templateUrl: './plane.component.html',
+  selector: 'deposit-progress',
+  templateUrl: './deposit-progress.component.html',
   encapsulation: ViewEncapsulation.None,
   styles: []
 })
-export class PlaneComponent implements OnInit, OnDestroy, AfterViewInit {
+export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   public list: Plane[]
   public currentItem: Plane = {
@@ -33,10 +33,10 @@ export class PlaneComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   ngOnInit() {
-    this.subs = this._service.getPlane().subscribe(rs => {
-      this.list = rs as Plane[]
-      console.log(this.list);
-    })
+    // this.subs = this._service.getPlane().subscribe(rs => {
+    //   this.list = rs as Plane[]
+    //   console.log(this.list);
+    // })
   }
 
   onSubmit(form: NgForm) {
@@ -74,11 +74,11 @@ export class PlaneComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe()
+    // this.subs.unsubscribe()
   }
 
   ngAfterViewInit() {
-    this._script.loadScripts('app-plane',
+    this._script.loadScripts('deposit-progress',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
         'assets/demo/default/custom/crud/datatables/standard/paginations.js',
