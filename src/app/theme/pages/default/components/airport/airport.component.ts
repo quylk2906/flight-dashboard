@@ -53,9 +53,9 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
     Helpers.setLoading(true)
-    this.list = this._service.getAirport();
+
+    this.list = this._service.getAirports();
     this.subs = this._service.listAirportsChanged.subscribe(
       rs => {
         console.log(rs);
@@ -63,6 +63,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
         this.rerender()
       },
       err => {
+        console.log('console.log(err);');
         console.log(err);
       })
     this._service.loadData()

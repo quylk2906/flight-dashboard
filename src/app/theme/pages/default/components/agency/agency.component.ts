@@ -3,7 +3,6 @@ import { ScriptLoaderService } from '../../../../../_services/script-loader.serv
 import { NgForm } from '@angular/forms';
 import { PlaneService } from '../../../../../_services/plane.service';
 import { Subscription } from 'rxjs/Subscription';
-import { Plane } from '../../../../../_models/plane.model';
 import { trimObjectAfterSave } from '../../../../../_utils/trimObject';
 import { find } from 'lodash';
 import { ObjectUnsubscribedError } from 'rxjs';
@@ -17,16 +16,16 @@ import { ObjectUnsubscribedError } from 'rxjs';
 })
 export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
-  public list: Plane[]
-  public currentItem: Plane = {
-    planeCode: undefined,
-    planeName: undefined,
-    seatNumber: undefined,
-    availableSeatNumber: undefined,
-    id: undefined,
-    createdAt: undefined,
-    updatedAt: undefined
-  }
+  // public list: Plane[]
+  // public currentItem: Plane = {
+  //   planeCode: undefined,
+  //   planeName: undefined,
+  //   seatNumber: undefined,
+  //   availableSeatNumber: undefined,
+  //   id: undefined,
+  //   createdAt: undefined,
+  //   updatedAt: undefined
+  // }
 
   constructor(private _script: ScriptLoaderService, private _service: PlaneService) {
   }
@@ -45,17 +44,17 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
     // }
 
     const agent = trimObjectAfterSave(form.value)
-    if (this.currentItem.id) {
-      this.subs = this._service.putPlane(agent).subscribe(
-        rs => { window.location.reload() },
-        err => { alert(err.error.error.message) }
-      )
-    } else {
-      this.subs = this._service.postPlane(agent).subscribe(
-        rs => { window.location.reload() },
-        err => { alert(err.error.error.message) }
-      )
-    }
+    // if (this.currentItem.id) {
+    //   this.subs = this._service.putPlane(agent).subscribe(
+    //     rs => { window.location.reload() },
+    //     err => { alert(err.error.error.message) }
+    //   )
+    // } else {
+    //   this.subs = this._service.postPlane(agent).subscribe(
+    //     rs => { window.location.reload() },
+    //     err => { alert(err.error.error.message) }
+    //   )
+    // }
   }
 
   onDelete(id) {
@@ -68,9 +67,9 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onEdit(id) {
-    this.currentItem = find(this.list, (item) => {
-      return item.id == id
-    })
+    // this.currentItem = find(this.list, (item) => {
+    //   return item.id == id
+    // })
   }
 
   ngOnDestroy(): void {

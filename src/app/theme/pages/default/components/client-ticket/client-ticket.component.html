@@ -115,13 +115,28 @@
             </div>
           </div>
         </div>
-        <div class="form-group m-form__group row">
+        <div class="form-group m-form__group row" *ngIf="currentItem.id">
           <label class="col-form-label col-lg-3 col-sm-12">
+            Uniqued ID
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-check"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <!-- <label class="col-form-label col-lg-3 col-sm-12">
             Mã khách hàng *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" [ngModel]="currentItem.airlineAgentId">
+              <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem.id">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -130,7 +145,7 @@
                 </span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
@@ -138,7 +153,9 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="airport-name" required placeholder="Nhập tên sân bay">
+              <input type="text" class="form-control m-input"
+              [ngModel]="currentItem.maDatCho"
+              required placeholder="Nhập mã đặt chỗ">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -153,7 +170,9 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="airport-name" required placeholder="Nhập tên sân bay">
+              <input type="text" class="form-control m-input"
+              [ngModel]="currentItem.maXuatVe"
+              required placeholder="Nhập mã xuất vé">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -169,7 +188,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" name="airlineAgentId" [ngModel]="currentItem.airlineAgentId">
+              <select class="form-control m-select2" id="m_select2_4_2" [ngModel]="currentItem.sanBayDi_chieuDi">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -186,7 +205,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" name="airlineAgentId" [ngModel]="currentItem.airlineAgentId">
+              <select class="form-control m-select2" id="m_select2_4_3" [ngModel]="currentItem.sanBayDen_chieuDi">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -203,7 +222,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" name="airlineAgentId" [ngModel]="currentItem.airlineAgentId">
+              <select class="form-control m-select2" id="m_select2_4_4" [ngModel]="currentItem.sanBayDi_chieuVe">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -220,7 +239,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" name="airlineAgentId" [ngModel]="currentItem.airlineAgentId">
+              <select class="form-control m-select2" id="m_select2_4_5" [ngModel]="currentItem.sanBayDen_chieuVe">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -234,22 +253,44 @@
 
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày giờ đi
+            Ngày giờ đi (chiều đi)
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.returnDate  | date: 'yyyy-MM-dd hh:mm'"
+              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.ngayBay_chieuDi | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_1" />
             </div>
           </div>
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày giờ về
+            Ngày giờ về (chiều đi)
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.returnDate  | date: 'yyyy-MM-dd hh:mm'"
+              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.ngayDen_chieuDi | date: 'yyyy-MM-dd hh:mm'"
+                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_2" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Ngày giờ đi (chiều về)
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="input-group m-input-group">
+              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.ngayBay_chieuVe | date: 'yyyy-MM-dd hh:mm'"
+                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_1" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Ngày giờ về (chiều về)
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="input-group m-input-group">
+              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.ngayDen_chieuVe | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_2" />
             </div>
           </div>

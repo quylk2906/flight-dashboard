@@ -5,14 +5,11 @@ import { Observable, Subject } from 'rxjs';
 import { Airport } from "../_models/airport.model";
 @Injectable()
 export class AirportService {
-  // private baseURL = 'https://vast-journey-12423.herokuapp.com/api/';
-
   listAirportsChanged = new Subject<Airport[]>()
   private listAirports: Airport[] = []
-
   constructor(private http: HttpClient) { }
 
-  getAirport() {
+  getAirports() {
     return this.listAirports
   }
 
