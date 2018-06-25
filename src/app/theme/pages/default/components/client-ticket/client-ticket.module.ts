@@ -5,6 +5,12 @@ import { ClientTicketComponent } from './client-ticket.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 
+import { ClientService } from '../../../../../_services/client.service';
+import { DataTablesModule } from 'angular-datatables';
+import { AirportService } from '../../../../../_services/airport.service';
+import { FormsModule } from '@angular/forms';
+import { ClientTicketService } from '../../../../../_services/client-ticket.service';
+
 const routes: Routes = [
   {
     "path": "",
@@ -19,10 +25,17 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule
+    CommonModule, RouterModule.forChild(routes), 
+    LayoutModule, 
+    FormsModule, 
+    DataTablesModule
   ], exports: [
     RouterModule
-  ], declarations: [
+  ],
+  providers: [
+    ClientService, AirportService, ClientTicketService
+  ],
+  declarations: [
     ClientTicketComponent
   ]
 })

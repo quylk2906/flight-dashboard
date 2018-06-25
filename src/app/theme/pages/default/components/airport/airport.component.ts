@@ -9,8 +9,6 @@ import { find } from 'lodash';
 import { Helpers } from '../../../../../helpers';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Subject';
-import { Router, NavigationEnd } from '@angular/router';
-// import * as $ from "jquery";
 
 @Component({
   selector: 'app-airport',
@@ -21,7 +19,6 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   public list: Airport[]
   @ViewChild(DataTableDirective)
-
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {
     responsive: !0,
@@ -41,15 +38,8 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   constructor(private _script: ScriptLoaderService,
-    private _service: AirportService,
-    private _router: Router
+    private _service: AirportService
   ) {
-    // this.navigationSubscription = this._router.events.subscribe((e: any) => {
-    //   // If it is a NavigationEnd event re-initalise the component
-    //   if (e instanceof NavigationEnd) {
-    //     this.list = this._service.getAirport()
-    //   }
-    // });
   }
 
   ngOnInit() {
@@ -70,9 +60,9 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    // if (form.invalid) {
-    //   return
-    // }
+    if (form.invalid) {
+      return
+    }
     Helpers.setLoading(true)
     const agent = trimObjectAfterSave(form.value)
     if (this.currentItem.id) {
@@ -126,8 +116,6 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit');
-
     this._script.loadScripts('app-airport',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',

@@ -1,4 +1,8 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy, ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs/Subject';
+
+
 import { ScriptLoaderService } from '../../../../../_services/script-loader.service';
 import { Airport } from '../../../../../_models/airport.model';
 import { Client } from '../../../../../_models/client.model';
@@ -8,6 +12,8 @@ import { ClientService } from '../../../../../_services/client.service';
 import { AirportService } from '../../../../../_services/airport.service';
 import { Select2 } from 'select2';
 import { ClientTicket } from '../../../../../_models/client-ticket.model';
+import { Helpers } from '../../../../../helpers';
+import { ClientTicketService } from '../../../../../_services/client-ticket.service';
 
 @Component({
   selector: 'app-client-ticket',
@@ -15,12 +21,13 @@ import { ClientTicket } from '../../../../../_models/client-ticket.model';
   encapsulation: ViewEncapsulation.None,
   styles: []
 })
-export class ClientTicketComponent implements OnInit, OnDestroy {
+export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
   listAirports: Airport[]
   listClients: Client[]
-  
+  list: ClientTicket[]
   public currentItem: ClientTicket = {
+    clientId: undefined,
     maDatCho: undefined,
     maXuatVe: undefined,
     tinhTrangVe: undefined,
@@ -41,20 +48,54 @@ export class ClientTicketComponent implements OnInit, OnDestroy {
     updatedAt: undefined
   }
 
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {
+    responsive: true,
+    pagingType: "full_numbers",
+    columnDefs: [
+    ],
+    order: [[0, "desc"]]
+  };
+  dtTrigger = new Subject();
+
+
   constructor(private _script: ScriptLoaderService,
     private _serviceClient: ClientService,
-    private _serviceAirport: AirportService) { }
+    private _serviceAirport: AirportService,
+    private _serviceClientTicket: ClientTicketService) { }
 
   ngOnInit() {
-    const clientApi = this._serviceClient.getClients()
-    const airportApi = this._serviceAirport.getAirports()
+
+    Helpers.setLoading(true)
+
+    this.listClients = this._serviceClient.getClients()
+    this.listAirports = this._serviceAirport.getAirports()
+    this.list = this._serviceClientTicket.getClients()
 
     this._serviceAirport.loadData()
     this._serviceClient.loadData()
+    this._serviceClientTicket.loadData()
+
+    this.subs = forkJoin(this._serviceAirport.listAirportsChanged, this._serviceClient.listClientsChanged, this._serviceClientTicket.listClientTicketsChanged).subscribe(
+      res => {
+        console.log('object', res);
+        this.list = res[2]
+        this.listClients = res[1]
+        this.listAirports = res[0]
+        this.rerender()
+        console.log(this.list, this.listClients, this.listAirports);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+
+
   }
 
 
-  loadScript() {
+  ngAfterViewInit() {
     const dataAirport = this.listAirports.map(item => { return { id: item.airportCode, text: item.airportName } })
     const dataClient = this.listClients.map(item => { return { id: item.id, text: item.fullName } })
 
@@ -71,9 +112,24 @@ export class ClientTicketComponent implements OnInit, OnDestroy {
         'assets/demo/default/custom/crud/forms/validation/form-controls.js',
         'assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js'
       ]);
+    this.dtTrigger.next();
   }
 
   ngOnDestroy() {
-
+    this.subs.unsubscribe()
+    this.dtTrigger.unsubscribe();
   }
+
+
+  rerender() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+      Helpers.setLoading(false)
+    });
+  }
+
+
 }
