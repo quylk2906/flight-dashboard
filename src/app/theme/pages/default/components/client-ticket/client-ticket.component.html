@@ -100,7 +100,8 @@
       </div>
     </div>
     <!--begin::Form-->
-    <form class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
+
+    <form #crudForm="ngForm" (ngSubmit)="onSubmit(crudForm)" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
       <div class="m-portlet__body">
         <div class="m-form__content">
           <div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
@@ -131,21 +132,21 @@
           </div>
         </div>
         <div class="form-group m-form__group row">
-          <!-- <label class="col-form-label col-lg-3 col-sm-12">
+          <label class="col-form-label col-lg-3 col-sm-12">
             Mã khách hàng *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem.id">
+              <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem.clientId" name="clientId">
                 <option></option>
               </select>
               <div class="input-group-append">
                 <span class="input-group-text">
-                  <i class="la la-plane"></i>
+                  <i class="la la-edit"></i>
                 </span>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
@@ -235,7 +236,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_5" [(ngModel)]="currentItem.sanBayDen_chieuVe" name="ngayBay_chsanBayDen_chieuVeieuDi">
+              <select class="form-control m-select2" id="m_select2_4_5" [(ngModel)]="currentItem.sanBayDen_chieuVe" name="sanBayDen_chieuVe">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -260,7 +261,7 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày giờ về (chiều đi)
+            Ngày giờ đến (chiều đi)
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
@@ -276,18 +277,18 @@
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
               <input type="text" class="form-control m-input" name="ngayBay_chieuVe" [ngModel]="currentItem.ngayBay_chieuVe | date: 'yyyy-MM-dd hh:mm'"
-                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_1" />
+                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_3" />
             </div>
           </div>
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày giờ về (chiều về)
+            Ngày giờ đến (chiều về)
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <input type="text" class="form-control m-input" name="ngayBay_chieuVe" [ngModel]="currentItem.ngayDen_chieuVe | date: 'yyyy-MM-dd hh:mm'"
-                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_2" />
+              <input type="text" class="form-control m-input" name="ngayDen_chieuVe" [ngModel]="currentItem.ngayDen_chieuVe | date: 'yyyy-MM-dd hh:mm'"
+                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_4" />
             </div>
           </div>
         </div>
