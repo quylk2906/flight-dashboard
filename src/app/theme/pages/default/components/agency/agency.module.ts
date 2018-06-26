@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AgencyComponent } from './agency.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
-import { PlaneService } from '../../../../../_services/plane.service';
 import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
@@ -26,8 +25,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    PlaneService
-  ], 
+  ],
   declarations: [
     AgencyComponent
   ]

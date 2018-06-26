@@ -66,15 +66,8 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceClientTicket: ClientTicketService) { }
 
   ngOnInit() {
-
     Helpers.setLoading(true)
-
-    this.listClients = this._serviceClient.getClients()
-    this.listAirports = this._serviceAirport.getAirports()
     this.list = this._serviceClientTicket.getClients()
-
-    this._serviceAirport.loadData()
-    this._serviceClient.loadData()
     this._serviceClientTicket.loadData()
 
     this.subs = forkJoin(this._serviceAirport.listAirportsChanged, this._serviceClient.listClientsChanged, this._serviceClientTicket.listClientTicketsChanged).subscribe(
@@ -90,6 +83,10 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(err);
       }
     )
+
+    const airportApi = this._serviceAirport.getAirportsObservable()
+    const clientApi = this._serviceClient.getClientsObservable()
+
 
 
   }

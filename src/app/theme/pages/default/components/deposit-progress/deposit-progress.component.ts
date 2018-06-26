@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../_services/script-loader.service';
 import { NgForm } from '@angular/forms';
-import { PlaneService } from '../../../../../_services/plane.service';
 import { Subscription } from 'rxjs/Subscription';
 import { trimObjectAfterSave } from '../../../../../_utils/trimObject';
 import { find } from 'lodash';
@@ -27,7 +26,7 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
   //   updatedAt: undefined
   // }
 
-  constructor(private _script: ScriptLoaderService, private _service: PlaneService) {
+  constructor(private _script: ScriptLoaderService) {
   }
 
 
@@ -58,12 +57,12 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   onDelete(id) {
-    this.subs = this._service.deletePlane(id).subscribe(rs => {
-      if (rs['count'] !== 0) {
-        // you have to call api to reload datable without reload page
-        window.location.reload()
-      }
-    })
+    // this.subs = this._service.deletePlane(id).subscribe(rs => {
+    //   if (rs['count'] !== 0) {
+    //     // you have to call api to reload datable without reload page
+    //     window.location.reload()
+    //   }
+    // })
   }
 
   onEdit(id) {

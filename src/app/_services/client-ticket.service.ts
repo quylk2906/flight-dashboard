@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import WebControl from "./base";
+import webControl from "./webControl";
 import { Subject } from 'rxjs/Subject';
 import { ClientTicket } from '../_models/client-ticket.model';
 
@@ -16,7 +16,7 @@ export class ClientTicketService {
   }
 
   loadData() {
-    this.http.get(WebControl.baseURL + 'ClientTickets').subscribe(
+    this.http.get(webControl.baseURL + 'ClientTickets').subscribe(
       res => {
         this.listClientTicketsChanged.next(res as ClientTicket[])
       }
@@ -24,20 +24,20 @@ export class ClientTicketService {
   }
 
   getClientsIncluded() {
-    return this.http.get(WebControl.baseURL + 'ClientTickets/ClientTickets-included')
+    return this.http.get(webControl.baseURL + 'ClientTickets/ClientTickets-included')
   }
 
   postClient(client) {
     const body = client
-    return this.http.post(WebControl.baseURL + 'ClientTickets', body, WebControl.httpOptions)
+    return this.http.post(webControl.baseURL + 'ClientTickets', body, webControl.httpOptions)
   }
 
   deleteClient(id) {
-    return this.http.delete(`${WebControl.baseURL}ClientTickets/${id}`)
+    return this.http.delete(`${webControl.baseURL}ClientTickets/${id}`)
   }
 
   putClient(client) {
     const body = client
-    return this.http.put(`${WebControl.baseURL}ClientTickets/${body.id}`, body, WebControl.httpOptions)
+    return this.http.put(`${webControl.baseURL}ClientTickets/${body.id}`, body, webControl.httpOptions)
   }
 }

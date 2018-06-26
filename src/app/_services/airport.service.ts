@@ -1,37 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import WebControl from "./base";
+import webControl from "./webControl";
 import { Observable, Subject } from 'rxjs';
 import { Airport } from "../_models/airport.model";
+
 @Injectable()
 export class AirportService {
   listAirportsChanged = new Subject<Airport[]>()
   private listAirports: Airport[] = []
+  private endPoint: string = 'Airports'
   constructor(private http: HttpClient) { }
-
   getAirports() {
     return this.listAirports
   }
 
   loadData() {
-    this.http.get(WebControl.baseURL + 'Airports').subscribe(
+    this.http.get(webControl.baseURL + this.endPoint).subscribe(
       res => {
         this.listAirportsChanged.next(res as Airport[])
       }
     )
   }
 
+  getAirportsObservable() {
+    return this.http.get(webControl.baseURL + this.endPoint)
+  }
+
+
   postAirport(airport) {
     const body = airport
-    return this.http.post(WebControl.baseURL + 'Airports', body, WebControl.httpOptions)
+    return this.http.post(webControl.baseURL + this.endPoint, body, webControl.httpOptions)
   }
 
   deleteAirport(id) {
-    return this.http.delete(`${WebControl.baseURL}Airports/${id}`)
+    return this.http.delete(`${webControl.baseURL}${this.endPoint}/${id}`)
   }
 
   putAirport(airport) {
     const body = airport
-    return this.http.put(`${WebControl.baseURL}Airports/${body.id}`, body, WebControl.httpOptions)
+    return this.http.put(`${webControl.baseURL}${this.endPoint}/${body.id}`, body, webControl.httpOptions)
   }
 }
