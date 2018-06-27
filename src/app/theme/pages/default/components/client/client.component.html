@@ -136,8 +136,7 @@ BEGIN: Subheader
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required
-                placeholder="Nhập họ tên">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -152,8 +151,7 @@ BEGIN: Subheader
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber" required
-                placeholder="Nhập số điện thoại">
+              <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber" required placeholder="Nhập số điện thoại">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -178,7 +176,7 @@ BEGIN: Subheader
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group date">
-              <input type="text" class="form-control m-input" name="departureDate" [(ngModel)]="currentItem.departureDate | date: 'yyyy-MM-dd hh:mm'"
+              <input type="text" class="form-control m-input" name="departureDate" [ngModel]="currentItem.departureDate | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1" />
               <div class="input-group-append">
                 <span class="input-group-text">
@@ -194,7 +192,7 @@ BEGIN: Subheader
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group date">
-              <input type="text" class="form-control m-input" name="returnDate" [(ngModel)]="currentItem.returnDate  | date: 'yyyy-MM-dd hh:mm'"
+              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.returnDate  | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_1" />
               <div class="input-group-append">
                 <span class="input-group-text">

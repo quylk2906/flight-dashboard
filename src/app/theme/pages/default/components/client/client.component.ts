@@ -18,8 +18,8 @@ import { Subject } from 'rxjs/Subject';
   encapsulation: ViewEncapsulation.None
 })
 export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
-  private subs: Subscription
   public list: Client[]
+  private subsArr: Subscription[] = []
   public currentItem: Client = {
     fullName: undefined,
     phoneNumber: undefined,
@@ -48,7 +48,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     Helpers.setLoading(true)
     this.list = this._service.getClients();
-    this.subs = this._service.listClientsChanged.subscribe(
+    const sub1 = this._service.listClientsChanged.subscribe(
       rs => {
         console.log(rs);
         this.list = rs
@@ -59,20 +59,20 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(err);
       })
     this._service.loadData()
+    this.subsArr.push(sub1)
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    Helpers.setLoading(true)
     if (form.invalid) {
       return
     }
-
-
+    let sub: Subscription
     if (this.currentItem.id) {
-      this.subs = this._service.putClient(this.currentItem).subscribe(
+      sub = this._service.putClient(this.currentItem).subscribe(
         rs => {
           this._service.loadData()
-          Helpers.setLoading(false)
+          form.resetForm()
         },
         err => {
           alert(err.error.error.message)
@@ -80,10 +80,10 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       )
     } else {
-      this.subs = this._service.postClient(this.currentItem).subscribe(
+      sub = this._service.postClient(this.currentItem).subscribe(
         rs => {
           this._service.loadData()
-          Helpers.setLoading(false)
+          form.resetForm()
         },
         err => {
           alert(err.error.error.message)
@@ -91,14 +91,18 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       )
     }
+    this.subsArr.push(sub)
   }
 
   onDelete(id) {
-    this.subs = this._service.deleteClient(id).subscribe(rs => {
+    Helpers.setLoading(true)
+    const sub1 = this._service.deleteClient(id).subscribe(rs => {
       if (rs['count'] !== 0) {
         // you have to call api to reload datable without reload page
+        this._service.loadData()
       }
     })
+    this.subsArr.push(sub1)
   }
 
   onEdit(id) {
@@ -106,7 +110,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.subs.unsubscribe()
+    this.subsArr.forEach(sub => sub.unsubscribe())
     this.dtTrigger.unsubscribe();
   }
 

@@ -27,11 +27,12 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   listAirports: Airport[]
   listClients: Client[]
   list: ClientTicket[]
+  listStatus: string[] = ['None', 'Pending', 'Approved', 'Rejected']
   public currentItem: ClientTicket = {
     clientId: undefined,
     maDatCho: undefined,
     maXuatVe: undefined,
-    tinhTrangVe: undefined,
+    tinhTrangVe: 'None',
     sanBayDi_chieuDi: undefined,
     sanBayDen_chieuDi: undefined,
     sanBayDi_chieuVe: undefined,
@@ -105,6 +106,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     // if (form.invalid) {
     //   return
     // }
+    Helpers.setLoading(true)
     const client = form.value as ClientTicket
     client.gioBay_chieuDi = $('#m_datetimepicker_1_1').val().toString()
     client.gioDen_chieuDi = $('#m_datetimepicker_1_2').val().toString()
@@ -123,19 +125,25 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     client.sanBayDen_chieuVe = $("#m_select2_4_5").val().toString()
 
     console.log(client);
-    let subs1: Subscription
+    let subs: Subscription
     if (this.currentItem.id) {
-      subs1 = this._serviceClientTicket.putClient(client).subscribe(
-        rs => { window.location.reload() },
-        err => { alert(err.error.error.message) }
+      subs = this._serviceClientTicket.putClient(client).subscribe(
+        rs => {
+          this._serviceClientTicket.loadData()
+          form.resetForm()
+        },
+        err => { Helpers.setLoading(false); alert(err.error.error.message) }
       )
     } else {
-      subs1 = this._serviceClientTicket.postClient(client).subscribe(
-        rs => { window.location.reload() },
-        err => { alert(err.error.error.message) }
+      subs = this._serviceClientTicket.postClient(client).subscribe(
+        rs => {
+          this._serviceClientTicket.loadData()
+          form.resetForm()
+        },
+        err => { Helpers.setLoading(false); alert(err.error.error.message) }
       )
     }
-    this.subsArr.push(subs1)
+    this.subsArr.push(subs)
 
   }
 

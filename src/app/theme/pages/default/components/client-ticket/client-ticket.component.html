@@ -178,6 +178,25 @@
             </div>
           </div>
         </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Tình trạng vé *
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-input" id="exampleSelect1" name="tinhTrangVe" [ngModel]="currentItem.tinhTrangVe">
+                <option *ngFor="let item of listStatus" [value]="item">
+                  {{item}}
+                </option>
+              </select>
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
 
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
@@ -185,7 +204,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_2" [(ngModel)]="currentItem.sanBayDi_chieuDi" name="sanBayDi_chieuDi">
+              <select class="form-control m-" id="m_select2_4_2" [(ngModel)]="currentItem.sanBayDi_chieuDi" name="sanBayDi_chieuDi">
                 <option></option>
               </select>
               <div class="input-group-append">
@@ -418,6 +437,9 @@
             </th>
             <th>
               Trang thái
+            </th>
+            <th>
+              Ngày tạo
             </th>
             <th>
               Action

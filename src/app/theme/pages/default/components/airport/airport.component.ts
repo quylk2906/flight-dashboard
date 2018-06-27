@@ -16,7 +16,7 @@ import { Subject } from 'rxjs/Subject';
   encapsulation: ViewEncapsulation.None
 })
 export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
-  private subs: Subscription
+  private subsArr: Subscription[] = []
   public list: Airport[]
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -46,7 +46,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     Helpers.setLoading(true)
 
     this.list = this._service.getAirports();
-    this.subs = this._service.listAirportsChanged.subscribe(
+    const sub1 = this._service.listAirportsChanged.subscribe(
       rs => {
         console.log(rs);
         this.list = rs
@@ -56,6 +56,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log('console.log(err);');
         console.log(err);
       })
+    this.subsArr.push(sub1)
     this._service.loadData()
   }
 
@@ -65,10 +66,12 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     Helpers.setLoading(true)
     const agent = trimObjectAfterSave(form.value)
+    let sub: Subscription
     if (this.currentItem.id) {
-      this.subs = this._service.putAirport(agent).subscribe(
+      sub = this._service.putAirport(agent).subscribe(
         rs => {
-          Helpers.setLoading(false)
+          this._service.loadData()
+          form.resetForm()
         },
         err => {
           alert(err.error.error.message);
@@ -76,10 +79,10 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       )
     } else {
-      this.subs = this._service.postAirport(agent).subscribe(
+      sub = this._service.postAirport(agent).subscribe(
         rs => {
-          Helpers.setLoading(false)
-          this.handleDataTable()
+          this._service.loadData()
+          form.resetForm()
         },
         err => {
           alert(err.error.error.message)
@@ -87,20 +90,19 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       )
     }
+    this.subsArr.push(sub)
   }
 
 
-  handleDataTable() {
-    this._service.loadData()
-  }
 
   onDelete(id) {
-    this.subs = this._service.deleteAirport(id).subscribe(rs => {
+    const sub = this._service.deleteAirport(id).subscribe(rs => {
       if (rs['count'] !== 0) {
         // you have to call api to reload datable without reload page
-        window.location.reload()
+        this._service.loadData()
       }
     })
+    this.subsArr.push(sub)
   }
 
   onEdit(id) {
@@ -110,7 +112,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe()
+    this.subsArr.forEach(sub => sub.unsubscribe())
     Helpers.setLoading(true)
     this.dtTrigger.unsubscribe();
   }
