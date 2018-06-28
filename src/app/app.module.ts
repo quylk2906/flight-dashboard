@@ -14,6 +14,7 @@ import { AuthModule } from "./auth/auth.module";
 import { LayoutComponent } from '../app/theme/layouts/layout/layout.component';
 import { AsideLeftMinimizeDefaultEnabledComponent } from '../app/theme/pages/aside-left-minimize-default-enabled/aside-left-minimize-default-enabled.component';
 import { DataTablesModule } from 'angular-datatables';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AsideLeftMinimizeDefaultEnabledComponent,
@@ -29,7 +30,8 @@ import { DataTablesModule } from 'angular-datatables';
     ThemeRoutingModule,
     AuthModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [ScriptLoaderService],
   bootstrap: [AppComponent]

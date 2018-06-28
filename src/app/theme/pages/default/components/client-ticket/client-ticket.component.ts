@@ -15,6 +15,7 @@ import { ClientTicket } from '../../../../../_models/client-ticket.model';
 import { Helpers } from '../../../../../helpers';
 import { ClientTicketService } from '../../../../../_services/client-ticket.service';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-client-ticket',
@@ -65,7 +66,9 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private _script: ScriptLoaderService,
     private _serviceClient: ClientService,
     private _serviceAirport: AirportService,
-    private _serviceClientTicket: ClientTicketService) { }
+    private _serviceClientTicket: ClientTicketService,
+    private _toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this.subsArr = []
@@ -82,7 +85,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       err => {
         console.log(err);
       })
-
 
     const airportApi = this._serviceAirport.getAirportsObservable()
     const clientApi = this._serviceClient.getClientsObservable()
@@ -106,45 +108,45 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     // if (form.invalid) {
     //   return
     // }
-    Helpers.setLoading(true)
-    const client = form.value as ClientTicket
-    client.gioBay_chieuDi = $('#m_datetimepicker_1_1').val().toString()
-    client.gioDen_chieuDi = $('#m_datetimepicker_1_2').val().toString()
-    client.ngayBay_chieuDi = $('#m_datetimepicker_1_1').val().toString()
-    client.ngayDen_chieuDi = $('#m_datetimepicker_1_2').val().toString()
+    // Helpers.setLoading(true)
+    // const client = form.value as ClientTicket
+    // client.gioBay_chieuDi = $('#m_datetimepicker_1_1').val().toString()
+    // client.gioDen_chieuDi = $('#m_datetimepicker_1_2').val().toString()
+    // client.ngayBay_chieuDi = $('#m_datetimepicker_1_1').val().toString()
+    // client.ngayDen_chieuDi = $('#m_datetimepicker_1_2').val().toString()
 
-    client.gioBay_chieuVe = $('#m_datetimepicker_1_3').val().toString()
-    client.gioDen_chieuVe = $('#m_datetimepicker_1_4').val().toString()
-    client.ngayBay_chieuVe = $('#m_datetimepicker_1_3').val().toString()
-    client.ngayDen_chieuVe = $('#m_datetimepicker_1_4').val().toString()
+    // client.gioBay_chieuVe = $('#m_datetimepicker_1_3').val().toString()
+    // client.gioDen_chieuVe = $('#m_datetimepicker_1_4').val().toString()
+    // client.ngayBay_chieuVe = $('#m_datetimepicker_1_3').val().toString()
+    // client.ngayDen_chieuVe = $('#m_datetimepicker_1_4').val().toString()
 
-    client.clientId = $("#m_select2_4_1").val().toString()
-    client.sanBayDi_chieuDi = $("#m_select2_4_2").val().toString()
-    client.sanBayDen_chieuDi = $("#m_select2_4_3").val().toString()
-    client.sanBayDi_chieuVe = $("#m_select2_4_4").val().toString()
-    client.sanBayDen_chieuVe = $("#m_select2_4_5").val().toString()
+    // client.clientId = $("#m_select2_4_1").val().toString()
+    // client.sanBayDi_chieuDi = $("#m_select2_4_2").val().toString()
+    // client.sanBayDen_chieuDi = $("#m_select2_4_3").val().toString()
+    // client.sanBayDi_chieuVe = $("#m_select2_4_4").val().toString()
+    // client.sanBayDen_chieuVe = $("#m_select2_4_5").val().toString()
 
-    console.log(client);
-    let subs: Subscription
-    if (this.currentItem.id) {
-      subs = this._serviceClientTicket.putClient(client).subscribe(
-        rs => {
-          this._serviceClientTicket.loadData()
-          form.resetForm()
-        },
-        err => { Helpers.setLoading(false); alert(err.error.error.message) }
-      )
-    } else {
-      subs = this._serviceClientTicket.postClient(client).subscribe(
-        rs => {
-          this._serviceClientTicket.loadData()
-          form.resetForm()
-        },
-        err => { Helpers.setLoading(false); alert(err.error.error.message) }
-      )
-    }
-    this.subsArr.push(subs)
-
+    // let subs: Subscription
+    // if (this.currentItem.id) {
+    //   subs = this._serviceClientTicket.putClient(client).subscribe(
+    //     rs => {
+    //       this._serviceClientTicket.loadData()
+    //       form.resetForm()
+    //     },
+    //     err => { Helpers.setLoading(false); alert(err.error.error.message) }
+    //   )
+    // } else {
+    //   subs = this._serviceClientTicket.postClient(client).subscribe(
+    //     rs => {
+    //       this._serviceClientTicket.loadData()
+    //       form.resetForm()
+    //     },
+    //     err => { Helpers.setLoading(false); alert(err.error.error.message) }
+    //   )
+    // }
+    // this.subsArr.push(subs)
+    // this._toastr.success('You are awesome!', 'Success!');
+    this._toastr.error('Thêm thành công', undefined, { closeButton: true });
   }
 
   ngAfterViewInit() {
@@ -152,7 +154,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
         'assets/demo/default/custom/crud/datatables/basic/paginations.js',
-        'assets/demo/default/custom/crud/forms/widgets/select2.js',
         'assets/demo/default/custom/crud/forms/validation/form-controls.js',
         'assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js'
       ]);
@@ -171,6 +172,11 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     $("#m_select2_4_3").select2({ data: dataAirport })
     $("#m_select2_4_4").select2({ data: dataAirport })
     $("#m_select2_4_5").select2({ data: dataAirport })
+
+    this._script.loadScripts('app-client-ticket',
+      [
+        'assets/demo/default/custom/crud/forms/widgets/select2.js'
+      ]);
   }
 
   ngOnDestroy() {
