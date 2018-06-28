@@ -11,6 +11,7 @@ import { Client } from '../../../../../_models/client.model';
 import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Subject';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-client',
@@ -42,24 +43,24 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   constructor(private _script: ScriptLoaderService,
-    private _service: ClientService) {
+    private _service: ClientService,
+    private _toastr: ToastrService
+  ) {
   }
 
   ngOnInit() {
     Helpers.setLoading(true)
     this.list = this._service.getClients();
-    const sub1 = this._service.listClientsChanged.subscribe(
+    const sub = this._service.listClientsChanged.subscribe(
       rs => {
-        console.log(rs);
         this.list = rs
         this.rerender()
       },
       err => {
-        console.log('console.log(err);');
-        console.log(err);
+        this._toastr.error(err, undefined, { closeButton: true });
       })
     this._service.loadData()
-    this.subsArr.push(sub1)
+    this.subsArr.push(sub)
   }
 
   onSubmit(form: NgForm) {
@@ -73,9 +74,10 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
         rs => {
           this._service.loadData()
           form.resetForm()
+          this._toastr.info('Thay đổi thành công', undefined, { closeButton: true });
         },
         err => {
-          alert(err.error.error.message)
+          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
           Helpers.setLoading(false)
         }
       )
@@ -84,9 +86,10 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
         rs => {
           this._service.loadData()
           form.resetForm()
+          this._toastr.info('Thêm thành công', undefined, { closeButton: true });
         },
         err => {
-          alert(err.error.error.message)
+          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
           Helpers.setLoading(false)
         }
       )
@@ -96,13 +99,13 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onDelete(id) {
     Helpers.setLoading(true)
-    const sub1 = this._service.deleteClient(id).subscribe(rs => {
+    const sub = this._service.deleteClient(id).subscribe(rs => {
       if (rs['count'] !== 0) {
-        // you have to call api to reload datable without reload page
+        this._toastr.info('Xóa thành công', undefined, { closeButton: true });
         this._service.loadData()
       }
     })
-    this.subsArr.push(sub1)
+    this.subsArr.push(sub)
   }
 
   onEdit(id) {
@@ -110,6 +113,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
+    Helpers.setLoading(true)
     this.subsArr.forEach(sub => sub.unsubscribe())
     this.dtTrigger.unsubscribe();
   }

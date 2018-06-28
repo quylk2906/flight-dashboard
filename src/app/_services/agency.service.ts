@@ -1,31 +1,49 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import webControl from "./webControl";
+import { Agency } from '../_models/agency.model';
+import { Subject } from 'rxjs';
 
 @Injectable()
 
 export class AgencyService {
+  private endPoint: string = 'Agencies'
+  listAgencyhanged = new Subject<Agency[]>()
+  private listAgencies: Agency[] = []
 
   constructor(private http: HttpClient) { }
 
-  getAgenciess() {
-    return this.http.get(webControl.baseURL + 'Agencies')
+  getAgencies() {
+    return this.listAgencies
   }
+
+  loadData() {
+    this.http.get(webControl.baseURL + this.endPoint).subscribe(
+      res => {
+        this.listAgencyhanged.next(res as Agency[])
+      }
+    )
+  }
+
   getAgenciesInclude() {
     return this.http.get(webControl.baseURL + 'Agency/Agencies-included')
   }
 
-  postAgencies(Agency) {
-    const body = Agency
-    return this.http.post(webControl.baseURL + 'Agencies', body, webControl.httpOptions)
+  getAgenciesObservable() {
+    return this.http.get(webControl.baseURL + this.endPoint)
+  }
+
+  postAgencies(agency) {
+    const body = agency
+    return this.http.post(webControl.baseURL + this.endPoint, body, webControl.httpOptions)
   }
 
   deleteAgency(id) {
-    return this.http.delete(`${webControl.baseURL}Agencies/${id}`)
+    return this.http.delete(`${webControl.baseURL}${this.endPoint}/${id}`)
   }
 
-  putAgencies(Agency) {
-    const body = Agency
-    return this.http.put(`${webControl.baseURL}Agencies/${body.id}`, body, webControl.httpOptions)
+  putAgencies(agency) {
+    const body = agency
+    return this.http.put(`${webControl.baseURL}${this.endPoint}/${body.id}`, body, webControl.httpOptions)
   }
 }

@@ -5,6 +5,9 @@ import { DepositComponent } from './deposit.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 import { FormsModule } from '@angular/forms';
+import { DepositService } from '../../../../../_services/deposit.service';
+import { AgencyService } from '../../../../../_services/agency.service';
+import { DataTablesModule } from 'angular-datatables';
 
 const routes: Routes = [
   {
@@ -20,12 +23,14 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule
+    CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule,
+    DataTablesModule
   ], exports: [
     RouterModule
   ],
   providers: [
-
+    DepositService,
+    AgencyService
   ], 
   declarations: [
     DepositComponent

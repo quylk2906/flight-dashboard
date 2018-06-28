@@ -9,7 +9,7 @@ import { find } from 'lodash';
 import { Helpers } from '../../../../../helpers';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Subject';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-airport',
   templateUrl: './airport.component.html',
@@ -38,7 +38,8 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   constructor(private _script: ScriptLoaderService,
-    private _service: AirportService
+    private _service: AirportService,
+    private _toastr: ToastrService
   ) {
   }
 
@@ -46,17 +47,15 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     Helpers.setLoading(true)
 
     this.list = this._service.getAirports();
-    const sub1 = this._service.listAirportsChanged.subscribe(
+    const sub = this._service.listAirportsChanged.subscribe(
       rs => {
-        console.log(rs);
         this.list = rs
         this.rerender()
       },
       err => {
-        console.log('console.log(err);');
-        console.log(err);
+        this._toastr.error(err, undefined, { closeButton: true });
       })
-    this.subsArr.push(sub1)
+    this.subsArr.push(sub)
     this._service.loadData()
   }
 
@@ -72,9 +71,10 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
         rs => {
           this._service.loadData()
           form.resetForm()
+          this._toastr.info('Thay đổi thành công', undefined, { closeButton: true });
         },
         err => {
-          alert(err.error.error.message);
+          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
           Helpers.setLoading(false)
         }
       )
@@ -83,9 +83,10 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
         rs => {
           this._service.loadData()
           form.resetForm()
+          this._toastr.info('Thêm thành công', undefined, { closeButton: true });
         },
         err => {
-          alert(err.error.error.message)
+          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
           Helpers.setLoading(false)
         }
       )
@@ -99,6 +100,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     const sub = this._service.deleteAirport(id).subscribe(rs => {
       if (rs['count'] !== 0) {
         // you have to call api to reload datable without reload page
+        this._toastr.info('Xóa thành công', undefined, { closeButton: true });
         this._service.loadData()
       }
     })
@@ -111,7 +113,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.subsArr.forEach(sub => sub.unsubscribe())
     Helpers.setLoading(true)
     this.dtTrigger.unsubscribe();
@@ -128,7 +130,6 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   rerender() {
-    console.log('rerender');
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();

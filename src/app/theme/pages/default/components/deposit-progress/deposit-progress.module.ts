@@ -5,6 +5,11 @@ import { DepositProgressComponent } from './deposit-progress.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DefaultComponent } from '../../../default/default.component';
 import { FormsModule } from '@angular/forms';
+import { Progresservice } from '../../../../../_services/deposit-progress.service';
+import { AgencyService } from '../../../../../_services/agency.service';
+import { DepositService } from '../../../../../_services/deposit.service';
+import { AccountService } from '../../../../../_services/account.service';
+import { DataTablesModule } from 'angular-datatables';
 
 const routes: Routes = [
   {
@@ -20,11 +25,16 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule
+    CommonModule, RouterModule.forChild(routes), LayoutModule, FormsModule,
+    DataTablesModule
   ], exports: [
     RouterModule
   ],
   providers: [
+    Progresservice,
+    AgencyService,
+    DepositService,
+    AccountService
   ],
   declarations: [
     DepositProgressComponent

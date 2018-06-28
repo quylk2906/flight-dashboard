@@ -132,11 +132,11 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Tên đại lý *
+            Mã đại lý *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="planeCode" [ngModel]="currentItem.planeCode" required placeholder="Nhập mã sân bay">
+              <input type="text" class="form-control m-input" name="agencyCode" [ngModel]="currentItem.agencyCode" required placeholder="Nhập mã đại ly">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -147,11 +147,11 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Mã đại lý *
+            Tên đại lý *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="planeCode" [ngModel]="currentItem.planeCode" required placeholder="Nhập mã sân bay">
+              <input type="text" class="form-control m-input" name="agencyName" [ngModel]="currentItem.agencyName" required placeholder="Nhập tên đại lý">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -166,7 +166,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="planeName" [ngModel]="currentItem.planeName" required placeholder="Nhập mã sân bay">
+              <input type="text" class="form-control m-input" name="representative" [ngModel]="currentItem.representative" required placeholder="Người đại diện">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -181,7 +181,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="seatNumber" [ngModel]="currentItem.seatNumber" required placeholder="Nhập tên sân bay">
+              <input type="number" class="form-control m-input" name="identification" [ngModel]="currentItem.identification" required placeholder="Số CMND">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -196,7 +196,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="seatNumber" [ngModel]="currentItem.seatNumber" required placeholder="Nhập tên sân bay">
+              <input type="number" class="form-control m-input" name="phoneNumber" [ngModel]="currentItem.phoneNumber" required placeholder="Số điện thoại">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -211,7 +211,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <textarea class="form-control m-input" name="desciption" placeholder="Enter a menu"></textarea>
+              <textarea class="form-control m-input" name="address" [ngModel]="currentItem.address"  placeholder="Địa chỉ"></textarea>
             </div>
           </div>
         </div>
@@ -326,7 +326,8 @@
     </div>
     <div class="m-portlet__body">
       <!--begin: Datatable -->
-      <table class="table table-striped- table-bordered table-hover" id="m_table_1">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped- table-bordered table-hover table-checkable"
+      id="">
         <thead>
           <tr>
             <th>
@@ -339,7 +340,10 @@
               Tên đại lý
             </th>
             <th>
-              Hoạt động
+              Người đại diện
+            </th>
+            <th>
+              Số ĐT
             </th>
             <th>
               Ngày tạo
@@ -355,24 +359,19 @@
               {{i + 1}}
             </td>
             <td>
-              {{item.planeCode}}
+              {{item.agencyCode}}
             </td>
             <td>
-              {{item.planeName}}
+              {{item.agencyName}}
             </td>
             <td>
-              {{item.seatNumber}}
+              {{item.representative}}
             </td>
             <td>
-              {{item.availableSeatNumber}}
+              {{item.phoneNumber}}
             </td>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
-            </td>
-            <td>
-              <span class="m-badge m-badge--success m-badge--dot"></span>
-              &nbsp;
-              <span class="m--font-bold m--font-success">Active</span>
             </td>
             <td>
               <span class="dropdown">
@@ -383,9 +382,9 @@
                   <a class="dropdown-item" href="#" (click)="onEdit(item.id)">
                     <i class="la la-edit"></i> Edit</a>
                   <a class="dropdown-item" href="#" (click)="onDelete(item.id)">
-                    <i class="la la-leaf"></i> Delete</a>
+                    <i class="la la-edit"></i> Delete</a>
                   <a class="dropdown-item" href="#">
-                    <i class="la la-leaf"></i> Clone</a>
+                    <i class="la la-edit"></i> Clone</a>
                 </div>
               </span>
             </td>

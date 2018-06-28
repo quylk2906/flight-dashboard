@@ -94,7 +94,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Thêm mới máy bay.
+            Thêm mới ký quỹ.
           </h3>
         </div>
       </div>
@@ -124,7 +124,7 @@
               <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
-                  <i class="la la-check"></i>
+                  <i class="la la-edit"></i>
                 </span>
               </span>
             </div>
@@ -132,11 +132,27 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Mã máy bay *
+            Mã đại lý*
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="input-group m-input-group">
+              <select class="form-control m-select2" id="m_select2_4_1" [ngModel]="currentItem.agencyId" name="agencyId">
+              </select>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="la la-edit"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Tổng tiền ký quỹ*
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="planeCode" [(ngModel)]="currentItem.planeCode" required placeholder="Nhập mã sân bay">
+              <input type="number" class="form-control m-input" name="totalDeposit" [ngModel]="currentItem.totalDeposit" required placeholder="Tổng tiền ký quỹ">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -147,11 +163,11 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Tên máy bay *
+            Số dư hiện tại*
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="planeName" [(ngModel)]="currentItem.planeName" required placeholder="Nhập mã sân bay">
+              <input type="number" class="form-control m-input" name="currentBalance" [ngModel]="currentItem.currentBalance" required placeholder="Số dư hiện tại">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -160,44 +176,12 @@
             </div>
           </div>
         </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Số ghế *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="seatNumber" [(ngModel)]="currentItem.seatNumber" required placeholder="Nhập tên sân bay">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-check"></i>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Số ghế trống*
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="availableSeatNumber" [(ngModel)]="currentItem.availableSeatNumber"
-                required placeholder="Nhập tên sân bay">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-check"></i>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-
       </div>
       <div class="m-portlet__foot m-portlet__foot--fit">
         <div class="m-form__actions m-form__actions">
           <div class="row">
             <div class="col-lg-9 ml-lg-auto">
-              <button type="submit" class="btn m-btn--pill m-btn--air btn-info">
+              <button type="submit" class="btn m-btn--pill m-btn--air btn-info mr-2">
                 Submit
               </button>
               <button type="reset" class="btn m-btn--pill m-btn--air btn-danger">
@@ -216,7 +200,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Danh sách máy bay.
+            Danh sách ký quỹ.
           </h3>
         </div>
       </div>
@@ -313,29 +297,23 @@
     </div>
     <div class="m-portlet__body">
       <!--begin: Datatable -->
-      <table class="table table-striped- table-bordered table-hover" id="m_table_1">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped- table-bordered table-hover table-checkable">
         <thead>
           <tr>
             <th>
               #
             </th>
             <th>
-              Mã máy bay
+              Mã đại lý
             </th>
             <th>
-              Tên máy bay
+              Tổng tiền ký quỹ
             </th>
             <th>
-              Số ghế
-            </th>
-            <th>
-              Số ghế trống
+              Số dư hiện tại
             </th>
             <th>
               Ngày tạo
-            </th>
-            <th>
-              Status
             </th>
             <th>
               Actions
@@ -348,24 +326,16 @@
               {{i + 1}}
             </td>
             <td>
-              {{item.planeCode}}
+              DL-{{item.agencyId}}
             </td>
             <td>
-              {{item.planeName}}
+              {{item.totalDeposit}}
             </td>
             <td>
-              {{item.seatNumber}}
-            </td>
-            <td>
-              {{item.availableSeatNumber}}
+              {{item.currentBalance}}
             </td>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
-            </td>
-            <td>
-              <span class="m-badge m-badge--success m-badge--dot"></span>
-              &nbsp;
-              <span class="m--font-bold m--font-success">Active</span>
             </td>
             <td>
               <span class="dropdown">
@@ -376,9 +346,9 @@
                   <a class="dropdown-item" href="#" (click)="onEdit(item.id)">
                     <i class="la la-edit"></i> Edit</a>
                   <a class="dropdown-item" href="#" (click)="onDelete(item.id)">
-                    <i class="la la-leaf"></i> Delete</a>
+                    <i class="la la-edit"></i> Delete</a>
                   <a class="dropdown-item" href="#">
-                    <i class="la la-leaf"></i> Clone</a>
+                    <i class="la la-edit"></i> Clone</a>
                 </div>
               </span>
             </td>
