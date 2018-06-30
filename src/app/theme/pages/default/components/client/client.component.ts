@@ -135,7 +135,8 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
         'assets/demo/default/custom/crud/datatables/standard/paginations.js',
-        'assets/demo/default/custom/crud/forms/validation/form-controls.js'
+        'assets/demo/default/custom/crud/forms/validation/form-controls.js',
+        'assets/demo/default/custom/components/base/dropdown.js'
       ]);
     this.dtTrigger.next();
   }

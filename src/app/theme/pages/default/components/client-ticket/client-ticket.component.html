@@ -136,19 +136,12 @@
             Mã khách hàng *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem.clientId" name="clientId">
-                <option></option>
-              </select>
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="la la-edit"></i>
-                </span>
-              </div>
-            </div>
+            <select class="form-control m-select2" id="m_select2_4_1" [ngModel]="currentItem.clientId" name="clientId">
+              <option></option>
+            </select>
           </div>
         </div>
-        <div class="form-group m-form__group row">
+        <!-- <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Mã đặt chỗ *
           </label>
@@ -162,14 +155,14 @@
               </span>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Mã xuất vé *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.maXuatVe" name="maXuatVe" required placeholder="Nhập mã xuất vé">
+              <input type="text" class="form-control m-input" [ngModel]="currentItem.maXuatVe" name="maXuatVe" required placeholder="Nhập mã xuất vé">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -184,16 +177,11 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-input" id="exampleSelect1" name="tinhTrangVe" [ngModel]="currentItem.tinhTrangVe">
+              <select class="form-control m-input" id="exampleSelect1" disabled name="tinhTrangVe" [ngModel]="currentItem.tinhTrangVe">
                 <option *ngFor="let item of listStatus" [value]="item">
                   {{item}}
                 </option>
               </select>
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
             </div>
           </div>
         </div>
@@ -203,16 +191,9 @@
             Sân bay đi (chiều đi)
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
-              <select class="form-control m-" id="m_select2_4_2" [(ngModel)]="currentItem.sanBayDi_chieuDi" name="sanBayDi_chieuDi">
-                <option></option>
-              </select>
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="la la-plane"></i>
-                </span>
-              </div>
-            </div>
+            <select class="form-control m-" id="m_select2_4_2" [ngModel]="currentItem.sanBayDi_chieuDi" name="sanBayDi_chieuDi">
+              <option></option>
+            </select>
           </div>
         </div>
         <div class="form-group m-form__group row">
@@ -220,16 +201,9 @@
             Sân bay đến (chiều đi)
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_3" [(ngModel)]="currentItem.sanBayDen_chieuDi" name="sanBayDen_chieuDi">
-                <option></option>
-              </select>
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="la la-plane"></i>
-                </span>
-              </div>
-            </div>
+            <select class="form-control m-select2" id="m_select2_4_3" [ngModel]="currentItem.sanBayDen_chieuDi" name="sanBayDen_chieuDi">
+              <option></option>
+            </select>
           </div>
         </div>
         <div class="form-group m-form__group row">
@@ -237,16 +211,9 @@
             Sân bay đi (chiều về)
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_4" [(ngModel)]="currentItem.sanBayDi_chieuVe" name="sanBayDi_chieuVe">
-                <option></option>
-              </select>
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="la la-plane"></i>
-                </span>
-              </div>
-            </div>
+            <select class="form-control m-select2" id="m_select2_4_4" [ngModel]="currentItem.sanBayDi_chieuVe" name="sanBayDi_chieuVe">
+              <option></option>
+            </select>
           </div>
         </div>
         <div class="form-group m-form__group row">
@@ -254,19 +221,11 @@
             Sân bay đến (chiều về)
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_5" [(ngModel)]="currentItem.sanBayDen_chieuVe" name="sanBayDen_chieuVe">
-                <option></option>
-              </select>
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="la la-plane"></i>
-                </span>
-              </div>
-            </div>
+            <select class="form-control m-select2" id="m_select2_4_5" [ngModel]="currentItem.sanBayDen_chieuVe" name="sanBayDen_chieuVe">
+              <option></option>
+            </select>
           </div>
         </div>
-
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Ngày giờ đi (chiều đi)
@@ -338,86 +297,9 @@
             Danh sách.
           </h3>
         </div>
-      </div>
-      <div class="m-portlet__head-tools">
-        <ul class="m-portlet__nav">
-          <li class="m-portlet__nav-item"></li>
-          <li class="m-portlet__nav-item">
-            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover"
-              aria-expanded="true">
-              <a href="#" class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
-                <i class="la la-ellipsis-h m--font-brand"></i>
-              </a>
-              <div class="m-dropdown__wrapper">
-                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                <div class="m-dropdown__inner">
-                  <div class="m-dropdown__body">
-                    <div class="m-dropdown__content">
-                      <ul class="m-nav">
-                        <li class="m-nav__section m-nav__section--first">
-                          <span class="m-nav__section-text">
-                            Quick Actions
-                          </span>
-                        </li>
-                        <li class="m-nav__item">
-                          <a href="" class="m-nav__link">
-                            <i class="m-nav__link-icon flaticon-share"></i>
-                            <span class="m-nav__link-text">
-                              Create Post
-                            </span>
-                          </a>
-                        </li>
-                        <li class="m-nav__item">
-                          <a href="" class="m-nav__link">
-                            <i class="m-nav__link-icon flaticon-chat-1"></i>
-                            <span class="m-nav__link-text">
-                              Send Messages
-                            </span>
-                          </a>
-                        </li>
-                        <li class="m-nav__item">
-                          <a href="" class="m-nav__link">
-                            <i class="m-nav__link-icon flaticon-multimedia-2"></i>
-                            <span class="m-nav__link-text">
-                              Upload File
-                            </span>
-                          </a>
-                        </li>
-                        <li class="m-nav__section">
-                          <span class="m-nav__section-text">
-                            Useful Links
-                          </span>
-                        </li>
-                        <li class="m-nav__item">
-                          <a href="" class="m-nav__link">
-                            <i class="m-nav__link-icon flaticon-info"></i>
-                            <span class="m-nav__link-text">
-                              FAQ
-                            </span>
-                          </a>
-                        </li>
-                        <li class="m-nav__item">
-                          <a href="" class="m-nav__link">
-                            <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                            <span class="m-nav__link-text">
-                              Support
-                            </span>
-                          </a>
-                        </li>
-                        <li class="m-nav__separator m-nav__separator--fit m--hide"></li>
-                        <li class="m-nav__item m--hide">
-                          <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
-                            Submit
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_modal_1">
+          Launch Modal
+        </button>
       </div>
     </div>
     <div class="m-portlet__body">
@@ -463,24 +345,89 @@
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
             </td>
             <td>
-              <span class="dropdown">
-                <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="dropdown" aria-expanded="true">
+              <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
+                aria-expanded="true">
+                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
                   <i class="la la-ellipsis-h"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-143px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                  <a class="dropdown-item" href="#" (click)="onEdit(item.id)">
-                    <i class="la la-edit"></i> Yêu cầu xuất vé</a>
-                  <a class="dropdown-item" href="#" (click)="onDelete(item.id)">
-                    <i class="la la-edit"></i> Chi tiết</a>
-                  <a class="dropdown-item" href="#">
-                    <i class="la la-edit"></i> Phiếu thu</a>
+                <div class="m-dropdown__wrapper">
+                  <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                  <div class="m-dropdown__inner">
+                    <div class="m-dropdown__body">
+                      <div class="m-dropdown__content">
+                        <ul class="m-nav">
+                          <li class="m-nav__section m-nav__section--first">
+                            <span class="m-nav__section-text">
+                              Quick Actions
+                            </span>
+                          </li>
+                          <li class="m-nav__item">
+                            <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
+                              <i class="m-nav__link-icon flaticon-cogwheel"></i>
+                              <span class="m-nav__link-text">
+                                Yêu cầu xuất vé
+                              </span>
+                            </a>
+                          </li>
+                          <li class="m-nav__item">
+                            <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
+                              <i class="m-nav__link-icon flaticon-cogwheel"></i>
+                              <span class="m-nav__link-text">
+                                Chi tiết
+                              </span>
+                            </a>
+                          </li>
+                          <li class="m-nav__item">
+                            <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
+                              <i class="m-nav__link-icon flaticon-cogwheel"></i>
+                              <span class="m-nav__link-text">
+                                Phiếu thu
+                              </span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </span>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
+  <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Modal title
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              &times;
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+            book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
