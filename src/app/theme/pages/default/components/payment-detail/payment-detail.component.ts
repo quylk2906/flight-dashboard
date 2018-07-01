@@ -15,6 +15,7 @@ import { ObjectUnsubscribedError } from 'rxjs';
 })
 export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   private subs: Subscription
+  public list: PaymentDetails[]
   // public currentItem: paymen = {
   //   planeCode: undefined,
   //   planeName: undefined,
