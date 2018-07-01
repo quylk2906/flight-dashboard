@@ -10,6 +10,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { AirportService } from '../../../../../_services/airport.service';
 import { FormsModule } from '@angular/forms';
 import { ClientTicketService } from '../../../../../_services/client-ticket.service';
+import { AirlineService } from '../../../../../_services/airline.service';
 
 const routes: Routes = [
   {
@@ -33,7 +34,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    ClientService, AirportService, ClientTicketService
+    ClientService, AirportService, ClientTicketService, AirlineService
   ],
   declarations: [
     ClientTicketComponent

@@ -116,11 +116,11 @@
             </div>
           </div>
         </div>
-        <div class="form-group m-form__group row" *ngIf="currentItem.id">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Uniqued ID
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
+        <div class="form-group m-form__group row" *ngIf="currentItem.id && !isExport && !isRequest">
+          <div class="col-lg-5">
+            <label>
+              Uniqued ID
+            </label>
             <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
               <span class="m-input-icon__icon m-input-icon__icon--right">
@@ -132,20 +132,33 @@
           </div>
         </div>
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Mã khách hàng *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
+          <div class="col-lg-5">
+            <label>
+              Mã khách hàng *
+            </label>
             <select class="form-control m-select2" id="m_select2_4_1" [ngModel]="currentItem.clientId" name="clientId">
               <option></option>
             </select>
           </div>
+          <!-- <div class="col-lg-5">
+            <label class="">
+              Mã xuất vé *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" [ngModel]="currentItem.maXuatVe" name="maXuatVe" required placeholder="Nhập mã xuất vé">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div> -->
         </div>
-        <!-- <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Mã đặt chỗ *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
+        <div class="form-group m-form__group row">
+          <div class="col-lg-5">
+            <label class="">
+              Mã đặt chỗ *
+            </label>
             <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" [(ngModel)]="currentItem.maDatCho" name="maDatCho" required placeholder="Nhập mã đặt chỗ">
               <span class="m-input-icon__icon m-input-icon__icon--right">
@@ -155,27 +168,12 @@
               </span>
             </div>
           </div>
-        </div> -->
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Mã xuất vé *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [ngModel]="currentItem.maXuatVe" name="maXuatVe" required placeholder="Nhập mã xuất vé">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
-            </div>
-          </div>
         </div>
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Tình trạng vé *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
+          <div class="col-lg-5">
+            <label>
+              Tình trạng vé *
+            </label>
             <div class="m-input-icon m-input-icon--right">
               <select class="form-control m-input" id="exampleSelect1" disabled name="tinhTrangVe" [ngModel]="currentItem.tinhTrangVe">
                 <option *ngFor="let item of listStatus" [value]="item">
@@ -187,90 +185,141 @@
         </div>
 
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Sân bay đi (chiều đi)
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <select class="form-control m-" id="m_select2_4_2" [ngModel]="currentItem.sanBayDi_chieuDi" name="sanBayDi_chieuDi">
-              <option></option>
-            </select>
+          <div class="col-lg-5">
+            <label>
+              Hãng bay
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-" id="m_select2_4_6" [ngModel]="currentItem.hangBay" name="hangBay">
+                <option></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <label class="">
+              Tiền vé *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="number" class="form-control m-input" [ngModel]="currentItem.soTien" name="soTien" required placeholder="Nhập giá tiền">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
           </div>
         </div>
+
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Sân bay đến (chiều đi)
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <select class="form-control m-select2" id="m_select2_4_3" [ngModel]="currentItem.sanBayDen_chieuDi" name="sanBayDen_chieuDi">
-              <option></option>
-            </select>
+          <div class="col-lg-5">
+            <label>
+              Sân bay đi (chiều đi)
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-" id="m_select2_4_2" [ngModel]="currentItem.sanBayDi_chieuDi" name="sanBayDi_chieuDi">
+                <option></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <label>
+              Sân bay đến (chiều đi)
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-select2" id="m_select2_4_3" [ngModel]="currentItem.sanBayDen_chieuDi" name="sanBayDen_chieuDi">
+                <option></option>
+              </select>
+            </div>
           </div>
         </div>
+
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Sân bay đi (chiều về)
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <select class="form-control m-select2" id="m_select2_4_4" [ngModel]="currentItem.sanBayDi_chieuVe" name="sanBayDi_chieuVe">
-              <option></option>
-            </select>
+          <div class="col-lg-5">
+            <label>
+              Sân bay đi (chiều về)
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-select2" id="m_select2_4_4" [ngModel]="currentItem.sanBayDi_chieuVe" name="sanBayDi_chieuVe">
+                <option></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <label>
+              Sân bay đến (chiều về)
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-select2" id="m_select2_4_5" [ngModel]="currentItem.sanBayDen_chieuVe" name="sanBayDen_chieuVe">
+                <option></option>
+              </select>
+            </div>
           </div>
         </div>
+
+
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Sân bay đến (chiều về)
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <select class="form-control m-select2" id="m_select2_4_5" [ngModel]="currentItem.sanBayDen_chieuVe" name="sanBayDen_chieuVe">
-              <option></option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày giờ đi (chiều đi)
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
+          <div class="col-lg-5">
+            <label>
+              Ngày giờ đi (chiều đi)
+            </label>
+            <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" name="ngayBay_chieuDi" [ngModel]="currentItem.ngayBay_chieuDi | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_1" />
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
             </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày giờ đến (chiều đi)
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
+          <div class="col-lg-5">
+            <label>
+              Ngày giờ đến (chiều đi)
+            </label>
+            <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" name="ngayDen_chieuDi" [ngModel]="currentItem.ngayDen_chieuDi | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_2" />
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
             </div>
           </div>
         </div>
+
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày giờ đi (chiều về)
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
+          <div class="col-lg-5">
+            <label>
+              Ngày giờ đi (chiều về)
+            </label>
+            <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" name="ngayBay_chieuVe" [ngModel]="currentItem.ngayBay_chieuVe | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_3" />
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
             </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày giờ đến (chiều về)
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
+          <div class="col-lg-5">
+            <label>
+              Ngày giờ đến (chiều về)
+            </label>
+            <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" name="ngayDen_chieuVe" [ngModel]="currentItem.ngayDen_chieuVe | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_4" />
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
             </div>
           </div>
         </div>
       </div>
+
       <div class="m-portlet__foot m-portlet__foot--fit">
         <div class="m-form__actions m-form__actions">
           <div class="row">
@@ -297,9 +346,6 @@
             Danh sách.
           </h3>
         </div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#m_modal_1">
-          Launch Modal
-        </button>
       </div>
     </div>
     <div class="m-portlet__body">
@@ -315,6 +361,9 @@
             </th>
             <th>
               Mã đặt chỗ
+            </th>
+            <th>
+              Mã xuất vé
             </th>
             <th>
               Trang thái
@@ -336,10 +385,16 @@
               KH-{{item.clientId}}
             </td>
             <td>
-              {{item.maDatCho}}
+              {{item.maXuatVe}}
             </td>
             <td>
-              {{item.tinhTrangVe}}
+              {{item.maDatCho}}
+            </td>
+            <td [ngSwitch]="item.tinhTrangVe">
+              <span *ngSwitchCase="'In Process'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Approved'" class="m-badge m-badge--success m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Rejected'" class="m-badge m-badge--danger m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchDefault class="m-badge m-badge--metal m-badge--wide">{{item.tinhTrangVe}}</span>
             </td>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
@@ -347,7 +402,7 @@
             <td>
               <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
                 aria-expanded="true">
-                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
+                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link" (click)="resetState()">
                   <i class="la la-ellipsis-h"></i>
                 </a>
                 <div class="m-dropdown__wrapper">
@@ -361,7 +416,7 @@
                               Quick Actions
                             </span>
                           </li>
-                          <li class="m-nav__item">
+                          <li class="m-nav__item" (click)="onRequestClick(item.id)">
                             <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -369,7 +424,7 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item">
+                          <li class="m-nav__item" (click)="onViewClick(item.id)">
                             <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -377,8 +432,9 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item">
-                            <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
+                          <li class="m-nav__item" (click)="onExportClick(item.id)">
+                            <a href="" class="m-nav__link">
+                              <!-- data-toggle="modal" data-target="#m_modal_1" -->
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
                                 Phiếu thu
@@ -397,37 +453,102 @@
       </table>
     </div>
   </div>
+
+
   <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
-            Modal title
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">
-              &times;
-            </span>
-          </button>
+      <ng-container *ngIf="modalItem; else elseTemplate">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Chi tiết vé - KH: {{modalItem.clientId}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">
+                &times;
+              </span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class=" d-flex flex-column" id="ticket-content">
+              <div>
+                <span>
+                  <strong>Số tiền</strong>: </span>
+                <span class="pull-right">{{modalItem.soTien | currency:'VND':true}}</span>
+              </div>
+              <div>
+                <span>
+                  <strong>Mã xuất vé</strong>: </span>
+                <span class="pull-right">{{modalItem.maXuatVe}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Tình trạng vé</strong>: </span>
+                <span class="pull-right">{{modalItem.tinhTrangVe}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Sân bay đi </strong> (chiều đi): </span>
+                <span class="pull-right">{{modalItem.sanBayDi_chieuDi}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Sân bay đến</strong> (chiều đi): </span>
+                <span class="pull-right">{{modalItem.sanBayDen_chieuDi}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Sân bay đi </strong> (chiều về): </span>
+                <span class="pull-right">{{modalItem.sanBayDi_chieuVe}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Sân bay đến</strong> (chiều về): </span>
+                <span class="pull-right">{{modalItem.sanBayDen_chieuVe}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Ngày giờ bay</strong> (chiều đi): </span>
+                <span class="pull-right">{{modalItem.gioBay_chieuDi}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Ngày giờ đến</strong> (chiều đi): </span>
+                <span class="pull-right">{{modalItem.gioDen_chieuDi}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Ngày giờ bay</strong> (chiều về): </span>
+                <span class="pull-right">{{modalItem.gioBay_chieuVe}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Ngày giờ đến</strong> (chiều về): </span>
+                <span class="pull-right">{{modalItem.gioDen_chieuVe}} </span>
+              </div>
+              <div>
+                <span>
+                  <strong>Ngày tạo</strong>: </span>
+                <span class="pull-right">{{modalItem.createdAt | date: 'yyyy-MM-dd hh:mm'}} </span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+            <button *ngIf="isRequest" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onRequest()">
+              Request
+            </button>
+            <button *ngIf="isExport" type="button" class="btn btn-primary" (click)="onExport()">
+              Print
+            </button>
+          </div>
         </div>
-        <div class="modal-body">
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
-            book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
-            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary">
-            Save changes
-          </button>
-        </div>
-      </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+
+      </ng-template>
     </div>
   </div>
 </div>

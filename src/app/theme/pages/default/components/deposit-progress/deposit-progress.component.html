@@ -94,7 +94,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Thêm mới máy bay.
+            Thêm mới.
           </h3>
         </div>
       </div>
@@ -169,7 +169,7 @@
             Số tiền *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="m-input-icon m-input-icon--right">
+            <div class="m-input-icon m-input-icon--right mb-3">
               <input type="text" class="form-control m-input" name="expenditure" [ngModel]="currentItem.expenditure" required placeholder="Nhập số tiền">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
@@ -177,9 +177,20 @@
                 </span>
               </span>
             </div>
+            <div class="m-radio-inline">
+              <label class="m-radio m-radio--bold m-radio--state-success">
+                <input type="radio" name="example_5_1" value="5"> Ký thêm
+                <span></span>
+              </label>
+              <label class="m-radio m-radio--bold m-radio--state-brand">
+                <input type="radio" name="example_5_1" value="6"> Rút tiền
+                <span></span>
+              </label>
+            </div>
+
           </div>
         </div>
-        <div class="form-group m-form__group row">
+        <!-- <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Số dư đầu
           </label>
@@ -193,14 +204,15 @@
               </span>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Số dư cuối
+            Số dư hiện tại.
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="lastBalance" [ngModel]="currentItem.lastBalance" required placeholder="Nhập số dư cuối">
+              <input type="number" class="form-control m-input" name="lastBalance" [ngModel]="currentItem.lastBalance" readonly required
+                placeholder="Số dư hiện tại">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -213,7 +225,7 @@
           <label class="col-form-label col-lg-3 col-sm-12">
             Mã nhân viên*
           </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
+          <!-- <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
               <select class="form-control m-select2" id="m_select2_4_3" [ngModel]="currentItem.employeeId" name="employeeId">
                 <option></option>
@@ -223,6 +235,16 @@
                   <i class="la la-edit"></i>
                 </span>
               </div>
+            </div>
+          </div> -->
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" name="employeeId" [ngModel]="currentItem.employeeId" readonly>
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
             </div>
           </div>
         </div>
@@ -266,17 +288,11 @@
             <th>
               Mã đại lý
             </th>
-            <th>
+            <!-- <th>
               Mã ký quỹ
-            </th>
+            </th> -->
             <th>
-              Số tiền
-            </th>
-            <th>
-              Số dư đầu
-            </th>
-            <th>
-              Số dư cuối
+              Số dư hiện tại
             </th>
             <th>
               Mã nhân viên
@@ -284,9 +300,9 @@
             <th>
               Ngày tạo
             </th>
-            <th>
+            <!-- <th>
               Actions
-            </th>
+            </th> -->
           </tr>
         </thead>
         <tbody>
@@ -297,17 +313,11 @@
             <td>
               {{item.agencyId}}
             </td>
-            <td>
+            <!-- <td>
               KQ-{{item.depositId}}
-            </td>
+            </td> -->
             <td>
               {{item.expenditure}}
-            </td>
-            <td>
-              {{item.firstBalance}}
-            </td>
-            <td>
-              {{item.lastBalance}}
             </td>
             <td>
               NV-{{item.employeeId}}
@@ -316,11 +326,6 @@
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
             </td>
             <!-- <td>
-              <span class="m-badge m-badge--success m-badge--dot"></span>
-              &nbsp;
-              <span class="m--font-bold m--font-success">Active</span>
-            </td> -->
-            <td>
               <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
                 aria-expanded="true">
                 <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
@@ -359,7 +364,7 @@
                   </div>
                 </div>
               </div>
-            </td>
+            </td> -->
           </tr>
         </tbody>
       </table>

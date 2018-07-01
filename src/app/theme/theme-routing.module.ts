@@ -22,6 +22,10 @@ const routes: Routes = [
             'loadChildren': '.\/pages\/default\/components\/airport\/airport.module#AirportModule'
          },
          {
+            'path': 'components\/airline',
+            'loadChildren': '.\/pages\/default\/components\/airline\/airline.module#AirlineModule'
+         },
+         {
             'path': 'components\/client',
             'loadChildren': '.\/pages\/default\/components\/client\/client.module#ClientModule'
          },
@@ -29,9 +33,13 @@ const routes: Routes = [
             'path': 'components\/client-ticket',
             'loadChildren': '.\/pages\/default\/components\/client-ticket\/client-ticket.module#ClientTicketModule'
          },
+         // {
+         //    'path': 'components\/deposit',
+         //    'loadChildren': '.\/pages\/default\/components\/deposit\/deposit.module#DepositModule'
+         // },
          {
-            'path': 'components\/deposit',
-            'loadChildren': '.\/pages\/default\/components\/deposit\/deposit.module#DepositModule'
+            'path': 'components\/approve',
+            'loadChildren': '.\/pages\/default\/components\/approve\/approve.module#ApproveModule'
          },
          {
             'path': 'components\/agency',

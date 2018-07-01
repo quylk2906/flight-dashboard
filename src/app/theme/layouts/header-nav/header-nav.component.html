@@ -513,8 +513,17 @@
                 </a>
               </li>
               <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/components/airline" class="m-menu__link">
+                  <i class="m-menu__link-icon flaticon-menu"></i>
+                  <span class="m-menu__item-here"></span>
+                  <span class="m-menu__link-text">
+                    Hãng bay
+                  </span>
+                </a>
+              </li>
+              <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a routerLink="/components/airport" class="m-menu__link">
-                  <i class="m-menu__link-icon flaticon-rocket"></i>
+                  <i class="m-menu__link-icon flaticon-menu"></i>
                   <span class="m-menu__item-here"></span>
                   <span class="m-menu__link-text">
                     Sân bay
@@ -523,7 +532,7 @@
               </li>
               <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a routerLink="/components/client" class="m-menu__link">
-                  <i class="m-menu__link-icon flaticon-map-location"></i>
+                  <i class="m-menu__link-icon flaticon-menu"></i>
                   <span class="m-menu__item-here"></span>
                   <span class="m-menu__link-text">
                     Khách hàng
@@ -533,7 +542,7 @@
               <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" m-menu-submenu-toggle="click"
                 aria-haspopup="true">
                 <a routerLink="/components/client-ticket" class="m-menu__link">
-                  <i class="m-menu__link-icon flaticon-paper-plane"></i>
+                  <i class="m-menu__link-icon flaticon-menu"></i>
                   <span class="m-menu__item-here"></span>
                   <span class="m-menu__link-text">
                     Khách hàng vé
@@ -543,7 +552,7 @@
               <li class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
                 routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a href="javascript:;" class="m-menu__link m-menu__toggle">
-                  <i class="m-menu__link-icon flaticon-tabs"></i>
+                  <i class="m-menu__link-icon flaticon-menu"></i>
                   <span class="m-menu__item-here"></span>
                   <span class="m-menu__link-text">
                     Quỹ - Đại lý
@@ -556,23 +565,23 @@
                   <ul class="m-menu__subnav">
                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                       <a routerLink="/components/agency" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-cogwheel"></i>
+                        <i class="m-menu__link-icon flaticon-exclamation-1"></i>
                         <span class="m-menu__link-text">
                           Đại lý
                         </span>
                       </a>
                     </li>
-                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
+                    <!-- <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                       <a routerLink="/components/deposit" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-cogwheel"></i>
+                        <i class="m-menu__link-icon flaticon-exclamation-1"></i>
                         <span class="m-menu__link-text">
                           Ký quỹ
                         </span>
                       </a>
-                    </li>
+                    </li> -->
                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                       <a routerLink="/components/deposit-progress" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-cogwheel"></i>
+                        <i class="m-menu__link-icon flaticon-exclamation-1"></i>
                         <span class="m-menu__link-text">
                           Giai đoạn ký quỹ
                         </span>
@@ -580,7 +589,7 @@
                     </li>
                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                       <a routerLink="/components/payment-detail" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-cogwheel"></i>
+                        <i class="m-menu__link-icon flaticon-exclamation-1"></i>
                         <span class="m-menu__link-text">
                           Chi tiết giao dịch
                         </span>
@@ -588,6 +597,16 @@
                     </li>
                   </ul>
                 </div>
+              </li>
+              <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" m-menu-submenu-toggle="click"
+                aria-haspopup="true">
+                <a routerLink="/components/approve" class="m-menu__link">
+                  <i class="m-menu__link-icon flaticon-menu"></i>
+                  <span class="m-menu__item-here"></span>
+                  <span class="m-menu__link-text">
+                    Approve
+                  </span>
+                </a>
               </li>
             </ul>
           </div>

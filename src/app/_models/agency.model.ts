@@ -5,6 +5,8 @@ export interface Agency {
    identification: number,
    phoneNumber: string,
    address: string,
+   initialBudget: number,
+   currentBudget: number,
    id: string,
    createdAt: string,
    updatedAt: string

@@ -3,7 +3,7 @@
   <div class="d-flex align-items-center">
     <div class="mr-auto">
       <h3 class="m-subheader__title m-subheader__title--separator">
-        Ký Quỹ
+        Hãng bay
       </h3>
       <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
         <li class="m-nav__item m-nav__item--home">
@@ -94,7 +94,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Thêm mới ký quỹ.
+            Thêm mới hãng bay.
           </h3>
         </div>
       </div>
@@ -132,27 +132,11 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Mã đại lý*
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" [ngModel]="currentItem.agencyId" name="agencyId">
-              </select>
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="la la-edit"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Tổng tiền ký quỹ*
+            Mã hãng bay *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="totalDeposit" [ngModel]="currentItem.totalDeposit" required placeholder="Tổng tiền ký quỹ">
+              <input type="text" class="form-control m-input" name="airlineCode" [ngModel]="currentItem.airlineCode" required placeholder="Nhập mã hãng bay">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -163,11 +147,11 @@
         </div>
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Số dư hiện tại*
+            Tên hãng bay *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="currentBalance" [ngModel]="currentItem.currentBalance" required placeholder="Số dư hiện tại">
+              <input type="text" class="form-control m-input" name="airlineName" [ngModel]="currentItem.airlineName" required placeholder="Nhập tên hãng bay">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -176,6 +160,14 @@
             </div>
           </div>
         </div>
+        <!-- <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Mô tả
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <textarea class="form-control m-input" name="description" placeholder="Enter a description" [ngModel]="currentItem.description"></textarea>
+          </div>
+        </div> -->
       </div>
       <div class="m-portlet__foot m-portlet__foot--fit">
         <div class="m-form__actions m-form__actions">
@@ -200,27 +192,26 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Danh sách ký quỹ.
+            Danh sách hãng bay.
           </h3>
         </div>
       </div>
     </div>
     <div class="m-portlet__body">
       <!--begin: Datatable -->
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped- table-bordered table-hover table-checkable">
+      <!-- <table class="table table-striped- table-bordered table-hover" id="m_table_1"> -->
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped- table-bordered table-hover table-checkable"
+        id="">
         <thead>
           <tr>
             <th>
               #
             </th>
             <th>
-              Mã đại lý
+              Mã hãng bay
             </th>
             <th>
-              Tổng tiền ký quỹ
-            </th>
-            <th>
-              Số dư hiện tại
+              Tên hãng bay
             </th>
             <th>
               Ngày tạo
@@ -236,19 +227,16 @@
               {{i + 1}}
             </td>
             <td>
-              DL-{{item.agencyId}}
+              {{item.airlineCode}}
             </td>
             <td>
-              {{item.totalDeposit}}
+              {{item.airlineName}}
             </td>
             <td>
-              {{item.currentBalance}}
+              {{item.createdAt}}
             </td>
             <td>
-              {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
-            </td>
-            <td>
-              <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
+                <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
                 aria-expanded="true">
                 <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
                   <i class="la la-ellipsis-h"></i>
@@ -268,7 +256,7 @@
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
-                                Chi tiết đại lý
+                                Edit
                               </span>
                             </a>
                           </li>
@@ -276,7 +264,15 @@
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
-                                Chi tiết ký quỹ
+                                Clone
+                              </span>
+                            </a>
+                          </li>
+                          <li class="m-nav__item">
+                            <a href="" class="m-nav__link">
+                              <i class="m-nav__link-icon flaticon-cogwheel"></i>
+                              <span class="m-nav__link-text m--font-danger">
+                                Delete
                               </span>
                             </a>
                           </li>

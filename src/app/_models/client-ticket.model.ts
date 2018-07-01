@@ -1,8 +1,10 @@
 export interface ClientTicket {
-  clientId: string
+  clientId: string,
   maDatCho: string,
   maXuatVe: string,
+  soTien: number,
   tinhTrangVe: string,
+  hangBay: string,
   sanBayDi_chieuDi: string,
   sanBayDen_chieuDi: string,
   sanBayDi_chieuVe: string,

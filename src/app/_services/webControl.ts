@@ -1,6 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-
+import { HttpHeaders } from '@angular/common/http';
 export default class WebControl {
    static httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })

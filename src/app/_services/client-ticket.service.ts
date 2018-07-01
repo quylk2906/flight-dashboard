@@ -35,9 +35,13 @@ export class ClientTicketService {
   deleteClient(id) {
     return this.http.delete(`${webControl.baseURL}ClientTickets/${id}`)
   }
-
+  
   putClient(client) {
     const body = client
+    // console.log(`${webControl.baseURL}ClientTickets/${body.id}`);
+    // const _id = body.id
+    // delete body['id']
+    // console.log(body);
     return this.http.put(`${webControl.baseURL}ClientTickets/${body.id}`, body, webControl.httpOptions)
   }
 }

@@ -1,28 +1,24 @@
-import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy, ViewChild } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../_services/script-loader.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { trimObjectAfterSave } from '../../../../../_utils/trimObject';
 import { find } from 'lodash';
-import { ObjectUnsubscribedError, Subject } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { Helpers } from '../../../../../helpers';
-import { Agency } from '../../../../../_models/agency.model';
-import { AgencyService } from '../../../../../_services/agency.service';
 import { DataTableDirective } from 'angular-datatables';
-import { ViewChild } from '@angular/core';
-
+import { Subject } from 'rxjs/Subject';
+import { ToastrService } from 'ngx-toastr';
+import { Airline } from '../../../../../_models/airline.module';
+import { AirlineService } from '../../../../../_services/airline.service';
 
 @Component({
-  selector: 'app-agency',
-  templateUrl: './agency.component.html',
-  encapsulation: ViewEncapsulation.None,
-  styles: []
+  selector: 'app-airline',
+  templateUrl: './airline.component.html',
+  encapsulation: ViewEncapsulation.None
 })
-export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
-  private subs: Subscription
-  public list: Agency[]
+export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[] = []
+  public list: Airline[]
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {
@@ -34,34 +30,26 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
   };
   dtTrigger = new Subject();
 
-  public currentItem: Agency = {
-    agencyName: undefined,
-    agencyCode: undefined,
-    representative: undefined,
-    identification: undefined,
-    phoneNumber: undefined,
-    address: undefined,
+  public currentItem: Airline = {
+    airlineName: undefined,
+    airlineCode: undefined,
     id: undefined,
-    initialBudget: undefined,
-    currentBudget: undefined,
     createdAt: undefined,
     updatedAt: undefined
   }
 
   constructor(private _script: ScriptLoaderService,
-    private _toastr: ToastrService,
-    private _service: AgencyService
-
+    private _service: AirlineService,
+    private _toastr: ToastrService
   ) {
   }
 
-
   ngOnInit() {
     Helpers.setLoading(true)
-    this.list = this._service.getAgencies();
-    const sub = this._service.listAgencyhanged.subscribe(
+
+    this.list = this._service.getAirlines();
+    const sub = this._service.listAirlinesChanged.subscribe(
       rs => {
-        console.log(rs);
         this.list = rs
         this.rerender()
       },
@@ -77,10 +65,10 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
       return
     }
     Helpers.setLoading(true)
-    const agency = trimObjectAfterSave(form.value)
+    const agent = trimObjectAfterSave(form.value)
     let sub: Subscription
     if (this.currentItem.id) {
-      sub = this._service.putAgencies(agency).subscribe(
+      sub = this._service.putAirline(agent).subscribe(
         rs => {
           this._service.loadData()
           form.resetForm()
@@ -92,7 +80,7 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       )
     } else {
-      sub = this._service.postAgencies(agency).subscribe(
+      sub = this._service.postAirline(agent).subscribe(
         rs => {
           this._service.loadData()
           form.resetForm()
@@ -107,9 +95,12 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subsArr.push(sub)
   }
 
+
+
   onDelete(id) {
-    const sub = this._service.deleteAgency(id).subscribe(rs => {
+    const sub = this._service.deleteAirline(id).subscribe(rs => {
       if (rs['count'] !== 0) {
+        // you have to call api to reload datable without reload page
         this._toastr.info('Xóa thành công', undefined, { closeButton: true });
         this._service.loadData()
       }
@@ -130,7 +121,7 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._script.loadScripts('app-agency',
+    this._script.loadScripts('app-airline',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
         'assets/demo/default/custom/crud/datatables/standard/paginations.js',
@@ -148,7 +139,4 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
       Helpers.setLoading(false)
     });
   }
-  onAgency() { }
-  onDepositProgress() { }
-  onPaymentDetal() { }
 }

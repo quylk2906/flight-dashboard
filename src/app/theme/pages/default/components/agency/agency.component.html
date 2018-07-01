@@ -161,6 +161,21 @@
           </div>
         </div>
         <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12 m--font-danger">
+            Số tiền ký quỹ*
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <input type="number" class="form-control m-input" name="initialBudget" [ngModel]="currentItem.initialBudget" required placeholder="Số tiền ký quỹ">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Người đại diện*
           </label>
@@ -260,12 +275,6 @@
               Tên đại lý
             </th>
             <th>
-              Người đại diện
-            </th>
-            <th>
-              Số ĐT
-            </th>
-            <th>
               Số tiền hiện tại
             </th>
             <th>
@@ -288,13 +297,7 @@
               {{item.agencyName}}
             </td>
             <td>
-              {{item.representative}}
-            </td>
-            <td>
-              {{item.phoneNumber}}
-            </td>
-            <td>
-              {{item.phoneNumber}}
+              {{item.currentBudget}}
             </td>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
@@ -316,7 +319,7 @@
                               Quick Actions
                             </span>
                           </li>
-                          <li class="m-nav__item">
+                          <li class="m-nav__item" (click)="onAgency">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -324,15 +327,15 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item">
+                          <!-- <li class="m-nav__item" (click)="on">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
                                 Chi tiết ký quỹ
                               </span>
                             </a>
-                          </li>
-                          <li class="m-nav__item">
+                          </li> -->
+                          <li class="m-nav__item" (click)="onDepositProgress">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -340,7 +343,7 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item">
+                          <li class="m-nav__item" (click)="onPaymentDetal">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -358,6 +361,132 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <ng-container *ngIf="modalItem; else elseTemplate">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Chi tiết vé - KH: {{modalItem.clientId}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">
+                &times;
+              </span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class=" d-flex flex-column" id="ticket-content">
+              <div>
+                <span>
+                  <strong>Số tiền</strong>: </span>
+                <span class="pull-right">{{modalItem.soTien | currency:'VND':true}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+            <button *ngIf="isRequest" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onRequest()">
+              Request
+            </button>
+            <button *ngIf="isExport" type="button" class="btn btn-primary" (click)="onExport()">
+              Print
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        Modal Chi tiet dai ly.
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="modal fade" id="m_modal_2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <ng-container *ngIf="modalItem; else elseTemplate">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Chi tiết vé - KH: {{modalItem.clientId}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">
+                &times;
+              </span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class=" d-flex flex-column" id="ticket-content">
+              <div>
+                <span>
+                  <strong>Số tiền</strong>: </span>
+                <span class="pull-right">{{modalItem.soTien | currency:'VND':true}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+            <button *ngIf="isRequest" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onRequest()">
+              Request
+            </button>
+            <button *ngIf="isExport" type="button" class="btn btn-primary" (click)="onExport()">
+              Print
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+          Modal giai doan ky quy
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="modal fade" id="m_modal_3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <ng-container *ngIf="modalItem; else elseTemplate">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Chi tiết vé - KH: {{modalItem.clientId}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">
+                &times;
+              </span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class=" d-flex flex-column" id="ticket-content">
+              <div>
+                <span>
+                  <strong>Số tiền</strong>: </span>
+                <span class="pull-right">{{modalItem.soTien | currency:'VND':true}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+            <button *ngIf="isRequest" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onRequest()">
+              Request
+            </button>
+            <button *ngIf="isExport" type="button" class="btn btn-primary" (click)="onExport()">
+              Print
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+          Modal Chi chi tiet giao dich
+      </ng-template>
     </div>
   </div>
 
