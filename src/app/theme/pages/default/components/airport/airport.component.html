@@ -244,7 +244,7 @@
               <span class="m--font-bold m--font-success">Active</span>
             </td>
             <td>
-                <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
+              <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
                 aria-expanded="true">
                 <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
                   <i class="la la-ellipsis-h"></i>
@@ -276,11 +276,11 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item">
+                          <li class="m-nav__item" (click)="onDelete(item._id)">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text m--font-danger">
-                                Delete
+                                Delete {{item._id}}
                               </span>
                             </a>
                           </li>

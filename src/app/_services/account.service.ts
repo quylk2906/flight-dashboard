@@ -1,49 +1,54 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import webControl from "./webControl";
-import { Account } from '../_models/account.model';
-import { Subject } from 'rxjs';
+import { Account } from "../_models/account.model";
+import { Subject } from "rxjs";
 
 @Injectable()
-
 export class AccountService {
-  private endPoint: string = 'Accounts'
-  listAccountshanged = new Subject<Account[]>()
-  private listAccounts: Account[] = []
+  private endPoint: string = "accounts";
+  listAccountshanged = new Subject<Account[]>();
+  private listAccounts: Account[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAccounts() {
-    return this.listAccounts
+    return this.listAccounts;
   }
 
   loadData() {
-    this.http.get(webControl.baseURL + this.endPoint).subscribe(
-      res => {
-        this.listAccountshanged.next(res as Account[])
-      }
-    )
+    this.http.get(webControl.baseURL + this.endPoint).subscribe(res => {
+      this.listAccountshanged.next(res["data"] as Account[]);
+    });
   }
 
   getAccountsInclude() {
-    return this.http.get(webControl.baseURL + 'Accounts/Accounts-included')
+    return this.http.get(webControl.baseURL + "Accounts/Accounts-included");
   }
 
   getAirportsObservable() {
-    return this.http.get(webControl.baseURL + this.endPoint)
+    return this.http.get(webControl.baseURL + this.endPoint);
   }
 
   postAccounts(agency) {
-    const body = agency
-    return this.http.post(webControl.baseURL + this.endPoint, body, webControl.httpOptions)
+    const body = agency;
+    return this.http.post(
+      webControl.baseURL + this.endPoint,
+      body,
+      webControl.httpOptions
+    );
   }
 
   deleteAgency(id) {
-    return this.http.delete(`${webControl.baseURL}${this.endPoint}/${id}`)
+    return this.http.delete(`${webControl.baseURL}${this.endPoint}/${id}`);
   }
 
   putAccounts(agency) {
-    const body = agency
-    return this.http.put(`${webControl.baseURL}${this.endPoint}/${body.id}`, body, webControl.httpOptions)
+    const body = agency;
+    return this.http.put(
+      `${webControl.baseURL}${this.endPoint}/${body.id}`,
+      body,
+      webControl.httpOptions
+    );
   }
 }

@@ -1,10 +1,10 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from "@angular/common/http";
 export default class WebControl {
-   static httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
+  static httpOptions = {
+    headers: new HttpHeaders({ "Content-Type": "application/json" })
+  };
 
-   //   static baseURL = 'https://vast-journey-12423.herokuapp.com/api/';
+  //   static baseURL = 'https://vast-journey-12423.herokuapp.com/api/';
 
-   static baseURL = 'http://localhost:4200/api/';
+  static baseURL = "http://localhost:4200/api/v1/";
 }
