@@ -36,6 +36,8 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   dtTrigger = new Subject();
   public currentItem: ClientTicket = {
     clientId: undefined,
+    agencyId: "5b3b94cdceaa9a1184d71eb0",
+    ticketId: undefined,
     maDatCho: undefined,
     maXuatVe: undefined,
     soTien: undefined,
@@ -45,15 +47,11 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     sanBayDen_chieuDi: undefined,
     sanBayDi_chieuVe: undefined,
     sanBayDen_chieuVe: undefined,
-    gioBay_chieuDi: undefined,
-    gioDen_chieuDi: undefined,
-    gioBay_chieuVe: undefined,
-    gioDen_chieuVe: undefined,
-    ngayBay_chieuDi: undefined,
-    ngayDen_chieuDi: undefined,
-    ngayBay_chieuVe: undefined,
-    ngayDen_chieuVe: undefined,
-    id: undefined,
+    ngayGioBay_chieuDi: undefined,
+    ngayGioDen_chieuDi: undefined,
+    ngayGioBay_chieuVe: undefined,
+    ngayGioDen_chieuVe: undefined,
+    _id: undefined,
     createdAt: undefined,
     updatedAt: undefined
   }
@@ -97,7 +95,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   // }
 
   onShowModal(id) {
-    this.currentItem = find(this.list, (item) => { return item.id == id })
+    this.currentItem = find(this.list, (item) => { return item._id == id })
   }
   // onEdit(id) {
   //   this.currentItem = find(this.list, (item) => { return item.id == id })
@@ -134,14 +132,17 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2]
-    const sub = this._serviceClient.putClient(this.currentItem).subscribe(rs => {
+    console.log('onApprove', this.currentItem);
+    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
+      console.log(rs);
     })
     this.subsArr.push(sub)
   }
 
   onReject() {
     this.currentItem.tinhTrangVe = this.listStatus[3]
-    const sub = this._serviceClient.putClient(this.currentItem).subscribe(rs => {
+    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
+      console.log(rs);
     })
     this.subsArr.push(sub)
   }

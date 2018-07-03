@@ -51,7 +51,7 @@ export class ClientService {
   putClient(client) {
     const body = client;
     return this.http.put(
-      `${webControl.baseURL}${this.endPoint}/${body.id}`,
+      `${webControl.baseURL}${this.endPoint}`,
       body,
       webControl.httpOptions
     );

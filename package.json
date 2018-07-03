@@ -33,6 +33,7 @@
         "angular-datatables": "^6.0.0",
         "classlist.js": "^1.1.20150312",
         "core-js": "^2.5.7",
+        "crypto": "^1.0.1",
         "datatables.net": "^1.10.19",
         "datatables.net-dt": "^1.10.19",
         "enhanced-resolve": "^4.0.0",
@@ -40,6 +41,8 @@
         "ng-recaptcha": "^3.0.5",
         "ngx-toastr": "*",
         "primeng": "^6.0.0",
+        "randomstring": "^1.1.5",
+        "randomstring-ng": "^1.0.5",
         "typescript-formatter": "^7.2.2",
         "zone.js": "^0.8.26"
     },

@@ -25,7 +25,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
     fullName: undefined,
     phoneNumber: undefined,
     address: undefined,
-    id: undefined,
+    _id: undefined,
     createdAt: undefined,
     updatedAt: undefined
   }
@@ -69,7 +69,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
       return
     }
     let sub: Subscription
-    if (this.currentItem.id) {
+    if (this.currentItem._id) {
       sub = this._service.putClient(this.currentItem).subscribe(
         rs => {
           this._service.loadData()
@@ -77,7 +77,9 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
           this._toastr.info('Thay đổi thành công', undefined, { closeButton: true });
         },
         err => {
-          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
+          this._toastr.error(err.error.msg, undefined, {
+            closeButton: true
+          });
           Helpers.setLoading(false)
         }
       )
@@ -89,7 +91,9 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
           this._toastr.info('Thêm thành công', undefined, { closeButton: true });
         },
         err => {
-          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
+          this._toastr.error(err.error.msg, undefined, {
+            closeButton: true
+          });
           Helpers.setLoading(false)
         }
       )
@@ -109,7 +113,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onEdit(id) {
-    this.currentItem = find(this.list, (item) => { return item.id == id })
+    this.currentItem = find(this.list, (item) => { return item._id == id })
   }
 
   ngOnDestroy() {

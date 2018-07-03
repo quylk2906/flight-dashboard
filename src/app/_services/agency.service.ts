@@ -46,7 +46,7 @@ export class AgencyService {
   putAgencies(agency) {
     const body = agency;
     return this.http.put(
-      `${webControl.baseURL}${this.endPoint}/${body.id}`,
+      `${webControl.baseURL}${this.endPoint}`,
       body,
       webControl.httpOptions
     );

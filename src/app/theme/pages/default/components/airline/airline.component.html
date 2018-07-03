@@ -115,13 +115,13 @@
             </div>
           </div>
         </div>
-        <div class="form-group m-form__group row" *ngIf="currentItem.id">
+        <div class="form-group m-form__group row" *ngIf="currentItem._id">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Uniqued ID
+            Uniqued _id
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem._id" name="_id" readonly>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -136,7 +136,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="airlineCode" [ngModel]="currentItem.airlineCode" required placeholder="Nhập mã hãng bay">
+              <input type="text" class="form-control m-input" name="airlineCode" [(ngModel)]="currentItem.airlineCode" required placeholder="Nhập mã hãng bay">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -151,7 +151,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="airlineName" [ngModel]="currentItem.airlineName" required placeholder="Nhập tên hãng bay">
+              <input type="text" class="form-control m-input" name="airlineName" [(ngModel)]="currentItem.airlineName" required placeholder="Nhập tên hãng bay">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -236,7 +236,7 @@
               {{item.createdAt}}
             </td>
             <td>
-                <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
+              <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
                 aria-expanded="true">
                 <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
                   <i class="la la-ellipsis-h"></i>
@@ -252,7 +252,7 @@
                               Quick Actions
                             </span>
                           </li>
-                          <li class="m-nav__item">
+                          <li class="m-nav__item" (click)="onEdit(item._id)">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -268,7 +268,7 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item">
+                          <li class="m-nav__item" (click)="onDelete(item._id)">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text m--font-danger">

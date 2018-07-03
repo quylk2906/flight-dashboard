@@ -116,13 +116,13 @@
             </div>
           </div>
         </div>
-        <div class="form-group m-form__group row" *ngIf="currentItem.id && !isExport && !isRequest">
+        <div class="form-group m-form__group row" *ngIf="currentItem._id && !isExport && !isRequest">
           <div class="col-lg-5">
             <label>
-              Uniqued ID
+              Uniqued _id
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem._id" name="_id" readonly>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-check"></i>
@@ -136,9 +136,21 @@
             <label>
               Mã khách hàng *
             </label>
-            <select class="form-control m-select2" id="m_select2_4_1" [ngModel]="currentItem.clientId" name="clientId">
+            <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem.clientId" name="clientId">
               <option></option>
             </select>
+          </div>
+          <div class="col-lg-5">
+            <label>
+              Mã đại lý *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-input" name="agencyId" [(ngModel)]="currentItem.agencyId">
+                <option *ngFor="let item of listAgencies" [value]="item._id">
+                  {{item.agencyName}}
+                </option>
+              </select>
+            </div>
           </div>
           <!-- <div class="col-lg-5">
             <label class="">
@@ -160,7 +172,7 @@
               Mã đặt chỗ *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.maDatCho" name="maDatCho" required placeholder="Nhập mã đặt chỗ">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.maDatCho" name="maDatCho" required disabled>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -175,7 +187,7 @@
               Tình trạng vé *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-input" id="exampleSelect1" disabled name="tinhTrangVe" [ngModel]="currentItem.tinhTrangVe">
+              <select class="form-control m-input" id="exampleSelect1" disabled name="tinhTrangVe" [(ngModel)]="currentItem.tinhTrangVe">
                 <option *ngFor="let item of listStatus" [value]="item">
                   {{item}}
                 </option>
@@ -200,7 +212,7 @@
               Tiền vé *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" [ngModel]="currentItem.soTien" name="soTien" required placeholder="Nhập giá tiền">
+              <input type="number" class="form-control m-input" [(ngModel)]="currentItem.soTien" name="soTien" required placeholder="Nhập giá tiền">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -382,13 +394,13 @@
               {{i + 1}}
             </td>
             <td>
-              KH-{{item.clientId}}
-            </td>
-            <td>
-              {{item.maXuatVe}}
+              KH-{{item.clientId | slice: 10: 16}}
             </td>
             <td>
               {{item.maDatCho}}
+            </td>
+            <td>
+              TICKET_{{item.maXuatVe}}
             </td>
             <td [ngSwitch]="item.tinhTrangVe">
               <span *ngSwitchCase="'In Process'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
@@ -416,7 +428,7 @@
                               Quick Actions
                             </span>
                           </li>
-                          <li class="m-nav__item" (click)="onRequestClick(item.id)">
+                          <li class="m-nav__item" (click)="onRequestClick(item._id)">
                             <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -424,7 +436,7 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item" (click)="onViewClick(item.id)">
+                          <li class="m-nav__item" (click)="onViewClick(item._id)">
                             <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -432,7 +444,7 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item" (click)="onExportClick(item.id)">
+                          <li class="m-nav__item" (click)="onExportClick(item._id)">
                             <a href="" class="m-nav__link">
                               <!-- data-toggle="modal" data-target="#m_modal_1" -->
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
@@ -441,7 +453,7 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item">
+                          <li class="m-nav__item" (click)="onDelete(item._id)">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text m--font-danger">

@@ -41,7 +41,7 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
     identification: undefined,
     phoneNumber: undefined,
     address: undefined,
-    id: undefined,
+    _id: undefined,
     initialBudget: undefined,
     currentBudget: undefined,
     createdAt: undefined,
@@ -77,29 +77,33 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
       return
     }
     Helpers.setLoading(true)
-    const agency = trimObjectAfterSave(form.value)
+    this.currentItem = form.value
     let sub: Subscription
-    if (this.currentItem.id) {
-      sub = this._service.putAgencies(agency).subscribe(
+    if (this.currentItem._id) {
+      sub = this._service.putAgencies(this.currentItem ).subscribe(
         rs => {
           this._service.loadData()
           form.resetForm()
           this._toastr.info('Thay đổi thành công', undefined, { closeButton: true });
         },
         err => {
-          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
+          this._toastr.info("Thêm thành công", undefined, {
+            closeButton: true
+          });
           Helpers.setLoading(false)
         }
       )
     } else {
-      sub = this._service.postAgencies(agency).subscribe(
+      sub = this._service.postAgencies(this.currentItem ).subscribe(
         rs => {
           this._service.loadData()
           form.resetForm()
           this._toastr.info('Thêm thành công', undefined, { closeButton: true });
         },
         err => {
-          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
+          this._toastr.info("Thêm thành công", undefined, {
+            closeButton: true
+          });
           Helpers.setLoading(false)
         }
       )
@@ -119,7 +123,7 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onEdit(id) {
     this.currentItem = find(this.list, (item) => {
-      return item.id == id
+      return item._id == id;
     })
   }
 

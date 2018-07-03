@@ -9,7 +9,7 @@ export class AirportService {
   listAirportsChanged = new Subject<Airport[]>();
   private listAirports: Airport[] = [];
   private endPoint: string = "airports";
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   getAirports() {
     return this.listAirports;
   }
@@ -40,7 +40,7 @@ export class AirportService {
   putAirport(airport) {
     const body = airport;
     return this.http.put(
-      `${webControl.baseURL}${this.endPoint}/${body.id}`,
+      `${webControl.baseURL}${this.endPoint}`,
       body,
       webControl.httpOptions
     );

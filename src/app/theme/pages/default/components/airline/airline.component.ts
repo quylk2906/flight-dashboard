@@ -38,7 +38,7 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
   public currentItem: Airline = {
     airlineName: undefined,
     airlineCode: undefined,
-    id: undefined,
+    _id: undefined,
     createdAt: undefined,
     updatedAt: undefined
   };
@@ -47,7 +47,7 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
     private _script: ScriptLoaderService,
     private _service: AirlineService,
     private _toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     Helpers.setLoading(true);
@@ -71,11 +71,12 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     Helpers.setLoading(true);
-    const agent = trimObjectAfterSave(form.value);
     let sub: Subscription;
-    if (this.currentItem.id) {
-      sub = this._service.putAirline(agent).subscribe(
+    console.log(this.currentItem);
+    if (this.currentItem._id) {
+      sub = this._service.putAirline(this.currentItem).subscribe(
         rs => {
+          console.log(rs);
           this._service.loadData();
           form.resetForm();
           this._toastr.info("Thay đổi thành công", undefined, {
@@ -90,7 +91,7 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       );
     } else {
-      sub = this._service.postAirline(agent).subscribe(
+      sub = this._service.postAirline(this.currentItem).subscribe(
         rs => {
           this._service.loadData();
           form.resetForm();
@@ -111,6 +112,7 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onDelete(id) {
+    console.log(id);
     const sub = this._service.deleteAirline(id).subscribe(rs => {
       if (rs["count"] !== 0) {
         // you have to call api to reload datable without reload page
@@ -122,8 +124,9 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onEdit(id) {
+    console.log(id);
     this.currentItem = find(this.list, item => {
-      return item.id == id;
+      return item._id == id;
     });
   }
 

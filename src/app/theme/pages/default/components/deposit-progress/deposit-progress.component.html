@@ -115,13 +115,13 @@
             </div>
           </div>
         </div>
-        <div class="form-group m-form__group row" *ngIf="currentItem.id">
+        <div class="form-group m-form__group row" *ngIf="currentItem._id">
           <label class="col-form-label col-lg-3 col-sm-12">
-            Uniqued ID
+            Uniqued _id
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.id" name="id" readonly>
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem._id" name="_id" readonly>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -136,9 +136,21 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group m-input-group">
-              <select class="form-control m-select2" id="m_select2_4_1" [ngModel]="currentItem.agencyId" name="agencyId">
-                <option></option>
+              <select class="form-control m-input" name="agencyId" (ngModel)="currentItem.agencyId"
+              (change)="onChange($event.target.value)"
+              >
+                <option *ngFor="let item of listAgencies" [value]="item._id">
+                  {{item.agencyName}}
+                </option>
               </select>
+              <!-- <select class="form-control m-select2"
+               id="m_select2_4_1" 
+               [ngModel]="currentItem.agencyId" 
+               name="agencyId" 
+               (change)="callType()"
+               >
+                <option (click)="onCLick(evt)"></option>
+              </select> -->
               <div class="input-group-append">
                 <span class="input-group-text">
                   <i class="la la-edit"></i>
@@ -147,7 +159,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group m-form__group row">
+        <!-- <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Mã ký quỹ *
           </label>
@@ -163,14 +175,14 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Số tiền *
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right mb-3">
-              <input type="text" class="form-control m-input" name="expenditure" [ngModel]="currentItem.expenditure" required placeholder="Nhập số tiền">
+              <input type="text" class="form-control m-input" name="expenditure" [(ngModel)]="currentItem.expenditure" required placeholder="Nhập số tiền">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -179,11 +191,11 @@
             </div>
             <div class="m-radio-inline">
               <label class="m-radio m-radio--bold m-radio--state-success">
-                <input type="radio" name="example_5_1" value="5"> Ký thêm
+                <input type="radio" name="deposit" [(ngModel)]="currentItem.deposit" value="0"> Ký thêm
                 <span></span>
               </label>
               <label class="m-radio m-radio--bold m-radio--state-brand">
-                <input type="radio" name="example_5_1" value="6"> Rút tiền
+                <input type="radio" name="deposit" [(ngModel)]="currentItem.deposit" value="1"> Rút tiền
                 <span></span>
               </label>
             </div>
@@ -211,8 +223,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="lastBalance" [ngModel]="currentItem.lastBalance" readonly required
-                placeholder="Số dư hiện tại">
+              <input type="number" class="form-control m-input" name="initialBudget" [(ngModel)]="currentAgency.initialBudget" disabled placeholder="Số dư hiện tại">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -239,7 +250,7 @@
           </div> -->
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="employeeId" [ngModel]="currentItem.employeeId" readonly>
+              <input type="text" class="form-control m-input" name="employeeId" [ngModel]="currentItem.employeeId | slice: 10: 16" disabled>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -312,20 +323,21 @@
             </td>
             <td>
               {{item.agencyId}}
-            </td>
-            <!-- <td>
+              <!-- <td>
               KQ-{{item.depositId}}
-            </td> -->
-            <td>
-              {{item.expenditure}}
             </td>
-            <td>
-              NV-{{item.employeeId}}
             </td>
-            <td>
-              {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
-            </td>
-            <!-- <td>
+           -->
+              <td>
+                {{item.expenditure}}
+              </td>
+              <td>
+                NV-{{item.employeeId}}
+              </td>
+              <td>
+                {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
+              </td>
+              <!-- <td>
               <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
                 aria-expanded="true">
                 <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">

@@ -28,10 +28,21 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
   public list: DepositProgress[]
   private subsArr: Subscription[]
 
-  listDeposits: Deposit[]
   listAgencies: Agency[]
   listAccounts: Account[]
-
+  currentAgency: Agency = {
+    agencyName: undefined,
+    agencyCode: undefined,
+    representative: undefined,
+    identification: undefined,
+    phoneNumber: undefined,
+    address: undefined,
+    initialBudget: undefined,
+    currentBudget: undefined,
+    _id: undefined,
+    createdAt: undefined,
+    updatedAt: undefined
+  }
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {
@@ -45,21 +56,19 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
 
   public currentItem: DepositProgress = {
     agencyId: undefined,
-    depositId: undefined,
     expenditure: undefined,
     firstBalance: undefined,
     lastBalance: undefined,
-    employeeId: undefined,
+    employeeId: "5b3b9bc66d99d03634925dd7",
     createdAt: undefined,
     updatedAt: undefined,
-    id: undefined
+    deposit: undefined,
+    _id: undefined
   }
 
   constructor(private _script: ScriptLoaderService,
     private _serviceProgress: Progresservice,
     private _serviceAgency: AgencyService,
-    private _serviceDeposit: DepositService,
-    private _serviceAccount: AccountService,
     private _toastr: ToastrService
   ) {
   }
@@ -81,15 +90,11 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
         console.log(err);
       })
 
-    const accountApi = this._serviceAccount.getAirportsObservable()
     const agencyApi = this._serviceAgency.getAgenciesObservable()
-    const depositApi = this._serviceDeposit.getDepositsObservable()
-    const subs2 = forkJoin(accountApi, agencyApi, depositApi).subscribe(
+    const subs2 = agencyApi.subscribe(
       res => {
         console.log('object', res);
-        this.listAccounts = res[0] as Account[]
-        this.listAgencies = res[1] as Agency[]
-        this.listDeposits = res[1] as Deposit[]
+        this.listAgencies = res['data'] as Agency[]
         this.loadScript()
       },
       err => {
@@ -101,22 +106,24 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid
-      || !$("#m_select2_4_1").val()
-      || !$("#m_select2_4_2").val()
-      || !$("#m_select2_4_3").val()) {
-      this._toastr.error(undefined, "Kiêm tra lại thông tin.", { closeButton: true });
-      return
-    }
+    // if (form.invalid
+    //   || !$("#m_select2_4_1").val()) {
+    //   this._toastr.error(undefined, "Kiêm tra lại thông tin.", { closeButton: true });
+    //   return
+    // }
     Helpers.setLoading(true)
-    const progress = form.value as DepositProgress
-    progress.agencyId = $("#m_select2_4_1").val().toString()
-    progress.depositId = $("#m_select2_4_2").val().toString()
-    progress.employeeId = $("#m_select2_4_3").val().toString()
-    trimObjectAfterSave(progress)
+    // const progress = form.value as DepositProgress
+    console.log(this.currentItem);
+    const data = { ...this.currentItem, ...this.currentAgency }
+    console.log('data', data);
+    // progress.agencyId = $("#m_select2_4_1").val().toString()
+    // progress.depositId = $("#m_select2_4_2").val().toString()
+    // progress.employeeId = $("#m_select2_4_3").val().toString()
+    // console.log(progress);
+
     let sub: Subscription
-    if (this.currentItem.id) {
-      sub = this._serviceProgress.putProgress(progress).subscribe(
+    if (this.currentItem._id) {
+      sub = this._serviceProgress.putProgress(this.currentItem).subscribe(
         rs => {
           this._serviceProgress.loadData()
           form.resetForm()
@@ -125,11 +132,13 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
         },
         err => {
           Helpers.setLoading(false);
-          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
+          this._toastr.error(err.error.msg, undefined, {
+            closeButton: true
+          });
         }
       )
     } else {
-      sub = this._serviceProgress.postProgress(progress).subscribe(
+      sub = this._serviceProgress.postProgress(this.currentItem).subscribe(
         rs => {
           this._toastr.info('Thêm thành công', undefined, { closeButton: true });
           this._serviceProgress.loadData()
@@ -138,13 +147,19 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
         },
         err => {
           Helpers.setLoading(false);
-          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
+          this._toastr.error(err.error.msg, undefined, {
+            closeButton: true
+          });
         }
       )
     }
     this.subsArr.push(sub)
   }
 
+  onChange(val) {
+    this.currentAgency = find(this.listAgencies, (item) => { return item._id == val })
+    console.log(this.currentAgency);
+  }
   onDelete(id) {
     Helpers.setLoading(true)
     const sub = this._serviceProgress.deleteProgress(id).subscribe(rs => {
@@ -156,10 +171,8 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
     this.subsArr.push(sub)
   }
 
-  resetForm () {
+  resetForm() {
     $("#m_select2_4_1").val(0).trigger('change')
-    $("#m_select2_4_2").val(0).trigger('change')
-    $("#m_select2_4_3").val(0).trigger('change')
   }
   // onEdit(id) {
   //   // this.currentItem = find(this.list, (item) => {
@@ -185,18 +198,9 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
 
   loadScript() {
     const dataAgency = this.listAgencies.map(item => {
-      return { id: item.agencyCode, text: item.agencyCode }
+      return { id: item._id, text: item.agencyCode }
     })
-    const dataAccount = this.listAccounts.map(item => {
-      return { id: item.id, text: item.username }
-    })
-    const dataDeposit = this.listDeposits.map(item => {
-      return { id: item.id, text: `KQ-${item.id}` }
-    })
-
     $("#m_select2_4_1").select2({ data: dataAgency })
-    $("#m_select2_4_2").select2({ data: dataDeposit })
-    $("#m_select2_4_3").select2({ data: dataAccount })
 
     this._script.loadScripts('app-deposit-progress',
       [

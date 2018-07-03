@@ -19,7 +19,9 @@ import { Client } from '../../../../../_models/client.model';
 import { Airline } from '../../../../../_models/airline.module';
 import { AirlineService } from '../../../../../_services/airline.service';
 import { find, cloneDeep } from 'lodash';
-
+import randomstring from 'randomstring-ng';
+import { AgencyService } from '../../../../../_services/agency.service';
+import { Agency } from '../../../../../_models/agency.model';
 @Component({
   selector: 'app-client-ticket',
   templateUrl: './client-ticket.component.html',
@@ -31,6 +33,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   listAirports: Airport[]
   listAirlines: Airline[]
   listClients: Client[]
+  listAgencies: Agency[]
   list: ClientTicket[]
   listStatus: string[] = ['None', 'In Process', 'Approved', 'Rejected']
   isRequest: boolean = false
@@ -38,6 +41,8 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   public modalItem: ClientTicket
   public currentItem: ClientTicket = {
     clientId: undefined,
+    agencyId: undefined,
+    ticketId: undefined,
     hangBay: undefined,
     soTien: undefined,
     maDatCho: undefined,
@@ -47,15 +52,11 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     sanBayDen_chieuDi: undefined,
     sanBayDi_chieuVe: undefined,
     sanBayDen_chieuVe: undefined,
-    gioBay_chieuDi: undefined,
-    gioDen_chieuDi: undefined,
-    gioBay_chieuVe: undefined,
-    gioDen_chieuVe: undefined,
-    ngayBay_chieuDi: undefined,
-    ngayDen_chieuDi: undefined,
-    ngayBay_chieuVe: undefined,
-    ngayDen_chieuVe: undefined,
-    id: undefined,
+    ngayGioBay_chieuDi: undefined,
+    ngayGioDen_chieuDi: undefined,
+    ngayGioBay_chieuVe: undefined,
+    ngayGioDen_chieuVe: undefined,
+    _id: undefined,
     createdAt: undefined,
     updatedAt: undefined
   }
@@ -77,13 +78,16 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAirport: AirportService,
     private _serviceClientTicket: ClientTicketService,
     private _serviceAirline: AirlineService,
+    private _serviceAgency: AgencyService,
     private _toastr: ToastrService
   ) { }
 
   ngOnInit() {
     this.subsArr = []
+
     Helpers.setLoading(true)
 
+    this.currentItem.maDatCho = randomstring.generate(6);
     this.list = this._serviceClientTicket.getClients()
     this._serviceClientTicket.loadData()
 
@@ -100,12 +104,15 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     const airportApi = this._serviceAirport.getAirportsObservable()
     const clientApi = this._serviceClient.getClientsObservable()
     const airlineApi = this._serviceAirline.getAirlinesObservable()
-    const sub2 = forkJoin(airportApi, airlineApi, clientApi).subscribe(
+    const agencyApi = this._serviceAgency.getAgenciesObservable()
+
+    const sub2 = forkJoin(airportApi, airlineApi, clientApi, agencyApi).subscribe(
       res => {
         console.log('object', res);
-        this.listAirports = res[0] as Airport[]
-        this.listAirlines = res[1] as Airline[]
-        this.listClients = res[2] as Client[]
+        this.listAirports = res[0]['data'] as Airport[]
+        this.listAirlines = res[1]['data'] as Airline[]
+        this.listClients = res[2]['data'] as Client[]
+        this.listAgencies = res[3]['data'] as Agency[]
         this.loadScript()
       },
       err => {
@@ -117,23 +124,30 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
+  onDelete(id) {
+    Helpers.setLoading(true)
+    const sub = this._serviceClientTicket.deleteClient(id).subscribe(rs => {
+      if (rs['count'] !== 0) {
+        this._toastr.info('Xóa thành công', undefined, { closeButton: true });
+        this._serviceClientTicket.loadData()
+      }
+    })
+    this.subsArr.push(sub)
+  }
+
   onSubmit(form: NgForm) {
     // if (form.invalid) {
     //   return
     // }
     Helpers.setLoading(true)
-    console.log(form.value);
-    const client = form.value as ClientTicket
+    // const client = form.value as ClientTicket
+    const client = this.currentItem
+    console.log(client);
     client.tinhTrangVe = 'None'
-    client.gioBay_chieuDi = $('#m_datetimepicker_1_1').val().toString()
-    client.gioDen_chieuDi = $('#m_datetimepicker_1_2').val().toString()
-    client.ngayBay_chieuDi = $('#m_datetimepicker_1_1').val().toString()
-    client.ngayDen_chieuDi = $('#m_datetimepicker_1_2').val().toString()
-
-    client.gioBay_chieuVe = $('#m_datetimepicker_1_3').val().toString()
-    client.gioDen_chieuVe = $('#m_datetimepicker_1_4').val().toString()
-    client.ngayBay_chieuVe = $('#m_datetimepicker_1_3').val().toString()
-    client.ngayDen_chieuVe = $('#m_datetimepicker_1_4').val().toString()
+    client.ngayGioBay_chieuDi = $('#m_datetimepicker_1_1').val().toString()
+    client.ngayGioDen_chieuDi = $('#m_datetimepicker_1_2').val().toString()
+    client.ngayGioBay_chieuVe = $('#m_datetimepicker_1_3').val().toString()
+    client.ngayGioDen_chieuVe = $('#m_datetimepicker_1_4').val().toString()
 
     client.clientId = $("#m_select2_4_1").val().toString()
     client.sanBayDi_chieuDi = $("#m_select2_4_2").val().toString()
@@ -143,16 +157,20 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     client.hangBay = $("#m_select2_4_6").val().toString()
 
     let subs: Subscription
-    if (this.currentItem.id) {
+
+    if (this.currentItem._id) {
       subs = this._serviceClientTicket.putClient(client).subscribe(
         rs => {
           this._serviceClientTicket.loadData()
           form.resetForm()
           this._toastr.info('Thay đổi thành công', undefined, { closeButton: true });
+          this.clearSelect2()
         },
         err => {
           Helpers.setLoading(false);
-          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
+          this._toastr.error(err.error.msg, undefined, {
+            closeButton: true
+          });
         }
       )
     } else {
@@ -161,14 +179,27 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
           this._toastr.info('Thêm thành công', undefined, { closeButton: true });
           this._serviceClientTicket.loadData()
           form.resetForm()
+          this.clearSelect2()
         },
         err => {
           Helpers.setLoading(false);
-          this._toastr.error(err.error.error.message, undefined, { closeButton: true });
+          this._toastr.error(err.error.msg, undefined, {
+            closeButton: true
+          });
         }
       )
     }
+
     this.subsArr.push(subs)
+  }
+
+  clearSelect2() {
+    $("#m_select2_4_1").val(0).trigger('change')
+    $("#m_select2_4_2").val(0).trigger('change')
+    $("#m_select2_4_3").val(0).trigger('change')
+    $("#m_select2_4_4").val(0).trigger('change')
+    $("#m_select2_4_5").val(0).trigger('change')
+    $("#m_select2_4_6").val(0).trigger('change')
   }
 
   ngAfterViewInit() {
@@ -187,10 +218,10 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       return { id: item.airportCode, text: item.airportName }
     })
     const dataAirline = this.listAirlines.map(item => {
-      return { id: item.id, text: item.airlineName }
+      return { id: item._id, text: item.airlineName }
     })
     const dataClient = this.listClients.map(item => {
-      return { id: item.id, text: item.fullName }
+      return { id: item._id, text: item.fullName }
     })
     $("#m_select2_4_1").select2({ data: dataClient })
     $("#m_select2_4_2").select2({ data: dataAirport })
@@ -222,15 +253,15 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onRequestClick(id) {
     this.isRequest = true
-    this.modalItem = find(this.list, (item) => { return item.id == id })
+    this.modalItem = find(this.list, (item) => { return item._id == id })
 
   }
   onViewClick(id) {
-    this.modalItem = find(this.list, (item) => { return item.id == id })
+    this.modalItem = find(this.list, (item) => { return item._id == id })
   }
   onExportClick(id) {
     this.isExport = true
-    this.modalItem = find(this.list, (item) => { return item.id == id })
+    this.modalItem = find(this.list, (item) => { return item._id == id })
     this.PrintElem()
   }
 

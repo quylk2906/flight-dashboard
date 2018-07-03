@@ -41,7 +41,7 @@ export class AirlineService {
   putAirline(airline) {
     const body = airline;
     return this.http.put(
-      `${webControl.baseURL}${this.endPoint}/${body.id}`,
+      `${webControl.baseURL}${this.endPoint}`,
       body,
       webControl.httpOptions
     );

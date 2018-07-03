@@ -1,5 +1,5 @@
 export interface Account {
-   id: string,
+   _id: string,
    fullName: string,
    rule: number,
    isActived: boolean,

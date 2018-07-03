@@ -1,7 +1,7 @@
 export interface Airport {
    airportCode: string,
    airportName: string,
-   id: string,
+   _id: string,
    createdAt: string,
    updatedAt: string
 }

@@ -37,7 +37,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   public currentItem: Airport = {
     airportCode: undefined,
     airportName: undefined,
-    id: undefined,
+    _id: undefined,
     createdAt: undefined,
     updatedAt: undefined
   };
@@ -71,11 +71,13 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     Helpers.setLoading(true);
-    const agent = trimObjectAfterSave(form.value);
+    this.currentItem = trimObjectAfterSave(form.value);
     let sub: Subscription;
-    if (this.currentItem.id) {
-      sub = this._service.putAirport(agent).subscribe(
+    console.log(this.currentItem);
+    if (this.currentItem._id) {
+      sub = this._service.putAirport(this.currentItem).subscribe(
         rs => {
+          console.log(rs);
           this._service.loadData();
           form.resetForm();
           this._toastr.info("Thay đổi thành công", undefined, {
@@ -83,14 +85,14 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         },
         err => {
-          this._toastr.error(err.error.error.message, undefined, {
+          this._toastr.error(err.error.msg, undefined, {
             closeButton: true
           });
           Helpers.setLoading(false);
         }
       );
     } else {
-      sub = this._service.postAirport(agent).subscribe(
+      sub = this._service.postAirport(this.currentItem).subscribe(
         rs => {
           this._service.loadData();
           form.resetForm();
@@ -99,7 +101,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         },
         err => {
-          this._toastr.error(err.error.error.message, undefined, {
+          this._toastr.error(err.error.msg, undefined, {
             closeButton: true
           });
           Helpers.setLoading(false);
@@ -113,7 +115,6 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(id);
     const sub = this._service.deleteAirport(id).subscribe(rs => {
       if (rs["count"] !== 0) {
-        // you have to call api to reload datable without reload page
         this._toastr.info("Xóa thành công", undefined, { closeButton: true });
         this._service.loadData();
       }
@@ -123,7 +124,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onEdit(id) {
     this.currentItem = find(this.list, item => {
-      return item.id == id;
+      return item._id == id;
     });
   }
 

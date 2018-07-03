@@ -8,7 +8,7 @@ import { DepositProgress } from "../_models/deposit-progress";
 export class Progresservice {
   listProgressChanged = new Subject<DepositProgress[]>();
   private listProgress: DepositProgress[] = [];
-  private endPoint: string = "DepositProgresses";
+  private endPoint: string = "depositProgresses";
 
   constructor(private http: HttpClient) {}
 
@@ -48,7 +48,7 @@ export class Progresservice {
   putProgress(progress) {
     const body = progress;
     return this.http.put(
-      `${webControl.baseURL}${this.endPoint}/${body.id}`,
+      `${webControl.baseURL}${this.endPoint}`,
       body,
       webControl.httpOptions
     );

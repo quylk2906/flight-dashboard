@@ -7,7 +7,7 @@ export interface Agency {
    address: string,
    initialBudget: number,
    currentBudget: number,
-   id: string,
+   _id: string,
    createdAt: string,
    updatedAt: string
 }

@@ -41,9 +41,18 @@ export class ClientTicketService {
   putClient(client) {
     const body = client;
     return this.http.put(
-      `${webControl.baseURL}${this.endPoint}/${body.id}`,
+      `${webControl.baseURL}${this.endPoint}`,
       body,
       webControl.httpOptions
     );
   }
+
+  changeStatus(body) {
+    return this.http.post(
+      `${webControl.baseURL}${this.endPoint}/changeStatus`,
+      body,
+      webControl.httpOptions
+    );
+  }
+
 }

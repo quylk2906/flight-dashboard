@@ -32,9 +32,7 @@ const routes: Routes = [
   ],
   providers: [
     Progresservice,
-    AgencyService,
-    DepositService,
-    AccountService
+    AgencyService
   ],
   declarations: [
     DepositProgressComponent

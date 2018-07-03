@@ -11,6 +11,7 @@ import { AirportService } from '../../../../../_services/airport.service';
 import { FormsModule } from '@angular/forms';
 import { ClientTicketService } from '../../../../../_services/client-ticket.service';
 import { AirlineService } from '../../../../../_services/airline.service';
+import { AgencyService } from '../../../../../_services/agency.service';
 
 const routes: Routes = [
   {
@@ -34,7 +35,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    ClientService, AirportService, ClientTicketService, AirlineService
+    ClientService, AirportService, ClientTicketService, AirlineService, AgencyService
   ],
   declarations: [
     ClientTicketComponent
