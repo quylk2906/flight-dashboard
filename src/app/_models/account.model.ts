@@ -1,10 +1,12 @@
 export interface Account {
-   _id: string,
-   fullName: string,
-   rule: number,
-   isActived: boolean,
-   realm: string,
-   username: string,
-   email: string,
-   password: string
- }
+  _id: string;
+  agencyId: string;
+  fullName: string;
+  role: number;
+  isActived: boolean;
+  username: string;
+  email: string;
+  createdAt: string;
+  password2: string;
+  password: string;
+}

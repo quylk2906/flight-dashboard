@@ -30,7 +30,7 @@ export class AccountService {
     return this.http.get(webControl.baseURL + this.endPoint);
   }
 
-  postAccounts(agency) {
+  postAccount(agency) {
     const body = agency;
     return this.http.post(
       webControl.baseURL + this.endPoint,
@@ -39,11 +39,11 @@ export class AccountService {
     );
   }
 
-  deleteAgency(id) {
+  deletetAccount(id) {
     return this.http.delete(`${webControl.baseURL}${this.endPoint}/${id}`);
   }
 
-  putAccounts(agency) {
+  putAccount(agency) {
     const body = agency;
     return this.http.put(
       `${webControl.baseURL}${this.endPoint}`,

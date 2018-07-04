@@ -172,7 +172,7 @@
               Mã đặt chỗ *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.maDatCho" name="maDatCho" required disabled>
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.maDatCho" name="maDatCho" required>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -307,7 +307,7 @@
             </label>
             <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" name="ngayGioBay_chieuVe" [ngModel]="currentItem.ngayGioBay_chieuVe | date: 'yyyy-MM-dd hh:mm'"
-                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_3" />
+                placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_3" />
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -321,7 +321,7 @@
             </label>
             <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" name="ngayGioDen_chieuVe" [ngModel]="currentItem.ngayGioDen_chieuVe | date: 'yyyy-MM-dd hh:mm'"
-                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_4" />
+                placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_4" />
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -394,7 +394,7 @@
               {{i + 1}}
             </td>
             <td>
-              KH-{{item.clientId | slice: 10: 16}}
+              KH-{{item.clientId | slice: 18: 24}}
             </td>
             <td>
               {{item.maDatCho}}
@@ -481,7 +481,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Chi tiết vé - KH: {{modalItem.clientId}}
+              Chi tiết vé - KH: {{modalItem.clientId | slice: 18: 24}}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">
@@ -529,22 +529,22 @@
               <div>
                 <span>
                   <strong>Ngày giờ bay</strong> (chiều đi): </span>
-                <span class="pull-right">{{modalItem.gioBay_chieuDi}} </span>
+                <span class="pull-right">{{modalItem.ngayGioBay_chieuDi}} </span>
               </div>
               <div>
                 <span>
                   <strong>Ngày giờ đến</strong> (chiều đi): </span>
-                <span class="pull-right">{{modalItem.gioDen_chieuDi}} </span>
+                <span class="pull-right">{{modalItem.ngayGioDen_chieuDi}} </span>
               </div>
               <div>
                 <span>
                   <strong>Ngày giờ bay</strong> (chiều về): </span>
-                <span class="pull-right">{{modalItem.gioBay_chieuVe}} </span>
+                <span class="pull-right">{{modalItem.ngayGioBay_chieuVe}} </span>
               </div>
               <div>
                 <span>
                   <strong>Ngày giờ đến</strong> (chiều về): </span>
-                <span class="pull-right">{{modalItem.gioDen_chieuVe}} </span>
+                <span class="pull-right">{{modalItem.ngayGioDen_chieuVe}} </span>
               </div>
               <div>
                 <span>
