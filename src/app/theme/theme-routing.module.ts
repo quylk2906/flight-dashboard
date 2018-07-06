@@ -66,6 +66,11 @@ const routes: Routes = [
         path: "components/payment-detail",
         loadChildren:
           "./pages/default/components/payment-detail/payment-detail.module#PaymentDetailModule"
+      },
+      {
+        path: "components/payment-detail/:id",
+        loadChildren:
+          "./pages/default/components/payment-detail/payment-detail.module#PaymentDetailModule"
       }
       // {
       //    'path': 'components\/payment',

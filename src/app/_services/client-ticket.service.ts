@@ -25,6 +25,15 @@ export class ClientTicketService {
     return this.http.get(webControl.baseURL + this.endPoint);
   }
 
+  sendEmail(data) {
+    const body = data;
+    return this.http.post(
+      webControl.baseURL + this.endPoint + "/send-email",
+      body,
+      webControl.httpOptions
+    );
+  }
+
   postClient(client) {
     const body = client;
     return this.http.post(
@@ -54,5 +63,4 @@ export class ClientTicketService {
       webControl.httpOptions
     );
   }
-
 }
