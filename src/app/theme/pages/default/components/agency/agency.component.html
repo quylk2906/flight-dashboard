@@ -327,16 +327,17 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item" (click)="onDepositProgress">
+                          <!-- <li class="m-nav__item" (click)="onDepositProgress">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
                                 Giai đoạn ký quỹ
                               </span>
                             </a>
-                          </li>
-                          <li class="m-nav__item" (click)="onPaymentDetal">
-                            <a href="" class="m-nav__link">
+                          </li> -->
+                          <li class="m-nav__item">
+
+                            <a [routerLink]="['/components/payment-detail', item._id]" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
                                 Chi tiết giao dịch
@@ -347,7 +348,7 @@
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text m--font-danger">
-                                Delete
+                                Xóa
                               </span>
                             </a>
                           </li>
