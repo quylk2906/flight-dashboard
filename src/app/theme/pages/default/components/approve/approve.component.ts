@@ -13,6 +13,7 @@ import { ClientTicket } from '../../../../../_models/client-ticket.model';
 import { ClientTicketService } from '../../../../../_services/client-ticket.service';
 
 
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-approve',
@@ -23,20 +24,22 @@ import { ClientTicketService } from '../../../../../_services/client-ticket.serv
 export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[]
   list: ClientTicket[]
+
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   private listStatus: string[] = ['None', 'In Process', 'Approved', 'Rejected']
-  dtOptions: DataTables.Settings = {
+
+  dtOptions: any = {
     responsive: true,
     pagingType: "full_numbers",
     columnDefs: [
     ],
-    order: [[0, "desc"]]
+    order: [[0, "desc"]],
   };
   dtTrigger = new Subject();
   public currentItem: ClientTicket = {
     clientId: undefined,
-    agencyId: "5b3b94cdceaa9a1184d71eb0",
+    agencyId: undefined,
     ticketId: undefined,
     maDatCho: undefined,
     maXuatVe: undefined,
@@ -70,17 +73,16 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     this.list = this._serviceClient.getClients()
     this._serviceClient.loadData()
 
-
-    const sub1 = this._serviceClient.listClientTicketsChanged.subscribe(
+    const sub = this._serviceClient.listClientTicketsChanged.subscribe(
       rs => {
         this.list = rs
-        console.log(rs);
         this.rerender()
       },
       err => {
         console.log(err);
       })
 
+    this.subsArr.push(sub)
   }
 
   // onDelete(id) {
@@ -112,8 +114,9 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     this._script.loadScripts('app-approve',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
-        'assets/demo/default/custom/crud/datatables/standard/paginations.js',
-        'assets/demo/default/custom/crud/forms/validation/form-controls.js'
+        // 'assets/demo/default/custom/crud/datatables/extensions/buttons.js',
+        // 'assets/demo/default/custom/crud/datatables/standard/paginations.js',
+        // 'assets/demo/default/custom/crud/forms/validation/form-controls.js'
       ]);
     this.dtTrigger.next();
   }
@@ -122,7 +125,6 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     // const dataAgency = this.listAgencies.map(item => {
     //   return { id: item.agencyCode, text: item.agencyName }
     // })
-
     // $("#m_select2_4_1").select2({ data: dataAgency })
     // this._script.loadScripts('app-approve',
     //   [
@@ -132,7 +134,6 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2]
-    console.log('onApprove', this.currentItem);
     const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
       console.log(rs);
     })
@@ -149,11 +150,10 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
 
   rerender() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
       dtInstance.destroy();
-      // Call the dtTrigger to rerender again
       this.dtTrigger.next();
       Helpers.setLoading(false)
     });
   }
 }
+

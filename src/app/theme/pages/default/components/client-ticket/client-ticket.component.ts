@@ -39,7 +39,8 @@ import { Agency } from "../../../../../_models/agency.model";
         margin-bottom: 10px;
       }
     `
-  ]
+  ],
+  styleUrls: ["./client-ticket.style.scss"]
 })
 export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[];
@@ -91,7 +92,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAirline: AirlineService,
     private _serviceAgency: AgencyService,
     private _toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subsArr = [];
