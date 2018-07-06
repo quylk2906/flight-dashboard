@@ -11,13 +11,13 @@
             <i class="m-nav__link-icon la la-home"></i>
           </a>
         </li>
-        <li class="m-nav__item">
+        <!-- <li class="m-nav__item">
           <a href="" class="m-nav__link">
             <span class="m-nav__link-text">
               Dashboard
             </span>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div>
@@ -171,7 +171,7 @@
               Ngày tạo
             </th>
             <th>
-              Actions
+              Hành động
             </th>
           </tr>
         </thead>
@@ -181,7 +181,7 @@
               {{i + 1}}
             </td>
             <td>
-              KH-{{item.clientId | slice: 10: 16}}
+              KH{{item.clientId | slice: 18: 24}}
             </td>
             <td>
               {{item.maDatCho}}
@@ -193,9 +193,9 @@
               {{item.soTien}}
             </td>
             <td [ngSwitch]="item.tinhTrangVe">
-              <span *ngSwitchCase="'In Process'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
-              <span *ngSwitchCase="'Approved'" class="m-badge m-badge--success m-badge--wide">{{item.tinhTrangVe}}</span>
-              <span *ngSwitchCase="'Rejected'" class="m-badge m-badge--danger m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Dang Xu Ly'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Duyet'" class="m-badge m-badge--success m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Tu choi'" class="m-badge m-badge--danger m-badge--wide">{{item.tinhTrangVe}}</span>
               <span *ngSwitchDefault class="m-badge m-badge--metal m-badge--wide">{{item.tinhTrangVe}}</span>
             </td>
             <td>
@@ -219,7 +219,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Chi tiết vé - KH: {{currentItem.clientId}}
+              Chi tiết vé - KH{{currentItem.clientId | slice: 18: 24}}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">
@@ -293,14 +293,14 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">
-              Close
+              Đóng
             </button>
-            <button type="button" class="btn btn-primary" *ngIf="currentItem.tinhTrangVe=='In Process'" data-dismiss="modal" (click)="onApprove()">
-              Approve
+            <button type="button" class="btn btn-primary" *ngIf="currentItem.tinhTrangVe=='Dang Xu Ly'" data-dismiss="modal" (click)="onApprove()">
+              Duyệt
             </button>
-            <button type="button" class="btn btn-danger" *ngIf="currentItem.tinhTrangVe=='In Process'" data-dismiss=" modal
+            <button type="button" class="btn btn-danger" *ngIf="currentItem.tinhTrangVe=='Dang Xu Ly'" data-dismiss=" modal
               " (click)="onReject()">
-              Reject
+              Từ chối
             </button>
           </div>
         </div>

@@ -383,7 +383,7 @@
                       Hello,&nbsp;
                     </span>
                     <span class="m-topbar__username">
-                      Quylk.
+                      {{user.fullName}}.
                     </span>
                     <span class="m-topbar__userpic">
                       <img src="./assets/app/media/img/users/imgpsh_fullsize.jpg" class="m--img-rounded m--marginless m--img-centered" alt="" />
@@ -399,10 +399,10 @@
                           </div>
                           <div class="m-card-user__details">
                             <span class="m-card-user__name m--font-weight-500">
-                              Quylk
+                              {{user.fullName}}
                             </span>
                             <a href="" class="m-card-user__email m--font-weight-300 m-link">
-                              quylk2906@gmail.com
+                              {{user.email}}
                             </a>
                           </div>
                         </div>
@@ -549,7 +549,7 @@
                   </span>
                 </a>
               </li>
-              <li class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
+              <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
                 routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a href="javascript:;" class="m-menu__link m-menu__toggle">
                   <i class="m-menu__link-icon flaticon-menu"></i>
@@ -598,13 +598,13 @@
                   </ul>
                 </div>
               </li>
-              <li class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
+              <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
                 routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a href="javascript:;" class="m-menu__link m-menu__toggle">
                   <i class="m-menu__link-icon flaticon-menu"></i>
                   <span class="m-menu__item-here"></span>
                   <span class="m-menu__link-text">
-                    Admin
+                    Quản trị
                   </span>
                   <i class="m-menu__hor-arrow la la-angle-down"></i>
                   <i class="m-menu__ver-arrow la la-angle-right"></i>
@@ -616,7 +616,7 @@
                       <a routerLink="/components/approve" class="m-menu__link">
                         <i class="m-menu__link-icon flaticon-menu"></i>
                         <span class="m-menu__link-text">
-                          Approve
+                          Duyệt vé
                         </span>
                       </a>
                     </li>
@@ -624,7 +624,7 @@
                       <a routerLink="/components/account" class="m-menu__link">
                         <i class="m-menu__link-icon flaticon-menu"></i>
                         <span class="m-menu__link-text">
-                          Accounts
+                          QL Tài Khoản
                         </span>
                       </a>
                     </li>

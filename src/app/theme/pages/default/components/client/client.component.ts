@@ -32,12 +32,20 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {
+  dtOptions: any = {
     responsive: true,
     pagingType: "full_numbers",
-    columnDefs: [
-    ],
-    order: [[0, "desc"]]
+    columnDefs: [],
+    order: [[0, "desc"]],
+    oLanguage: {
+      "sSearch": "Tìm kiếm",
+      "sProcessing": "Đang tải ...",
+      "sLengthMenu": "Xem _MENU_",
+      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
+      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
+      "sInfoFiltered": "(Xem _MAX_)"
+    }
   };
   dtTrigger = new Subject();
 

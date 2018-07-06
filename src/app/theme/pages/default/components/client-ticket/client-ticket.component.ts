@@ -29,6 +29,7 @@ import { find, cloneDeep } from "lodash";
 import randomstring from "randomstring-ng";
 import { AgencyService } from "../../../../../_services/agency.service";
 import { Agency } from "../../../../../_models/agency.model";
+import { emailRequest } from "../../../../../auth/_helpers/fake-email";
 @Component({
   selector: "app-client-ticket",
   templateUrl: "./client-ticket.component.html",
@@ -49,7 +50,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   listClients: Client[];
   listAgencies: Agency[];
   list: ClientTicket[];
-  listStatus: string[] = ["None", "In Process", "Approved", "Rejected"];
+  listStatus: string[] = ["Moi", "Dang Xu Ly", "Duyet", "Tu choi"];
   isRequest: boolean = false;
   isExport: boolean = false;
   public modalItem: ClientTicket;
@@ -76,11 +77,20 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   };
 
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {
+  dtOptions: any = {
     responsive: true,
     pagingType: "full_numbers",
     columnDefs: [],
-    order: [[0, "desc"]]
+    order: [[0, "desc"]],
+    oLanguage: {
+      "sSearch": "Tìm kiếm",
+      "sProcessing": "Đang tải ...",
+      "sLengthMenu": "Xem _MENU_",
+      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
+      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
+      "sInfoFiltered": "(Xem _MAX_)"
+    }
   };
   dtTrigger = new Subject();
 
@@ -324,10 +334,20 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onRequest() {
     this.modalItem.tinhTrangVe = this.listStatus[1];
+    let data = { ...this.currentItem } as any;
+    data._user = "Le Kim Quy";
+    data.email = emailRequest;
     const sub = this._serviceClientTicket
       .putClient(this.modalItem)
       .subscribe(rs => {
-        // this._serviceClientTicket.loadData()
+        return this._serviceClientTicket.sendEmail(data).subscribe(
+          rs1 => {
+            console.log(rs1);
+          },
+          err => {
+            console.log(err);
+          }
+        );
       });
     this.subsArr.push(sub);
   }

@@ -31,16 +31,25 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   public listAgency: Agency[];
   private subsArr: Subscription[] = [];
   public listStatus = [
-    { title: "Active", value: true },
-    { title: "Deactive", value: false }
+    { title: "Kíck hoạt", value: true },
+    { title: "Ẩn", value: false }
   ];
-  public listRole = [{ title: "Admin", value: 0 }, { title: "User", value: 1 }];
+  public listRole = [{ title: "Quản tri", value: 0 }, { title: "Người dùng", value: 1 }];
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {
-    responsive: !0,
+  dtOptions: any = {
+    responsive: true,
     pagingType: "full_numbers",
     columnDefs: [],
-    order: [[0, "desc"]]
+    order: [[0, "desc"]],
+    oLanguage: {
+      "sSearch": "Tìm kiếm",
+      "sProcessing": "Đang tải ...",
+      "sLengthMenu": "Xem _MENU_",
+      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
+      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
+      "sInfoFiltered": "(Xem _MAX_)"
+    }
   };
   dtTrigger = new Subject();
 
@@ -61,7 +70,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     private _toastr: ToastrService,
     private _serviceAgency: AgencyService,
     private _serviceAccount: AccountService
-  ) {}
+  ) { }
 
   ngOnInit() {
     Helpers.setLoading(true);
@@ -150,7 +159,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subsArr.push(sub);
   }
 
-  onActive(id, status) {}
+  onActive(id, status) { }
 
   onEdit(id) {
     this.currentItem = find(this.list, item => {
@@ -179,7 +188,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
 
   loadScript() {
     const dataAgency = this.listAgency.map(item => {
-      return { id: item._id, text: item.agencyCode };
+      return { id: item._id, text: "DL" + item._id.slice(18, 24) };
     });
     $("#m_select2_4_1").select2({ data: dataAgency });
     this._script.loadScripts("app-account", [

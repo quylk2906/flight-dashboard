@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { ScriptLoaderService } from '../../../../../_services/script-loader.service';
-import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
-import { trimObjectAfterSave } from '../../../../../_utils/trimObject';
-import { find } from 'lodash';
-import { ObjectUnsubscribedError, Subject } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { DataTableDirective } from 'angular-datatables';
-import { ViewChild } from '@angular/core';
-import { Helpers } from '../../../../../helpers';
-import { ClientTicket } from '../../../../../_models/client-ticket.model';
-import { ClientTicketService } from '../../../../../_services/client-ticket.service';
-
-
-import * as moment from 'moment';
-=======
 import {
   Component,
   OnInit,
@@ -35,8 +17,7 @@ import { ViewChild } from "@angular/core";
 import { Helpers } from "../../../../../helpers";
 import { ClientTicket } from "../../../../../_models/client-ticket.model";
 import { ClientTicketService } from "../../../../../_services/client-ticket.service";
->>>>>>> bc544f9ef1d07c2dfda74fc61296ffec4f6ccbc9
-
+import { emailApprove } from '../../../../../auth/_helpers/fake-email';
 @Component({
   selector: "app-approve",
   templateUrl: "./approve.component.html",
@@ -44,31 +25,27 @@ import { ClientTicketService } from "../../../../../_services/client-ticket.serv
   styles: []
 })
 export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
-<<<<<<< HEAD
   private subsArr: Subscription[]
   list: ClientTicket[]
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  private listStatus: string[] = ['None', 'In Process', 'Approved', 'Rejected']
+  private listStatus: string[] = ["Moi", "Dang Xu Ly", "Duyet", "Tu choi"];
 
   dtOptions: any = {
     responsive: true,
     pagingType: "full_numbers",
-    columnDefs: [
-    ],
-    order: [[0, "desc"]],
-=======
-  private subsArr: Subscription[];
-  list: ClientTicket[];
-  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  private listStatus: string[] = ["None", "In Process", "Approved", "Rejected"];
-  dtOptions: DataTables.Settings = {
-    responsive: true,
-    pagingType: "full_numbers",
     columnDefs: [],
-    order: [[0, "desc"]]
->>>>>>> bc544f9ef1d07c2dfda74fc61296ffec4f6ccbc9
+    order: [[0, "desc"]],
+    oLanguage: {
+      "sSearch": "Tìm kiếm",
+      "sProcessing": "Đang tải ...",
+      "sLengthMenu": "Xem _MENU_",
+      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
+      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
+      "sInfoFiltered": "(Xem _MAX_)"
+    }
   };
   dtTrigger = new Subject();
   public currentItem: ClientTicket = {
@@ -97,13 +74,12 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     private _script: ScriptLoaderService,
     private _serviceClient: ClientTicketService,
     private _toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subsArr = [];
     Helpers.setLoading(true);
 
-<<<<<<< HEAD
     const sub = this._serviceClient.listClientTicketsChanged.subscribe(
       rs => {
         this.list = rs
@@ -112,23 +88,9 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
       err => {
         console.log(err);
       })
-
-    this.subsArr.push(sub)
-=======
-    this.list = this._serviceClient.getClients();
     this._serviceClient.loadData();
+    this.subsArr.push(sub)
 
-    const sub1 = this._serviceClient.listClientTicketsChanged.subscribe(
-      rs => {
-        this.list = rs;
-        console.log(rs);
-        this.rerender();
-      },
-      err => {
-        console.log(err);
-      }
-    );
->>>>>>> bc544f9ef1d07c2dfda74fc61296ffec4f6ccbc9
   }
 
   onShowModal(id) {
@@ -144,53 +106,21 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-<<<<<<< HEAD
     this._script.loadScripts('app-approve',
       [
-        'assets/vendors/custom/datatables/datatables.bundle.js',
-        // 'assets/demo/default/custom/crud/datatables/extensions/buttons.js',
-        // 'assets/demo/default/custom/crud/datatables/standard/paginations.js',
-        // 'assets/demo/default/custom/crud/forms/validation/form-controls.js'
+        'assets/vendors/custom/datatables/datatables.bundle.js'
       ]);
-=======
-    this._script.loadScripts("app-approve", [
-      "assets/vendors/custom/datatables/datatables.bundle.js",
-      "assets/demo/default/custom/crud/datatables/standard/paginations.js",
-      "assets/demo/default/custom/crud/forms/validation/form-controls.js"
-    ]);
->>>>>>> bc544f9ef1d07c2dfda74fc61296ffec4f6ccbc9
     this.dtTrigger.next();
   }
 
   loadScript() {
-    // const dataAgency = this.listAgencies.map(item => {
-    //   return { id: item.agencyCode, text: item.agencyName }
-    // })
-    // $("#m_select2_4_1").select2({ data: dataAgency })
-    // this._script.loadScripts('app-approve',
-    //   [
-    //     'assets/demo/default/custom/crud/forms/widgets/select2.js'
-    //   ]);
+
   }
-
-  // onSendEmail() {
-  //   const sub =
-  //   this.subsArr.push(sub);
-  // }
-
   onApprove() {
-<<<<<<< HEAD
-    this.currentItem.tinhTrangVe = this.listStatus[2]
-    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
-      console.log(rs);
-    })
-    this.subsArr.push(sub)
-=======
     this.currentItem.tinhTrangVe = this.listStatus[2];
-    const email = "quylk2906@gmail.com";
     let data = { ...this.currentItem } as any;
-    data._user = "current_user";
-    data.email = email;
+    data._user = "Le Kim Quy";
+    data.email = emailApprove;
     const sub = this._serviceClient
       .changeStatus(this.currentItem)
       .subscribe(rs => {
@@ -204,15 +134,13 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
         );
       });
     this.subsArr.push(sub);
->>>>>>> bc544f9ef1d07c2dfda74fc61296ffec4f6ccbc9
   }
 
   onReject() {
     this.currentItem.tinhTrangVe = this.listStatus[3];
-    const email = "quylk2906@gmail.com";
     let data = { ...this.currentItem } as any;
-    data._user = "current_user";
-    data.email = email;
+    data._user = "Song Thanh Nghia";
+    data.email = emailApprove;
     const sub = this._serviceClient
       .changeStatus(this.currentItem)
       .subscribe(rs => {

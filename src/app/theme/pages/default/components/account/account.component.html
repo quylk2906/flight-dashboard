@@ -3,7 +3,7 @@
   <div class="d-flex align-items-center">
     <div class="mr-auto">
       <h3 class="m-subheader__title m-subheader__title--separator">
-        Account
+        Tài khoản
       </h3>
       <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
         <li class="m-nav__item m-nav__item--home">
@@ -11,13 +11,13 @@
             <i class="m-nav__link-icon la la-home"></i>
           </a>
         </li>
-        <li class="m-nav__item">
+        <!-- <li class="m-nav__item">
           <a href="" class="m-nav__link">
             <span class="m-nav__link-text">
               Dashboard
             </span>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div>
@@ -94,7 +94,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Thêm mới account.
+            Thêm mới tài khoản.
           </h3>
         </div>
       </div>
@@ -108,7 +108,7 @@
               <i class="la la-warning"></i>
             </div>
             <div class="m-alert__text">
-              Oh snap! Change a few things up and try submitting again.
+              Kiểm tra lại dữ liệu.
             </div>
             <div class="m-alert__close">
               <button type="button" class="close" data-close="alert" aria-label="Close"></button>
@@ -231,10 +231,10 @@
           <div class="row">
             <div class="col-lg-9 ml-lg-auto">
               <button type="submit" class="btn m-btn--pill m-btn--air btn-info mr-2">
-                Submit
+                Xác nhận
               </button>
               <button type="reset" class="btn m-btn--pill m-btn--air btn-danger">
-                Cancel
+                Hủy
               </button>
             </div>
           </div>
@@ -263,25 +263,25 @@
               #
             </th>
             <th>
-              Agency Id
+              Mã đại lý
             </th>
             <th>
-              Account Id
+              Mã tài khoản
             </th>
             <th>
-              Role
+              Quyền
             </th>
             <th>
               Email
             </th>
             <th>
-              Status
+              Trạng thái
             </th>
             <th>
-              Created date
+              Ngày tạo
             </th>
             <th>
-              Actions
+              Hành động
             </th>
           </tr>
         </thead>
@@ -291,26 +291,26 @@
               {{i + 1}}
             </td>
             <td>
-              DL-{{item.agencyId | slice: 18: 24}}
+              DL{{item.agencyId | slice: 18: 24}}
             </td>
             <td>
-              ACC-{{item._id | slice: 18: 24}}
+              ACC{{item._id | slice: 18: 24}}
             </td>
             <td [ngSwitch]="item.role">
-              <a *ngSwitchCase="'0'" href="#" class="m-link m--font-boldest m--font-danger"> Admin </a>
-              <a *ngSwitchCase="'1'" href="#" class="m-link m--font-boldest"> User </a>
+              <a *ngSwitchCase="'0'" href="#" class="m-link m--font-boldest m--font-danger"> Quản trị </a>
+              <a *ngSwitchCase="'1'" href="#" class="m-link m--font-boldest"> Người dùng </a>
             </td>
             <td>
               {{item.email}}
             </td>
             <ng-container *ngIf="item.isActived; else second">
               <td>
-                <span class="m-badge m-badge--success m-badge--wide">Activated</span>
+                <span class="m-badge m-badge--success m-badge--wide">Kích hoạt</span>
               </td>
             </ng-container>
             <ng-template #second>
               <td>
-                <span class="m-badge m-badge--danger m-badge--wide">Deactivate</span>
+                <span class="m-badge m-badge--danger m-badge--wide">Chưa kích hoạt</span>
               </td>
             </ng-template>
             <td>
@@ -329,15 +329,15 @@
                       <div class="m-dropdown__content">
                         <ul class="m-nav">
                           <li class="m-nav__section m-nav__section--first">
-                            <span class="m-nav__section-text">
+                            <!-- <span class="m-nav__section-text">
                               Quick Actions
-                            </span>
+                            </span> -->
                           </li>
                           <li class="m-nav__item" (click)="onEdit(item._id)">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
-                                Edit
+                                Sửa
                               </span>
                             </a>
                           </li>
@@ -345,7 +345,7 @@
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text m--font-danger">
-                                Delete
+                                Xóa
                               </span>
                             </a>
                           </li>

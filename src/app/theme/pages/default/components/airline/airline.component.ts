@@ -27,11 +27,23 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[] = [];
   public list: Airline[];
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {
+  dtOptions: any = {
     responsive: !0,
     pagingType: "full_numbers",
     columnDefs: [],
-    order: [[0, "desc"]]
+    order: [[0, "desc"]],
+    search: {
+      "search": ""
+    },
+    oLanguage: {
+      "sSearch": "Tìm kiếm",
+      "sProcessing": "Đang tải ...",
+      "sLengthMenu": "Xem _MENU_",
+      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
+      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
+      "sInfoFiltered": "(Xem _MAX_)"
+    }
   };
   dtTrigger = new Subject();
 
@@ -51,7 +63,6 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     Helpers.setLoading(true);
-
     this.list = this._service.getAirlines();
     const sub = this._service.listAirlinesChanged.subscribe(
       rs => {

@@ -25,12 +25,20 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[] = []
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {
-    responsive: !0,
+  dtOptions: any = {
+    responsive: true,
     pagingType: "full_numbers",
-    columnDefs: [
-    ],
-    order: [[0, "desc"]]
+    columnDefs: [],
+    order: [[0, "desc"]],
+    oLanguage: {
+      "sSearch": "Tìm kiếm",
+      "sProcessing": "Đang tải ...",
+      "sLengthMenu": "Xem _MENU_",
+      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
+      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
+      "sInfoFiltered": "(Xem _MAX_)"
+    }
   };
   dtTrigger = new Subject();
 
@@ -80,7 +88,7 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem = form.value
     let sub: Subscription
     if (this.currentItem._id) {
-      sub = this._service.putAgencies(this.currentItem ).subscribe(
+      sub = this._service.putAgencies(this.currentItem).subscribe(
         rs => {
           this._service.loadData()
           form.resetForm()
@@ -94,7 +102,7 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       )
     } else {
-      sub = this._service.postAgencies(this.currentItem ).subscribe(
+      sub = this._service.postAgencies(this.currentItem).subscribe(
         rs => {
           this._service.loadData()
           form.resetForm()
@@ -152,7 +160,10 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
       Helpers.setLoading(false)
     });
   }
-  onAgency() { }
-  onDepositProgress() { }
-  onPaymentDetal() { }
+  onAgency(id) {
+    this.currentItem = find(this.list, (item) => {
+      return item._id == id;
+    })
+  }
+
 }

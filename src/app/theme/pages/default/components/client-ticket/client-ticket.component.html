@@ -11,13 +11,13 @@
             <i class="m-nav__link-icon la la-home"></i>
           </a>
         </li>
-        <li class="m-nav__item">
+        <!-- <li class="m-nav__item">
           <a href="" class="m-nav__link">
             <span class="m-nav__link-text">
               Dashboard
             </span>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div>
@@ -109,7 +109,7 @@
               <i class="la la-warning"></i>
             </div>
             <div class="m-alert__text">
-              Oh snap! Change a few things up and try submitting again.
+              Kiểm tra lại dữ liệu.
             </div>
             <div class="m-alert__close">
               <button type="button" class="close" data-close="alert" aria-label="Close"></button>
@@ -337,10 +337,10 @@
           <div class="row">
             <div class="col-lg-9 ml-lg-auto">
               <button type="submit" class="btn m-btn--pill m-btn--air btn-info mr-2">
-                Submit
+                Xác nhận
               </button>
               <button type="reset" class="btn m-btn--pill m-btn--air btn-danger">
-                Cancel
+                Hủy
               </button>
             </div>
           </div>
@@ -369,7 +369,7 @@
               #
             </th>
             <th>
-              ID Khách hàng
+              Mã Khách hàng
             </th>
             <th>
               Mã đặt chỗ
@@ -384,7 +384,7 @@
               Ngày tạo
             </th>
             <th>
-              Action
+              Hành động
             </th>
           </tr>
         </thead>
@@ -394,7 +394,7 @@
               {{i + 1}}
             </td>
             <td>
-              KH-{{item.clientId | slice: 18: 24}}
+              KH{{item.clientId | slice: 18: 24}}
             </td>
             <td>
               {{item.maDatCho}}
@@ -403,9 +403,9 @@
               TICKET_{{item.maXuatVe}}
             </td>
             <td [ngSwitch]="item.tinhTrangVe">
-              <span *ngSwitchCase="'In Process'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
-              <span *ngSwitchCase="'Approved'" class="m-badge m-badge--success m-badge--wide">{{item.tinhTrangVe}}</span>
-              <span *ngSwitchCase="'Rejected'" class="m-badge m-badge--danger m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Dang Xu Ly'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Duyet'" class="m-badge m-badge--success m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Tu choi'" class="m-badge m-badge--danger m-badge--wide">{{item.tinhTrangVe}}</span>
               <span *ngSwitchDefault class="m-badge m-badge--metal m-badge--wide">{{item.tinhTrangVe}}</span>
             </td>
             <td>
@@ -423,11 +423,11 @@
                     <div class="m-dropdown__body">
                       <div class="m-dropdown__content">
                         <ul class="m-nav">
-                          <li class="m-nav__section m-nav__section--first">
+                          <!-- <li class="m-nav__section m-nav__section--first">
                             <span class="m-nav__section-text">
                               Quick Actions
                             </span>
-                          </li>
+                          </li> -->
                           <li class="m-nav__item" (click)="onRequestClick(item._id)">
                             <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
@@ -457,7 +457,7 @@
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text m--font-danger">
-                                Delete
+                                Xóa
                               </span>
                             </a>
                           </li>
@@ -555,13 +555,13 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
+              Đóng
             </button>
             <button *ngIf="isRequest" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onRequest()">
-              Request
+              Gửi yêu cầu
             </button>
             <button *ngIf="isExport" type="button" class="btn btn-primary" (click)="onExport()">
-              Print
+              In
             </button>
           </div>
         </div>

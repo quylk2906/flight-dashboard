@@ -9,6 +9,7 @@ import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
 import { ViewChild } from '@angular/core';
 import { Helpers } from '../../../../../helpers';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-payment-detail',
@@ -38,6 +39,18 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     pagingType: "full_numbers",
     columnDefs: [
     ],
+    search: {
+      "search": ""
+    },
+    oLanguage: {
+      "sSearch": "Tìm kiếm",
+      "sProcessing": "Đang tải ...",
+      "sLengthMenu": "Xem _MENU_",
+      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
+      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
+      "sInfoFiltered": "(Xem _MAX_)"
+    },
     order: [[0, "desc"]],
     dom: "<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>\n\t\t\t<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>",
     buttons: [
@@ -76,9 +89,9 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     ],
   };
   dtTrigger = new Subject();
-
   constructor(private _script: ScriptLoaderService,
-    private _service: PaymentDetailService) {
+    private _service: PaymentDetailService,
+    private route: ActivatedRoute) {
   }
 
 
@@ -89,8 +102,15 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
       this.list = rs
       this.rerender()
     })
+
+    //   const sub2 = this.route.params.subscribe(params => {
+
+    //     this.id = params['id'].slice(18, 24); // (+) converts string 'id' to a number
+    //     // In a real app: dispatch action to load the details here.
+    //  });
     this._service.loadData();
     this.subsArr.push(sub)
+    // this.subsArr.push(sub2)
   }
 
   ngOnDestroy() {
@@ -109,11 +129,10 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
 
   ngAfterViewInit() {
     this._script.loadScripts("app-payment-detail", [
-      "assets/vendors/custom/datatables/datatables.bundle.js",
-      // "assets/demo/default/custom/crud/datatables/basic/paginations.js",
-      // "assets/demo/default/custom/crud/forms/validation/form-controls.js",
-      // "assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js"
+      "assets/vendors/custom/datatables/datatables.bundle.js"
     ]);
+    console.log(this.route.snapshot.params['id']);
+    this.dtOptions.search.search = this.route.snapshot.params['id']
     this.dtTrigger.next();
   }
 }

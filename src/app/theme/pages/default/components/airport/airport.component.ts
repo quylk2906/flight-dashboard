@@ -26,11 +26,20 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[] = [];
   public list: Airport[];
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {
-    responsive: !0,
+  dtOptions: any = {
+    responsive: true,
     pagingType: "full_numbers",
     columnDefs: [],
-    order: [[0, "desc"]]
+    order: [[0, "desc"]],
+    oLanguage: {
+      "sSearch": "Tìm kiếm",
+      "sProcessing": "Đang tải ...",
+      "sLengthMenu": "Xem _MENU_",
+      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
+      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
+      "sInfoFiltered": "(Xem _MAX_)"
+    }
   };
   dtTrigger = new Subject();
 
