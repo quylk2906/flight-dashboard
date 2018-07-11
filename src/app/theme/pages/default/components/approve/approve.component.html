@@ -193,9 +193,9 @@
               {{item.soTien}}
             </td>
             <td [ngSwitch]="item.tinhTrangVe">
-              <span *ngSwitchCase="'Dang Xu Ly'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
-              <span *ngSwitchCase="'Duyet'" class="m-badge m-badge--success m-badge--wide">{{item.tinhTrangVe}}</span>
-              <span *ngSwitchCase="'Tu choi'" class="m-badge m-badge--danger m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Đang xử lý'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Duyệt'" class="m-badge m-badge--success m-badge--wide">{{item.tinhTrangVe}}</span>
+              <span *ngSwitchCase="'Từ chối'" class="m-badge m-badge--danger m-badge--wide">{{item.tinhTrangVe}}</span>
               <span *ngSwitchDefault class="m-badge m-badge--metal m-badge--wide">{{item.tinhTrangVe}}</span>
             </td>
             <td>

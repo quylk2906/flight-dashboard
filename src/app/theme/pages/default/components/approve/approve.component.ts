@@ -17,7 +17,7 @@ import { ViewChild } from "@angular/core";
 import { Helpers } from "../../../../../helpers";
 import { ClientTicket } from "../../../../../_models/client-ticket.model";
 import { ClientTicketService } from "../../../../../_services/client-ticket.service";
-import { emailApprove } from '../../../../../auth/_helpers/fake-email';
+import { emailApprove } from "../../../../../auth/_helpers/fake-email";
 @Component({
   selector: "app-approve",
   templateUrl: "./approve.component.html",
@@ -25,12 +25,11 @@ import { emailApprove } from '../../../../../auth/_helpers/fake-email';
   styles: []
 })
 export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
-  private subsArr: Subscription[]
-  list: ClientTicket[]
+  private subsArr: Subscription[];
+  list: ClientTicket[];
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-  private listStatus: string[] = ["Moi", "Dang Xu Ly", "Duyet", "Tu choi"];
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
+  private listStatus: string[] = ["Mới", "Đang xử lý", "Duyệt", "Từ chối"];
 
   dtOptions: any = {
     responsive: true,
@@ -38,13 +37,13 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     columnDefs: [],
     order: [[0, "desc"]],
     oLanguage: {
-      "sSearch": "Tìm kiếm",
-      "sProcessing": "Đang tải ...",
-      "sLengthMenu": "Xem _MENU_",
-      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
-      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
-      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
-      "sInfoFiltered": "(Xem _MAX_)"
+      sSearch: "Tìm kiếm",
+      sProcessing: "Đang tải ...",
+      sLengthMenu: "Xem _MENU_",
+      sZeroRecords: "Không tìm thấy mục nào phù hợp",
+      sInfo: "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      sInfoEmpty: "Đang xem 0 đến 0 trong tổng 0",
+      sInfoFiltered: "(Xem _MAX_)"
     }
   };
   dtTrigger = new Subject();
@@ -74,7 +73,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     private _script: ScriptLoaderService,
     private _serviceClient: ClientTicketService,
     private _toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.subsArr = [];
@@ -82,15 +81,15 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const sub = this._serviceClient.listClientTicketsChanged.subscribe(
       rs => {
-        this.list = rs
-        this.rerender()
+        this.list = rs;
+        this.rerender();
       },
       err => {
         console.log(err);
-      })
+      }
+    );
     this._serviceClient.loadData();
-    this.subsArr.push(sub)
-
+    this.subsArr.push(sub);
   }
 
   onShowModal(id) {
@@ -106,16 +105,13 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._script.loadScripts('app-approve',
-      [
-        'assets/vendors/custom/datatables/datatables.bundle.js'
-      ]);
+    this._script.loadScripts("app-approve", [
+      "assets/vendors/custom/datatables/datatables.bundle.js"
+    ]);
     this.dtTrigger.next();
   }
 
-  loadScript() {
-
-  }
+  loadScript() {}
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2];
     let data = { ...this.currentItem } as any;
@@ -164,4 +160,3 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 }
-
