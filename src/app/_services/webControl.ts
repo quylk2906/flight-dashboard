@@ -4,7 +4,7 @@ export default class WebControl {
     headers: new HttpHeaders({ "Content-Type": "application/json" })
   };
 
-  static baseURL = 'https://vast-journey-12423.herokuapp.com/api/v1/';
+  // static baseURL = 'https://vast-journey-12423.herokuapp.com/api/v1/';
 
-  // static baseURL = "http://localhost:4200/api/v1/";
+  static baseURL = "http://localhost:4200/api/v1/";
 }

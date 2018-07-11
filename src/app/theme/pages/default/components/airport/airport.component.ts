@@ -25,6 +25,7 @@ import { ToastrService } from "ngx-toastr";
 export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[] = [];
   public list: Airport[];
+  public listRegions: any[];
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: any = {
     responsive: true,
@@ -55,12 +56,14 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     private _script: ScriptLoaderService,
     private _service: AirportService,
     private _toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     Helpers.setLoading(true);
 
     this.list = this._service.getAirports();
+    this.listRegions = this._service.getAllRegions()
+    console.log(this.listRegions);
     const sub = this._service.listAirportsChanged.subscribe(
       rs => {
         this.list = rs;

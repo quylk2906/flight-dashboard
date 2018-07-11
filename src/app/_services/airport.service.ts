@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import webControl from "./webControl";
 import { Observable, Subject } from "rxjs";
 import { Airport } from "../_models/airport.model";
-
+const region = require('../_utils/tinh.json')
 @Injectable()
 export class AirportService {
   listAirportsChanged = new Subject<Airport[]>();
@@ -12,6 +12,15 @@ export class AirportService {
   constructor(private http: HttpClient) { }
   getAirports() {
     return this.listAirports;
+  }
+
+  getAllRegions() {
+    let listRegions = []
+    Object.entries(region).forEach(([key, value]) => {
+      const obj = { name: value["name"], code: value["code"], slug: value["slug"] }
+      listRegions.push(obj)
+    })
+    return listRegions
   }
 
   loadData() {
