@@ -334,9 +334,10 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onRequest() {
     this.modalItem.tinhTrangVe = this.listStatus[1];
-    let data = { ...this.currentItem } as any;
+    let data = { ...this.modalItem } as any;
     data._user = "Le Kim Quy";
     data.email = emailRequest;
+
     const sub = this._serviceClientTicket
       .putClient(this.modalItem)
       .subscribe(rs => {
