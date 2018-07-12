@@ -130,6 +130,7 @@
             </div>
           </div>
         </div>
+
         <div class="form-group m-form__group row">
           <label class="col-form-label col-lg-3 col-sm-12">
             Mã sân bay *
@@ -157,6 +158,33 @@
                   <i class="la la-edit"></i>
                 </span>
               </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Tỉnh thành
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem.airportRegion" name="airportRegion">
+                <option></option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <label class="col-form-label col-lg-3 col-sm-12">
+            Quốc gia
+          </label>
+          <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="m-input-icon m-input-icon--right">
+              <select class="form-control m-input" name="airportCountry" [(ngModel)]="currentItem.airportCountry">
+                <!-- <option *ngFor="let item of listAgencies" [value]="item._id">
+                  {{item.agencyName}}
+                </option> -->
+                <option>Viet Nam</option>
+              </select>
             </div>
           </div>
         </div>
@@ -217,10 +245,7 @@
               Ngày tạo
             </th>
             <th>
-              Status
-            </th>
-            <th>
-              Actions
+              Hành động
             </th>
           </tr>
         </thead>
@@ -239,11 +264,6 @@
               {{item.createdAt}}
             </td>
             <td>
-              <span class="m-badge m-badge--success m-badge--dot"></span>
-              &nbsp;
-              <span class="m--font-bold m--font-success">Active</span>
-            </td>
-            <td>
               <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
                 aria-expanded="true">
                 <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
@@ -255,11 +275,11 @@
                     <div class="m-dropdown__body">
                       <div class="m-dropdown__content">
                         <ul class="m-nav">
-                          <li class="m-nav__section m-nav__section--first">
+                          <!-- <li class="m-nav__section m-nav__section--first">
                             <span class="m-nav__section-text">
                               Quick Actions
                             </span>
-                          </li>
+                          </li> -->
                           <li class="m-nav__item" (click)="onEdit(item._id)">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
@@ -268,14 +288,14 @@
                               </span>
                             </a>
                           </li>
-                          <li class="m-nav__item">
+                          <!-- <li class="m-nav__item">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
                                 Sao chép
                               </span>
                             </a>
-                          </li>
+                          </li> -->
                           <li class="m-nav__item" (click)="onDelete(item._id)">
                             <a href="" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
