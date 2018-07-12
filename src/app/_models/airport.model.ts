@@ -3,7 +3,6 @@ export interface Airport {
   airportName: string;
   _id: string;
   createdAt: string;
-  updatedAt: string;
   airportRegion: string;
   airportCountry: string;
 }

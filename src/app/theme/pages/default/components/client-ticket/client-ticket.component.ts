@@ -314,7 +314,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onRequestClick(id) {
-   
+
     this.modalItem = find(this.list, item => {
       return item._id == id;
     });

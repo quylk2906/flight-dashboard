@@ -129,11 +129,12 @@
             </div>
           </div>
         </div>
+
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Họ tên *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
+          <div class="col-lg-5">
+            <label>
+              Họ tên *
+            </label>
             <div class="m-input-icon m-input-icon--right">
               <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
               <span class="m-input-icon__icon m-input-icon__icon--right">
@@ -143,12 +144,10 @@
               </span>
             </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Số ĐT *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
+          <div class="col-lg-5">
+            <label>
+              Số ĐT *
+            </label>
             <div class="m-input-icon m-input-icon--right">
               <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber" required placeholder="Nhập số điện thoại">
               <span class="m-input-icon__icon m-input-icon__icon--right">
@@ -159,48 +158,88 @@
             </div>
           </div>
         </div>
+
         <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Địa chỉ *
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
+          <div class="col-lg-5">
+            <label>
+              CMND *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <label>
+              Nơi sinh *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber" required placeholder="Nhập số điện thoại">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group m-form__group row">
+          <div class="col-lg-5">
+            <label>
+              Tỉnh thành *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <label>
+              Quốc gia *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber" required placeholder="Nhập số điện thoại">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group m-form__group row">
+          <div class="col-lg-5">
+            <label>
+              Giới tính *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <label>
+              Địa chỉ *
+            </label>
             <div class="input-group m-input-group">
               <textarea class="form-control m-input" name="address" [(ngModel)]="currentItem.address" placeholder="Nhập địa chỉ"></textarea>
             </div>
           </div>
         </div>
-        <!-- <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày đi
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group date">
-              <input type="text" class="form-control m-input" name="departureDate" [ngModel]="currentItem.departureDate | date: 'yyyy-MM-dd hh:mm'"
-                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1" />
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="la la-calendar-check-o glyphicon-th"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label class="col-form-label col-lg-3 col-sm-12">
-            Ngày về
-          </label>
-          <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="input-group date">
-              <input type="text" class="form-control m-input" name="returnDate" [ngModel]="currentItem.returnDate  | date: 'yyyy-MM-dd hh:mm'"
-                required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_1" />
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="la la-calendar-check-o glyphicon-th"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
       <div class="m-portlet__foot m-portlet__foot--fit">
         <div class="m-form__actions m-form__actions">

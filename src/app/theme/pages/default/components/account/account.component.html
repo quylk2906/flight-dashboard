@@ -224,6 +224,72 @@
               </option>
             </select>
           </div>
+          <div class="col-lg-5">
+            <label>
+              Giới tính.
+            </label>
+            <select class="form-control m-input" name="isActived" [(ngModel)]="currentItem.isActived">
+              <option *ngFor="let item of listStatus" [value]="item.value">
+                {{item.title}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group m-form__group row" [hidden]="currentItem._id">
+          <div class="col-lg-5">
+            <label>
+              Tuổi *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="password" class="form-control m-input" [(ngModel)]="currentItem.password" name="password">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <label>
+              Số Fax *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="password" class="form-control m-input" [(ngModel)]="currentItem.password2" name="password2">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row" [hidden]="currentItem._id">
+          <div class="col-lg-5">
+            <label>
+              Ví trí *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="password" class="form-control m-input" [(ngModel)]="currentItem.password" name="password">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <label>
+              Ngoại ngữ *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="password" class="form-control m-input" [(ngModel)]="currentItem.password2" name="password2">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="m-portlet__foot m-portlet__foot--fit">

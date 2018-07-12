@@ -48,6 +48,11 @@ const routes: Routes = [
           "./pages/default/components/approve/approve.module#ApproveModule"
       },
       {
+        path: "components/position",
+        loadChildren:
+          "./pages/default/components/position/position.module#PositionModule"
+      },
+      {
         path: "components/agency",
         loadChildren:
           "./pages/default/components/agency/agency.module#AgencyModule"

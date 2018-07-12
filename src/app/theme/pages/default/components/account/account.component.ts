@@ -63,7 +63,14 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     email: undefined,
     createdAt: undefined,
     password2: undefined,
-    password: undefined
+    password: undefined,
+    gender: undefined,
+    age: undefined,
+    faxNumber: undefined,
+    timeJoin: undefined,
+    degree: undefined,
+    languages: undefined
+    
   };
   constructor(
     private _script: ScriptLoaderService,

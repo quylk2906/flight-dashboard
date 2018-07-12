@@ -182,11 +182,6 @@ export class DepositProgressComponent implements OnInit, OnDestroy, AfterViewIni
   resetForm() {
     $("#m_select2_4_1").val(0).trigger('change')
   }
-  // onEdit(id) {
-  //   // this.currentItem = find(this.list, (item) => {
-  //   //   return item.id == id
-  //   // })
-  // }
 
   ngOnDestroy(): void {
     Helpers.setLoading(true)

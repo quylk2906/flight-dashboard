@@ -167,7 +167,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem.airportRegion" name="airportRegion">
+              <select class="form-control m-select2" id="m_select2_4_1" name="airportRegion">
                 <option></option>
               </select>
             </div>
@@ -180,9 +180,6 @@
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
               <select class="form-control m-input" name="airportCountry" [(ngModel)]="currentItem.airportCountry">
-                <!-- <option *ngFor="let item of listAgencies" [value]="item._id">
-                  {{item.agencyName}}
-                </option> -->
                 <option>Viet Nam</option>
               </select>
             </div>
@@ -242,6 +239,12 @@
               Tên sân bay
             </th>
             <th>
+              Tỉnh/TP
+            </th>
+            <th>
+              Quốc gia
+            </th>
+            <th>
               Ngày tạo
             </th>
             <th>
@@ -259,6 +262,12 @@
             </td>
             <td>
               {{item.airportName}}
+            </td>
+            <td>
+              {{item.airportRegion}}
+            </td>
+            <td>
+              {{item.airportCountry}}
             </td>
             <td>
               {{item.createdAt}}

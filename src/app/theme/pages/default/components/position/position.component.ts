@@ -3,75 +3,54 @@ import {
   OnInit,
   AfterViewInit,
   ViewEncapsulation,
-  OnDestroy,
-  ViewChild
+  OnDestroy
 } from "@angular/core";
 import { ScriptLoaderService } from "../../../../../_services/script-loader.service";
 import { NgForm } from "@angular/forms";
-import { AirportService } from "../../../../../_services/airport.service";
 import { Subscription } from "rxjs/Subscription";
-import { Airport } from "../../../../../_models/airport.model";
 import { trimObjectAfterSave } from "../../../../../_utils/trimObject";
 import { find } from "lodash";
 import { Helpers } from "../../../../../helpers";
-import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs/Subject";
 import { ToastrService } from "ngx-toastr";
-import { Select2 } from "select2";
+import { PositionService } from "../../../../../_services/position.service";
+import { Position } from "../../../../../_models/position.model";
+
 @Component({
-  selector: "app-airport",
-  templateUrl: "./airport.component.html",
+  selector: "app-position",
+  templateUrl: "./position.component.html",
   encapsulation: ViewEncapsulation.None
 })
-export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
-  private subsArr: Subscription[] = [];
-  public list: Airport[];
-  public listRegions: any[];
-  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  dtOptions: any = {
-    responsive: true,
-    pagingType: "full_numbers",
-    columnDefs: [],
-    order: [[0, "desc"]],
-    oLanguage: {
-      "sSearch": "Tìm kiếm",
-      "sProcessing": "Đang tải ...",
-      "sLengthMenu": "Xem _MENU_",
-      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
-      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
-      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
-      "sInfoFiltered": "(Xem _MAX_)"
-    }
-  };
-  dtTrigger = new Subject();
 
-  public currentItem: Airport = {
-    airportCode: undefined,
-    airportName: undefined,
+export class PositionComponent implements OnInit, OnDestroy, AfterViewInit {
+  private subsArr: Subscription[] = [];
+  public list: Position[];
+  public listRegions: any[];
+
+  public currentItem: Position = {
     _id: undefined,
-    createdAt: undefined,
-    airportRegion: undefined,
-    airportCountry: undefined,
+    titleDivision: undefined,
+    codeDivision: undefined,
+    fullName: undefined,
+    createdAt: undefined
   };
 
   constructor(
     private _script: ScriptLoaderService,
-    private _service: AirportService,
+    private _service: PositionService,
     private _toastr: ToastrService
   ) { }
 
   ngOnInit() {
     Helpers.setLoading(true);
-
-    this.list = this._service.getAirports();
-    this.listRegions = this._service.getAllRegions()
-
-    const sub = this._service.listAirportsChanged.subscribe(
+    this.list = this._service.getPositions();
+    const sub = this._service.listPositionsChanged.subscribe(
       rs => {
         this.list = rs;
-        this.rerender();
+        Helpers.setLoading(false);
       },
       err => {
+        Helpers.setLoading(false);
         this._toastr.error(err, undefined, { closeButton: true });
       }
     );
@@ -83,18 +62,15 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
     if (form.invalid) {
       return;
     }
-
     Helpers.setLoading(true);
-
     this.currentItem = trimObjectAfterSave(form.value);
-    this.currentItem.airportRegion = $("#m_select2_4_1").val().toString();
-
     let sub: Subscription;
+    console.log(this.currentItem);
     if (this.currentItem._id) {
-      sub = this._service.putAirport(this.currentItem).subscribe(
+      sub = this._service.putPosition(this.currentItem).subscribe(
         rs => {
+          console.log(rs);
           this._service.loadData();
-          this.clearSelect2()
           form.resetForm();
           this._toastr.info("Thay đổi thành công", undefined, {
             closeButton: true
@@ -108,7 +84,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       );
     } else {
-      sub = this._service.postAirport(this.currentItem).subscribe(
+      sub = this._service.postPosition(this.currentItem).subscribe(
         rs => {
           this._service.loadData();
           form.resetForm();
@@ -128,11 +104,10 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onDelete(id) {
-    const sub = this._service.deleteAirport(id).subscribe(rs => {
+    const sub = this._service.deletePosition(id).subscribe(rs => {
       if (rs["count"] !== 0) {
         this._toastr.info("Xóa thành công", undefined, { closeButton: true });
         this._service.loadData();
-        this.clearSelect2()
       }
     });
     this.subsArr.push(sub);
@@ -147,41 +122,12 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.subsArr.forEach(sub => sub.unsubscribe());
     Helpers.setLoading(true);
-    this.dtTrigger.unsubscribe();
   }
 
   ngAfterViewInit() {
-    this._script.loadScripts("app-airport", [
-      "assets/vendors/custom/datatables/datatables.bundle.js",
+    this._script.loadScripts("app-position", [
       "assets/demo/default/custom/crud/forms/validation/form-controls.js"
     ]);
-    this.dtTrigger.next();
-    this.loadScript()
-  }
 
-  clearSelect2() {
-    $("#m_select2_4_1")
-      .val(0)
-      .trigger("change");
-  }
-
-  loadScript() {
-    const dataRegions = this.listRegions.map(item => {
-      return { id: item.name, text: item.name };
-    });
-
-    $("#m_select2_4_1").select2({ data: dataRegions });
-
-    this._script.loadScripts("app-airport", [
-      "assets/demo/default/custom/crud/forms/widgets/select2.js"
-    ]);
-  }
-
-  rerender() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
-      Helpers.setLoading(false);
-    });
   }
 }
