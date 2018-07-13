@@ -1,23 +1,31 @@
-import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import "rxjs/add/operator/map";
+import webControl from '../../_services/webControl';
+import { Router } from "@angular/router";
+import { Helpers } from "../../helpers";
+// import { Response } from "@angular/http";
 
 @Injectable()
 export class AuthenticationService {
 
-	constructor(private http: Http) {
+	constructor(private http: HttpClient, private _router: Router) {
 	}
 
 	login(email: string, password: string) {
-		return this.http.post('/api/authenticate', JSON.stringify({email: email, password: password}))
-			.map((response: Response) => {
-				// login successful if there's a jwt token in the response
-				let user = response.json();
-				if (user && user.token) {
-					// store user details and jwt token in local storage to keep user logged in between page refreshes
-					localStorage.setItem('currentUser', JSON.stringify(user));
+		const body = { email, password }
+
+		Helpers.setLoading(true);
+		return this.http.post(webControl.baseURL + 'accounts/auth/signIn', body, webControl.httpOptions).map(
+			(res: any) => {
+				Helpers.setLoading(false);
+				if (res.data.user && res.data.token) {
+					res.data.user.token = res.data.token
+					localStorage.setItem('currentUser', JSON.stringify(res.data.user));
+					this._router.navigate(['/'])
 				}
-			});
+			}
+		)
 	}
 
 	logout() {

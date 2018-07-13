@@ -20,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   public list: Client[]
+  public listRegions: any[];
   private subsArr: Subscription[] = []
   public currentItem: Client = {
     fullName: undefined,
@@ -27,7 +28,13 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
     address: undefined,
     _id: undefined,
     createdAt: undefined,
-    updatedAt: undefined
+    updatedAt: undefined,
+    clientId: undefined,
+    identification: undefined,
+    gender: false,
+    region: undefined,
+    birthPlace: undefined,
+    country: undefined
   }
 
   @ViewChild(DataTableDirective)
@@ -49,7 +56,6 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   };
   dtTrigger = new Subject();
 
-
   constructor(private _script: ScriptLoaderService,
     private _service: ClientService,
     private _toastr: ToastrService
@@ -59,6 +65,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     Helpers.setLoading(true)
     this.list = this._service.getClients();
+    this.listRegions = this._service.getAllRegions()
     const sub = this._service.listClientsChanged.subscribe(
       rs => {
         this.list = rs
@@ -71,11 +78,18 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subsArr.push(sub)
   }
 
+  onSelectionChange(value) {
+    this.currentItem.gender = value
+  }
+
   onSubmit(form: NgForm) {
-    Helpers.setLoading(true)
+
     if (form.invalid) {
       return
     }
+    Helpers.setLoading(true)
+    this.currentItem.region = $("#m_select2_4_1").val().toString();
+
     let sub: Subscription
     if (this.currentItem._id) {
       sub = this._service.putClient(this.currentItem).subscribe(
@@ -122,6 +136,9 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onEdit(id) {
     this.currentItem = find(this.list, (item) => { return item._id == id })
+    $("#m_select2_4_1")
+      .val(this.currentItem.region)
+      .trigger("change");
   }
 
   ngOnDestroy() {
@@ -140,16 +157,22 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-
-
   ngAfterViewInit() {
+
+    const dataRegions = this.listRegions.map(item => {
+      return { id: item.name, text: item.name };
+    });
+
+    $("#m_select2_4_1").select2({ data: dataRegions });
+
     this._script.loadScripts('app-client',
       [
         'assets/vendors/custom/datatables/datatables.bundle.js',
-        'assets/demo/default/custom/crud/datatables/standard/paginations.js',
         'assets/demo/default/custom/crud/forms/validation/form-controls.js',
-        'assets/demo/default/custom/components/base/dropdown.js'
+        'assets/demo/default/custom/components/base/dropdown.js',
+        "assets/demo/default/custom/crud/forms/widgets/select2.js"
       ]);
+
     this.dtTrigger.next();
   }
 }

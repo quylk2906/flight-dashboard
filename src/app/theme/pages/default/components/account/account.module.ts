@@ -8,6 +8,7 @@ import { FormsModule } from "@angular/forms";
 import { AgencyService } from "../../../../../_services/agency.service";
 import { DataTablesModule } from "angular-datatables";
 import { AccountService } from "../../../../../_services/account.service";
+import { PositionService } from "../../../../../_services/position.service";
 
 const routes: Routes = [
   {
@@ -31,7 +32,7 @@ const routes: Routes = [
     DataTablesModule
   ],
   exports: [RouterModule],
-  providers: [AgencyService, AccountService],
+  providers: [AgencyService, AccountService, PositionService],
   declarations: [AccountComponent]
 })
 export class AccountModule {}

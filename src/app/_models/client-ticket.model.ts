@@ -1,5 +1,6 @@
 export interface ClientTicket {
   clientId: string,
+  accountId: string,
   agencyId: string,
   ticketId: number,
   maDatCho: string,

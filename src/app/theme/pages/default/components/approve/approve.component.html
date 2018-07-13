@@ -180,14 +180,14 @@
             <td>
               {{i + 1}}
             </td>
-            <td>
+            <td class="text-uppercase">
               KH{{item.clientId | slice: 18: 24}}
             </td>
             <td>
               {{item.maDatCho}}
             </td>
             <td>
-              TICKET_{{item.maXuatVe}}
+              {{item.maXuatVe ? 'TICKET_' + item.maXuatVe : ''}}
             </td>
             <td>
               {{item.soTien}}
@@ -232,7 +232,7 @@
             <div class="form-group m-form__group row">
               <div class="col-lg-5">
                 <div class="m-input-icon m-input-icon--right">
-                  <input type="text" placeholder="Mã xuất vé" class="form-control m-input" [ngModel]="currentItem.maXuatVe" name="maXuatVe">
+                  <input type="text" placeholder="Mã xuất vé" class="form-control m-input" [(ngModel)]="currentItem.maXuatVe" name="maXuatVe">
                 </div>
               </div>
             </div>
@@ -245,7 +245,7 @@
               <div>
                 <span>
                   <strong>Mã xuất vé</strong>: </span>
-                <span class="pull-right">{{currentItem.maXuatVe}} </span>
+                <span class="pull-right"> {{currentItem.maXuatVe ? 'TICKET_' + item.maXuatVe : ''}}</span>
               </div>
               <div>
                 <span>

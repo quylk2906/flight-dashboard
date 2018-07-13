@@ -131,16 +131,16 @@
               {{i + 1}}
             </td>
             <td>
-              DL{{item.agencyId | slice: 18: 24}}
+              {{item.agencyCode }}
             </td>
             <td>
-              {{item.firstBalance}}
+              {{item.firstBalance | number: '3.0-3'}} VNĐ
             </td>
             <td>
-              {{item.lastBalance}}
+              {{item.lastBalance | number: '3.0-3'}} VNĐ
             </td>
             <td>
-              {{item.amount}}
+              {{item.amount | number: '3.0-3'}} VNĐ
             </td>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}

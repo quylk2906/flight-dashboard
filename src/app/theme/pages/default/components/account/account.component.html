@@ -228,20 +228,25 @@
             <label>
               Giới tính.
             </label>
-            <select class="form-control m-input" name="isActived" [(ngModel)]="currentItem.isActived">
-              <option *ngFor="let item of listStatus" [value]="item.value">
-                {{item.title}}
-              </option>
-            </select>
+            <div class="m-radio-inline">
+              <label class="m-radio m-radio--bold m-radio--state-success">
+                <input type="radio" name="example_3" checked (change)="onSelectionChange(false)"> Nam
+                <span></span>
+              </label>
+              <label class="m-radio m-radio--bold m-radio--state-brand">
+                <input type="radio" name="example_3" (change)="onSelectionChange(true)"> Nữ
+                <span></span>
+              </label>
+            </div>
           </div>
         </div>
-        <div class="form-group m-form__group row" [hidden]="currentItem._id">
+        <div class="form-group m-form__group row">
           <div class="col-lg-5">
             <label>
               Tuổi *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="password" class="form-control m-input" [(ngModel)]="currentItem.password" name="password">
+              <input type="number" class="form-control m-input" [(ngModel)]="currentItem.age" name="age">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -254,7 +259,7 @@
               Số Fax *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="password" class="form-control m-input" [(ngModel)]="currentItem.password2" name="password2">
+              <input type="number" class="form-control m-input" [(ngModel)]="currentItem.faxNumber" name="faxNumber">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -263,13 +268,17 @@
             </div>
           </div>
         </div>
-        <div class="form-group m-form__group row" [hidden]="currentItem._id">
+        <div class="form-group m-form__group row">
           <div class="col-lg-5">
             <label>
               Ví trí *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="password" class="form-control m-input" [(ngModel)]="currentItem.password" name="password">
+              <select class="form-control m-input" name="degree" [(ngModel)]="currentItem.degree">
+                <option *ngFor="let item of listPositions" [value]="item.titleDivision">
+                  {{item.titleDivision}}
+                </option>
+              </select>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -282,7 +291,22 @@
               Ngoại ngữ *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="password" class="form-control m-input" [(ngModel)]="currentItem.password2" name="password2">
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.languages" name="languages">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group m-form__group row">
+          <div class="col-lg-5">
+            <label>
+              Email nhận thông báo *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="email" class="form-control m-input" [(ngModel)]="currentItem.emailNotification" name="emailNotification">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -344,7 +368,7 @@
               Trạng thái
             </th>
             <th>
-              Ngày tạo
+              Ngày tham gia
             </th>
             <th>
               Hành động
@@ -357,10 +381,10 @@
               {{i + 1}}
             </td>
             <td>
-              DL{{item.agencyId | slice: 18: 24}}
+              {{item.agencyId.agencyCode}}
             </td>
-            <td>
-              ACC{{item._id | slice: 18: 24}}
+            <td class="text-uppercase">
+              AC_{{item._id | slice: 18: 24}}
             </td>
             <td [ngSwitch]="item.role">
               <a *ngSwitchCase="'0'" href="#" class="m-link m--font-boldest m--font-danger"> Quản trị </a>

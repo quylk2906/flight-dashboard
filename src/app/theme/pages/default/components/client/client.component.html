@@ -165,7 +165,8 @@
               CMND *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
+              <input type="number" class="form-control m-input" [(ngModel)]="currentItem.identification" name="identification" required
+                placeholder="Nhập số CMND">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -175,10 +176,10 @@
           </div>
           <div class="col-lg-5">
             <label>
-              Nơi sinh *
+              Nơi sinh
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber" required placeholder="Nhập số điện thoại">
+              <input type="text" class="form-control m-input" name="birthPlace" [(ngModel)]="currentItem.birthPlace" required placeholder="Nhập nơi sinh">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -187,19 +188,15 @@
             </div>
           </div>
         </div>
-
         <div class="form-group m-form__group row">
           <div class="col-lg-5">
             <label>
               Tỉnh thành *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
+              <select class="form-control m-select2" id="m_select2_4_1" name="region">
+                <option></option>
+              </select>
             </div>
           </div>
           <div class="col-lg-5">
@@ -207,7 +204,7 @@
               Quốc gia *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber" required placeholder="Nhập số điện thoại">
+              <input type="text" class="form-control m-input" name="country" [(ngModel)]="currentItem.country" required placeholder="Nhập quốc gia">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -216,19 +213,20 @@
             </div>
           </div>
         </div>
-
         <div class="form-group m-form__group row">
           <div class="col-lg-5">
             <label>
-              Giới tính *
+              Giới tính.
             </label>
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
+            <div class="m-radio-inline">
+              <label class="m-radio m-radio--bold m-radio--state-success">
+                <input type="radio" name="example_3" checked (change)="onSelectionChange(false)"> Nam
+                <span></span>
+              </label>
+              <label class="m-radio m-radio--bold m-radio--state-brand">
+                <input type="radio" name="example_3" (change)="onSelectionChange(true)"> Nữ
+                <span></span>
+              </label>
             </div>
           </div>
           <div class="col-lg-5">
@@ -287,8 +285,19 @@
               Số điện thoaị
             </th>
             <th>
+              Tỉnh thành
+            </th>
+
+            <th>
+              CMND
+            </th>
+            <th>
+              Nơi sinh
+            </th>
+            <th>
               Địa chỉ
             </th>
+
             <th>
               Ngày tạo
             </th>
@@ -302,7 +311,7 @@
             <td>
               {{i + 1}}
             </td>
-            <td>
+            <td class="text-uppercase">
               KH{{item._id | slice: 18: 24}}
             </td>
             <td>
@@ -312,16 +321,20 @@
               {{item.phoneNumber}}
             </td>
             <td>
+              {{item.region}}
+            </td>
+            <td>
+              {{item.identification}}
+            </td>
+            <td>
+              {{item.birthPlace}}
+            </td>
+            <td>
               {{item.address}}
             </td>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
             </td>
-            <!-- <td>
-              <span class="m-badge m-badge--success m-badge--dot"></span>
-              &nbsp;
-              <span class="m--font-bold m--font-success">Active</span>
-            </td> -->
             <td>
               <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
                 aria-expanded="true">

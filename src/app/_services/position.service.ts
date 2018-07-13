@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import webControl from "./webControl";
 import { Observable, Subject } from "rxjs";
 import { Position } from "../_models/position.model";
@@ -16,6 +16,9 @@ export class PositionService {
       return this.listPositions;
    }
 
+   getPositionsObservable() {
+      return this.http.get(webControl.baseURL + this.endPoint);
+   }
 
    loadData() {
       this.http.get(webControl.baseURL + this.endPoint).subscribe(res => {

@@ -179,9 +179,12 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-input" name="airportCountry" [(ngModel)]="currentItem.airportCountry">
-                <option>Viet Nam</option>
-              </select>
+              <input type="text" class="form-control m-input" name="airportCountry" [(ngModel)]="currentItem.airportCountry" required placeholder="Nhập quốc gia">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
             </div>
           </div>
         </div>

@@ -44,6 +44,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   public currentItem: ClientTicket = {
     clientId: undefined,
     agencyId: undefined,
+    accountId: undefined,
     ticketId: undefined,
     maDatCho: undefined,
     maXuatVe: undefined,

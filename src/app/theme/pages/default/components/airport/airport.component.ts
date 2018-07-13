@@ -62,7 +62,6 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     Helpers.setLoading(true);
-
     this.list = this._service.getAirports();
     this.listRegions = this._service.getAllRegions()
 
@@ -70,6 +69,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
       rs => {
         this.list = rs;
         this.rerender();
+        this.clearSelect2()
       },
       err => {
         this._toastr.error(err, undefined, { closeButton: true });
@@ -94,7 +94,6 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
       sub = this._service.putAirport(this.currentItem).subscribe(
         rs => {
           this._service.loadData();
-          this.clearSelect2()
           form.resetForm();
           this._toastr.info("Thay đổi thành công", undefined, {
             closeButton: true

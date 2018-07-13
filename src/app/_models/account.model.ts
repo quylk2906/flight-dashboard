@@ -6,6 +6,7 @@ export interface Account {
   isActived: boolean;
   username: string;
   email: string;
+  emailNotification: string;
   createdAt: string;
   password2: string;
   password: string;

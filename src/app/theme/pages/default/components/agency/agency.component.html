@@ -136,7 +136,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="agencyCode" [ngModel]="currentItem.agencyCode" required placeholder="Nhập mã đại ly">
+              <input type="text" class="form-control m-input" name="agencyCode" [ngModel]="currentItem.agencyCode" required placeholder="Nhập mã đại lý">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -196,7 +196,8 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="identification" [ngModel]="currentItem.identification" required placeholder="Số CMND">
+              <input type="number" maxlength="10" class="form-control m-input" name="identification" [ngModel]="currentItem.identification"
+                required placeholder="Số CMND">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -211,7 +212,8 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="phoneNumber" [ngModel]="currentItem.phoneNumber" required placeholder="Số điện thoại">
+              <input type="number" maxlength="11" class="form-control m-input" name="phoneNumber" [ngModel]="currentItem.phoneNumber" required
+                placeholder="Số điện thoại">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -290,13 +292,13 @@
               {{i + 1}}
             </td>
             <td>
-              DL{{item._id | slice: 18: 24}}
+              {{item.agencyCode}}
             </td>
             <td>
               {{item.agencyName}}
             </td>
             <td>
-              {{item.initialBudget | currency: 'VND': true}}
+              {{item.initialBudget | number: '3.0-3'}} VNĐ
             </td>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
@@ -335,7 +337,7 @@
                             </a>
                           </li> -->
                           <li class="m-nav__item">
-                            <a [routerLink]="['/components/payment-detail', item._id.slice(18, 24)]" class="m-nav__link">
+                            <a [routerLink]="['/components/payment-detail', item.agencyCode]" class="m-nav__link">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
                                 Chi tiết giao dịch
@@ -363,14 +365,13 @@
     </div>
   </div>
 
-
   <div class="modal fade" id="m_modal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <ng-container *ngIf="currentItem; else elseTemplate">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Mã đại lý: DL{{currentItem._id | slice: 18: 24}} - Tên đại lý: {{currentItem.agencyName}}
+              Mã đại lý: {{currentItem.agencyCode}} - Tên đại lý: {{currentItem.agencyName}}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">

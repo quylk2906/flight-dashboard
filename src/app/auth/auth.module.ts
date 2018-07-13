@@ -32,7 +32,7 @@ import {fakeBackendProvider} from './_helpers/index';
     AuthenticationService,
     UserService,
     // api backend simulation
-    fakeBackendProvider,
+    // fakeBackendProvider,
     MockBackend,
     BaseRequestOptions,
   ],

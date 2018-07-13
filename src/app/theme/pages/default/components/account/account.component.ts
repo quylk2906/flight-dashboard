@@ -10,7 +10,7 @@ import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs/Subscription";
 import { trimObjectAfterSave } from "../../../../../_utils/trimObject";
 import { find } from "lodash";
-import { ObjectUnsubscribedError, Subject } from "rxjs";
+import { ObjectUnsubscribedError, Subject, forkJoin } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { Helpers } from "../../../../../helpers";
 import { Agency } from "../../../../../_models/agency.model";
@@ -19,6 +19,8 @@ import { DataTableDirective } from "angular-datatables";
 import { ViewChild } from "@angular/core";
 import { Account } from "../../../../../_models/account.model";
 import { AccountService } from "../../../../../_services/account.service";
+import { Position } from "../../../../../_models/position.model";
+import { PositionService } from "../../../../../_services/position.service";
 
 @Component({
   selector: "app-account",
@@ -29,6 +31,7 @@ import { AccountService } from "../../../../../_services/account.service";
 export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   public list: Account[];
   public listAgency: Agency[];
+  public listPositions: Position[];
   private subsArr: Subscription[] = [];
   public listStatus = [
     { title: "Kíck hoạt", value: true },
@@ -58,25 +61,27 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     agencyId: undefined,
     fullName: undefined,
     role: 1,
-    isActived: false,
+    isActived: true,
     username: undefined,
     email: undefined,
+    emailNotification: undefined,
     createdAt: undefined,
     password2: undefined,
     password: undefined,
-    gender: undefined,
+    gender: false,
     age: undefined,
     faxNumber: undefined,
     timeJoin: undefined,
     degree: undefined,
     languages: undefined
-    
+
   };
   constructor(
     private _script: ScriptLoaderService,
     private _toastr: ToastrService,
     private _serviceAgency: AgencyService,
-    private _serviceAccount: AccountService
+    private _serviceAccount: AccountService,
+    private _servicePosition: PositionService
   ) { }
 
   ngOnInit() {
@@ -93,8 +98,12 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     );
 
-    const sub2 = this._serviceAgency.getAgenciesObservable().subscribe(rs => {
-      this.listAgency = rs["data"];
+    const agentApi = this._serviceAgency.getAgenciesObservable()
+    const positionApi = this._servicePosition.getPositionsObservable()
+    const sub2 = forkJoin([agentApi, positionApi]).subscribe(rs => {
+      console.log(rs);
+      this.listAgency = rs[0]["data"];
+      this.listPositions = rs[1]["data"];
       this.loadScript();
     });
     this.subsArr.push(sub1);
@@ -102,12 +111,15 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     this._serviceAccount.loadData();
   }
 
+  onSelectionChange(value) {
+    this.currentItem.gender = value
+  }
+
   onSubmit(form: NgForm) {
-    // if (form.invalid) {
-    //   return
-    // }
+    if (form.invalid || !$("#m_select2_4_1").val()) {
+      return
+    }
     const account = this.currentItem;
-    console.log(account);
     account.agencyId = $("#m_select2_4_1")
       .val()
       .toString();
@@ -195,7 +207,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
 
   loadScript() {
     const dataAgency = this.listAgency.map(item => {
-      return { id: item._id, text: "DL" + item._id.slice(18, 24) };
+      return { id: item._id, text: `${item.agencyCode} - ${item.agencyName}` };
     });
     $("#m_select2_4_1").select2({ data: dataAgency });
     this._script.loadScripts("app-account", [

@@ -102,12 +102,6 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
       this.list = rs
       this.rerender()
     })
-
-    //   const sub2 = this.route.params.subscribe(params => {
-
-    //     this.id = params['id'].slice(18, 24); // (+) converts string 'id' to a number
-    //     // In a real app: dispatch action to load the details here.
-    //  });
     this._service.loadData();
     this.subsArr.push(sub)
     // this.subsArr.push(sub2)

@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
+import { Injectable } from "@angular/core";
+import { Headers, Http, RequestOptions, Response } from "@angular/http";
 
-import {User} from "../_models/index";
+import { User } from "../_models/index";
 
 @Injectable()
 export class UserService {
@@ -13,7 +13,7 @@ export class UserService {
 	}
 
 	forgotPassword(email: string) {
-		return this.http.post('/api/forgot-password', JSON.stringify({email}), this.jwt()).map((response: Response) => response.json());
+		return this.http.post('/api/forgot-password', JSON.stringify({ email }), this.jwt()).map((response: Response) => response.json());
 	}
 
 	getAll() {
@@ -42,8 +42,8 @@ export class UserService {
 		// create authorization header with jwt token
 		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 		if (currentUser && currentUser.token) {
-			let headers = new Headers({'Authorization': 'Bearer ' + currentUser.token});
-			return new RequestOptions({headers: headers});
+			let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+			return new RequestOptions({ headers: headers });
 		}
 	}
 }

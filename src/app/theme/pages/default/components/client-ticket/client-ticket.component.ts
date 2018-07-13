@@ -48,10 +48,12 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   isRequest: boolean = false;
   isExport: boolean = false;
   dataAirport = undefined;
+  private user: any
   public modalItem: ClientTicket;
   public currentItem: ClientTicket = {
     clientId: undefined,
     agencyId: undefined,
+    accountId: undefined,
     ticketId: undefined,
     hangBay: undefined,
     soTien: undefined,
@@ -97,10 +99,12 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAirline: AirlineService,
     private _serviceAgency: AgencyService,
     private _toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subsArr = [];
+
+    this.user = JSON.parse(localStorage.getItem('currentUser'))
 
     Helpers.setLoading(true);
 
@@ -168,23 +172,16 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     //   return
     // }
     Helpers.setLoading(true);
-    // const client = form.value as ClientTicket
     const client = this.currentItem;
-    console.log(client);
-    client.tinhTrangVe = "None";
+    client.agencyId = this.user.agencyId
+    client.accountId = this.user._id
+    client.tinhTrangVe = "Mới";
     client.ngayGioBay_chieuDi = $("#m_datetimepicker_1_1")
       .val()
       .toString();
     client.ngayGioDen_chieuDi = $("#m_datetimepicker_1_2")
       .val()
       .toString();
-    client.ngayGioBay_chieuVe = $("#m_datetimepicker_1_3")
-      .val()
-      .toString();
-    client.ngayGioDen_chieuVe = $("#m_datetimepicker_1_4")
-      .val()
-      .toString();
-
     client.clientId = $("#m_select2_4_1")
       .val()
       .toString();
@@ -194,12 +191,23 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     client.sanBayDen_chieuDi = $("#m_select2_4_3")
       .val()
       .toString();
-    client.sanBayDi_chieuVe = $("#m_select2_4_4")
-      .val()
-      .toString();
-    client.sanBayDen_chieuVe = $("#m_select2_4_5")
-      .val()
-      .toString();
+
+    if (this.isReturn) {
+      client.sanBayDi_chieuVe = $("#m_select2_4_4")
+        .val()
+        .toString();
+      client.sanBayDen_chieuVe = $("#m_select2_4_5")
+        .val()
+        .toString();
+      client.ngayGioBay_chieuVe = $("#m_datetimepicker_1_3")
+        .val()
+        .toString();
+      client.ngayGioDen_chieuVe = $("#m_datetimepicker_1_4")
+        .val()
+        .toString();
+
+    }
+
     client.hangBay = $("#m_select2_4_6")
       .val()
       .toString();
@@ -284,7 +292,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       return { id: item._id, text: item.airlineName };
     });
     const dataClient = this.listClients.map(item => {
-      return { id: item._id, text: item.fullName };
+      return { id: item._id, text: `${item.fullName} - KH${item._id.slice(18, 24).toUpperCase()}` };
     });
     $("#m_select2_4_1").select2({ data: dataClient });
     $("#m_select2_4_2").select2({ data: dataAirport });
@@ -337,7 +345,9 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   onRequest() {
     this.modalItem.tinhTrangVe = this.listStatus[1];
     let data = { ...this.modalItem } as any;
-
+    data.agencyCode = this.user.agencyId.agencyCode
+    // data.email = this.user.emailNotification
+    data.email = "quylk2906@gmail.com"
     const sub = this._serviceClientTicket.putClient(this.modalItem).subscribe(rs => {
       return this._serviceClientTicket.sendEmail(data).subscribe(
         rs1 => {
