@@ -79,29 +79,19 @@
           </div>
           <div class="col-lg-5">
             <label>
-              Mã đại lý *
+              Loại vé *
             </label>
-            <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-input" name="agencyId" [(ngModel)]="currentItem.agencyId">
-                <option *ngFor="let item of listAgencies" [value]="item._id">
-                  {{item.agencyName}}
-                </option>
-              </select>
+            <div class="m-radio-inline">
+              <label class="m-radio m-radio--bold m-radio--state-success">
+                <input type="radio" name="example_3" checked (change)="onSelectionChange(false)"> Một chiều
+                <span></span>
+              </label>
+              <label class="m-radio m-radio--bold m-radio--state-brand">
+                <input type="radio" name="example_3" (change)="onSelectionChange(true)"> Thứ hồi
+                <span></span>
+              </label>
             </div>
           </div>
-          <!-- <div class="col-lg-5">
-            <label class="">
-              Mã xuất vé *
-            </label>
-            <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [ngModel]="currentItem.maXuatVe" name="maXuatVe" required placeholder="Nhập mã xuất vé">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
-            </div>
-          </div> -->
         </div>
         <div class="form-group m-form__group row">
           <div class="col-lg-5">
@@ -182,7 +172,7 @@
           </div>
         </div>
 
-        <div class="form-group m-form__group row">
+        <div class="form-group m-form__group row" [hidden]="!isReturn">
           <div class="col-lg-5">
             <label>
               Sân bay đi (chiều về)
@@ -237,7 +227,7 @@
           </div>
         </div>
 
-        <div class="form-group m-form__group row">
+        <div class="form-group m-form__group row" *ngIf="isReturn">
           <div class="col-lg-5">
             <label>
               Ngày giờ đi (chiều về)

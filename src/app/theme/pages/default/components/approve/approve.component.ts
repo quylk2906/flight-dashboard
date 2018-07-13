@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewEncapsulation,
-  OnDestroy
-} from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from "@angular/core";
 import { ScriptLoaderService } from "../../../../../_services/script-loader.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs/Subscription";
@@ -105,9 +99,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._script.loadScripts("app-approve", [
-      "assets/vendors/custom/datatables/datatables.bundle.js"
-    ]);
+    this._script.loadScripts("app-approve", ["assets/vendors/custom/datatables/datatables.bundle.js"]);
     this.dtTrigger.next();
   }
 
@@ -115,40 +107,32 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2];
     let data = { ...this.currentItem } as any;
-    data._user = "Le Kim Quy";
-    data.email = emailApprove;
-    const sub = this._serviceClient
-      .changeStatus(this.currentItem)
-      .subscribe(rs => {
-        return this._serviceClient.sendEmail(data).subscribe(
-          rs => {
-            console.log(rs);
-          },
-          err => {
-            console.log(err);
-          }
-        );
-      });
+    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
+      return this._serviceClient.sendEmail(data).subscribe(
+        rs => {
+          console.log(rs);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
     this.subsArr.push(sub);
   }
 
   onReject() {
     this.currentItem.tinhTrangVe = this.listStatus[3];
     let data = { ...this.currentItem } as any;
-    data._user = "Song Thanh Nghia";
-    data.email = emailApprove;
-    const sub = this._serviceClient
-      .changeStatus(this.currentItem)
-      .subscribe(rs => {
-        return this._serviceClient.sendEmail(data).subscribe(
-          rs1 => {
-            console.log(rs1);
-          },
-          err => {
-            console.log(err);
-          }
-        );
-      });
+    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
+      return this._serviceClient.sendEmail(data).subscribe(
+        rs1 => {
+          console.log(rs1);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
     this.subsArr.push(sub);
   }
 

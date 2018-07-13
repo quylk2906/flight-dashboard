@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewEncapsulation,
-  OnDestroy,
-  ViewChild
-} from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy, ViewChild } from "@angular/core";
 import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs/Subject";
 import { forkJoin } from "rxjs/observable/forkJoin";
@@ -49,10 +42,12 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   listAirlines: Airline[];
   listClients: Client[];
   listAgencies: Agency[];
+  public isReturn: true;
   list: ClientTicket[];
   listStatus: string[] = ["Mới", "Đang xử lý", "Duyệt", "Từ chối"];
   isRequest: boolean = false;
   isExport: boolean = false;
+  dataAirport = undefined;
   public modalItem: ClientTicket;
   public currentItem: ClientTicket = {
     clientId: undefined,
@@ -62,7 +57,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     soTien: undefined,
     maDatCho: undefined,
     maXuatVe: undefined,
-    tinhTrangVe: "None",
+    tinhTrangVe: "Mới",
     sanBayDi_chieuDi: undefined,
     sanBayDen_chieuDi: undefined,
     sanBayDi_chieuVe: undefined,
@@ -83,13 +78,13 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     columnDefs: [],
     order: [[0, "desc"]],
     oLanguage: {
-      "sSearch": "Tìm kiếm",
-      "sProcessing": "Đang tải ...",
-      "sLengthMenu": "Xem _MENU_",
-      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
-      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
-      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
-      "sInfoFiltered": "(Xem _MAX_)"
+      sSearch: "Tìm kiếm",
+      sProcessing: "Đang tải ...",
+      sLengthMenu: "Xem _MENU_",
+      sZeroRecords: "Không tìm thấy mục nào phù hợp",
+      sInfo: "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      sInfoEmpty: "Đang xem 0 đến 0 trong tổng 0",
+      sInfoFiltered: "(Xem _MAX_)"
     }
   };
   dtTrigger = new Subject();
@@ -102,7 +97,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAirline: AirlineService,
     private _serviceAgency: AgencyService,
     private _toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.subsArr = [];
@@ -129,12 +124,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     const airlineApi = this._serviceAirline.getAirlinesObservable();
     const agencyApi = this._serviceAgency.getAgenciesObservable();
 
-    const sub2 = forkJoin(
-      airportApi,
-      airlineApi,
-      clientApi,
-      agencyApi
-    ).subscribe(
+    const sub2 = forkJoin(airportApi, airlineApi, clientApi, agencyApi).subscribe(
       res => {
         console.log("object", res);
         this.listAirports = res[0]["data"] as Airport[];
@@ -152,6 +142,16 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subsArr.push(sub2);
   }
 
+  onSelectionChange(value) {
+    this.isReturn = value;
+    if (value) {
+      $("#m_select2_4_4, #m_select2_4_5").select2({
+        width: "100%",
+        placeholder: "Chọn một option",
+        allowClear: !0
+      });
+    }
+  }
   onDelete(id) {
     Helpers.setLoading(true);
     const sub = this._serviceClientTicket.deleteClient(id).subscribe(rs => {
@@ -293,9 +293,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     $("#m_select2_4_5").select2({ data: dataAirport });
     $("#m_select2_4_6").select2({ data: dataAirline });
 
-    this._script.loadScripts("app-client-ticket", [
-      "assets/demo/default/custom/crud/forms/widgets/select2.js"
-    ]);
+    this._script.loadScripts("app-client-ticket", ["assets/demo/default/custom/crud/forms/widgets/select2.js"]);
   }
 
   ngOnDestroy() {
@@ -314,7 +312,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onRequestClick(id) {
-
     this.modalItem = find(this.list, item => {
       return item._id == id;
     });
@@ -340,21 +337,17 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   onRequest() {
     this.modalItem.tinhTrangVe = this.listStatus[1];
     let data = { ...this.modalItem } as any;
-    data._user = "Le Kim Quy";
-    data.email = emailRequest;
 
-    const sub = this._serviceClientTicket
-      .putClient(this.modalItem)
-      .subscribe(rs => {
-        return this._serviceClientTicket.sendEmail(data).subscribe(
-          rs1 => {
-            console.log(rs1);
-          },
-          err => {
-            console.log(err);
-          }
-        );
-      });
+    const sub = this._serviceClientTicket.putClient(this.modalItem).subscribe(rs => {
+      return this._serviceClientTicket.sendEmail(data).subscribe(
+        rs1 => {
+          console.log(rs1);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    });
     this.subsArr.push(sub);
   }
 
