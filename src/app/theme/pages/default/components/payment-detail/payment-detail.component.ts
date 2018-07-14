@@ -100,6 +100,7 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     this.list = this._service.getClients()
     const sub = this._service.listPaymentChanged.subscribe(rs => {
       this.list = rs
+      console.log(rs);
       this.rerender()
     })
     this._service.loadData();

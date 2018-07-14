@@ -116,13 +116,15 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid || !$("#m_select2_4_1").val()) {
+    if (form.invalid) {
       return
     }
     const account = this.currentItem;
-    account.agencyId = $("#m_select2_4_1")
-      .val()
-      .toString();
+    if (this.currentItem.role !== 0) {
+      account.agencyId = $("#m_select2_4_1")
+        .val()
+        .toString();
+    }
 
     Helpers.setLoading(true);
 
@@ -169,6 +171,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onDelete(id) {
+    console.log(id);
     const sub = this._serviceAccount.deletetAccount(id).subscribe(rs => {
       if (rs["count"] !== 0) {
         this._toastr.info("Xóa thành công", undefined, { closeButton: true });
@@ -184,9 +187,9 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem = find(this.list, item => {
       return item._id == id;
     });
-
+    let obj = this.currentItem.agencyId as any
     $("#m_select2_4_1")
-      .val(this.currentItem.agencyId)
+      .val(obj ? obj._id : 0)
       .trigger("change");
   }
 

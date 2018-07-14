@@ -242,11 +242,11 @@
                   <strong>Số tiền</strong>: </span>
                 <span class="pull-right">{{currentItem.soTien | currency:'VND':true}}</span>
               </div>
-              <div>
+              <!-- <div>
                 <span>
                   <strong>Mã xuất vé</strong>: </span>
                 <span class="pull-right"> {{currentItem.maXuatVe ? 'TICKET_' + item.maXuatVe : ''}}</span>
-              </div>
+              </div> -->
               <div>
                 <span>
                   <strong>Tình trạng vé</strong>: </span>
@@ -262,12 +262,12 @@
                   <strong>Sân bay đến</strong> (chiều đi): </span>
                 <span class="pull-right">{{currentItem.sanBayDen_chieuDi}} </span>
               </div>
-              <div>
+              <div *ngIf="currentItem.sanBayDi_chieuVe">
                 <span>
                   <strong>Sân bay đi </strong> (chiều về): </span>
                 <span class="pull-right">{{currentItem.sanBayDi_chieuVe}} </span>
               </div>
-              <div>
+              <div *ngIf="currentItem.sanBayDen_chieuVe">
                 <span>
                   <strong>Sân bay đến</strong> (chiều về): </span>
                 <span class="pull-right">{{currentItem.sanBayDen_chieuVe}} </span>
@@ -282,12 +282,12 @@
                   <strong>Ngày giờ đến</strong> (chiều đi): </span>
                 <span class="pull-right">{{currentItem.ngayGioDen_chieuDi}} </span>
               </div>
-              <div>
+              <div *ngIf="currentItem.ngayGioBay_chieuVe">
                 <span>
                   <strong>Ngày giờ bay</strong> (chiều về): </span>
                 <span class="pull-right">{{currentItem.ngayGioBay_chieuVe}} </span>
               </div>
-              <div>
+              <div *ngIf="currentItem.ngayGioDen_chieuVe">
                 <span>
                   <strong>Ngày giờ đến</strong> (chiều về): </span>
                 <span class="pull-right">{{currentItem.ngayGioDen_chieuVe}} </span>

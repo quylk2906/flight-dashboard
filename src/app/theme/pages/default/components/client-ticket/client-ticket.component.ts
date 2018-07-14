@@ -34,7 +34,7 @@ import { emailRequest } from "../../../../../auth/_helpers/fake-email";
       }
     `
   ],
-  styleUrls: ["./client-ticket.style.scss"]
+  styleUrls: []
 })
 export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[];
@@ -339,15 +339,16 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     this.modalItem = find(this.list, item => {
       return item._id == id;
     });
-    this.PrintElem();
   }
 
+  onExport() {
+    this.PrintElem();
+  }
   onRequest() {
     this.modalItem.tinhTrangVe = this.listStatus[1];
     let data = { ...this.modalItem } as any;
     data.agencyCode = this.user.agencyId.agencyCode
-    // data.email = this.user.emailNotification
-    data.email = "quylk2906@gmail.com"
+    data.isRequest = true;
     const sub = this._serviceClientTicket.putClient(this.modalItem).subscribe(rs => {
       return this._serviceClientTicket.sendEmail(data).subscribe(
         rs1 => {
@@ -372,12 +373,13 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     popupWin = window.open("", "_blank", "top=0,left=0,height=100%,width=auto");
     popupWin.document.open();
     popupWin.document.write(`
-      <html>
-        <head>
-          <title>Print tab</title>
-        </head>
-    <body onload="window.print();window.close()">${printContents}</body>
-      </html>`);
+    <html>
+      <head>
+        <title>Print tab</title>
+        <link rel=\"stylesheet\" href=\"./client-ticket.style\" type=\"text/css\" media=\"print\"/>
+      </head>
+      <body onload="window.print();window.close()">${printContents}</body>
+    </html>`);
     popupWin.document.close();
   }
 }

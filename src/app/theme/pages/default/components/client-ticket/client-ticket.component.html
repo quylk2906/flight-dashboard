@@ -347,12 +347,8 @@
                     <div class="m-dropdown__body">
                       <div class="m-dropdown__content">
                         <ul class="m-nav">
-                          <!-- <li class="m-nav__section m-nav__section--first">
-                            <span class="m-nav__section-text">
-                              Quick Actions
-                            </span>
-                          </li> -->
                           <li *ngIf="item.tinhTrangVe === 'Mới'" class="m-nav__item" (click)="onRequestClick(item._id)">
+                            <!-- <li class="m-nav__item" (click)="onRequestClick(item._id)"> -->
                             <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
@@ -369,8 +365,7 @@
                             </a>
                           </li>
                           <li class="m-nav__item" (click)="onExportClick(item._id)">
-                            <a href="" class="m-nav__link">
-                              <!-- data-toggle="modal" data-target="#m_modal_1" -->
+                            <a href="" class="m-nav__link" data-toggle="modal" data-target="#m_modal_1">
                               <i class="m-nav__link-icon flaticon-cogwheel"></i>
                               <span class="m-nav__link-text">
                                 Phiếu thu
@@ -440,12 +435,12 @@
                   <strong>Sân bay đến</strong> (chiều đi): </span>
                 <span class="pull-right">{{modalItem.sanBayDen_chieuDi}} </span>
               </div>
-              <div>
+              <div *ngIf="modalItem.sanBayDi_chieuVe">
                 <span>
                   <strong>Sân bay đi </strong> (chiều về): </span>
                 <span class="pull-right">{{modalItem.sanBayDi_chieuVe}} </span>
               </div>
-              <div>
+              <div *ngIf="modalItem.sanBayDen_chieuVe">
                 <span>
                   <strong>Sân bay đến</strong> (chiều về): </span>
                 <span class="pull-right">{{modalItem.sanBayDen_chieuVe}} </span>
@@ -460,12 +455,12 @@
                   <strong>Ngày giờ đến</strong> (chiều đi): </span>
                 <span class="pull-right">{{modalItem.ngayGioDen_chieuDi}} </span>
               </div>
-              <div>
+              <div *ngIf="modalItem.ngayGioBay_chieuVe">
                 <span>
                   <strong>Ngày giờ bay</strong> (chiều về): </span>
                 <span class="pull-right">{{modalItem.ngayGioBay_chieuVe}} </span>
               </div>
-              <div>
+              <div *ngIf="modalItem.ngayGioDen_chieuVe">
                 <span>
                   <strong>Ngày giờ đến</strong> (chiều về): </span>
                 <span class="pull-right">{{modalItem.ngayGioDen_chieuVe}} </span>

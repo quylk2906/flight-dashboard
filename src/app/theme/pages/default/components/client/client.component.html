@@ -120,7 +120,7 @@
           </label>
           <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem._id" name="_id" readonly>
+              <input type="text" autocomplete="off" class="form-control m-input" [(ngModel)]="currentItem._id" name="_id" readonly>
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-check"></i>
@@ -136,7 +136,7 @@
               Họ tên *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
+              <input type="text" autocomplete="off" class="form-control m-input" [(ngModel)]="currentItem.fullName" name="fullName" required placeholder="Nhập họ tên">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -179,7 +179,7 @@
               Nơi sinh
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="birthPlace" [(ngModel)]="currentItem.birthPlace" required placeholder="Nhập nơi sinh">
+              <input type="text" autocomplete="off" class="form-control m-input" name="birthPlace" [(ngModel)]="currentItem.birthPlace" required placeholder="Nhập nơi sinh">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -204,7 +204,7 @@
               Quốc gia *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="country" [(ngModel)]="currentItem.country" required placeholder="Nhập quốc gia">
+              <input type="text" autocomplete="off" class="form-control m-input" name="country" [(ngModel)]="currentItem.country" required placeholder="Nhập quốc gia">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>

@@ -271,14 +271,10 @@
         <div class="form-group m-form__group row">
           <div class="col-lg-5">
             <label>
-              Ví trí *
+              Bằng cấp *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-input" name="degree" [(ngModel)]="currentItem.degree">
-                <option *ngFor="let item of listPositions" [value]="item.titleDivision">
-                  {{item.titleDivision}}
-                </option>
-              </select>
+              <input type="text" class="form-control m-input" [(ngModel)]="currentItem.degree" name="degree">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -365,6 +361,9 @@
               Email
             </th>
             <th>
+              Email thông báo
+            </th>
+            <th>
               Trạng thái
             </th>
             <th>
@@ -381,7 +380,7 @@
               {{i + 1}}
             </td>
             <td>
-              {{item.agencyId.agencyCode}}
+              {{item.agencyId ? item.agencyId.agencyCode : ''}}
             </td>
             <td class="text-uppercase">
               AC_{{item._id | slice: 18: 24}}
@@ -392,6 +391,9 @@
             </td>
             <td>
               {{item.email}}
+            </td>
+            <td>
+              {{item.emailNotification}}
             </td>
             <ng-container *ngIf="item.isActived; else second">
               <td>
