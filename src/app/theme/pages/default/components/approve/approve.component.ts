@@ -103,15 +103,16 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     this._script.loadScripts("app-approve", ["assets/vendors/custom/datatables/datatables.bundle.js"]);
     this.dtTrigger.next();
   }
-
-  loadScript() {}
+  
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2];
     let data = { ...this.currentItem } as any;
     const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
       return this._serviceClient.sendEmail(data).subscribe(
         rs => {
-          console.log(rs);
+          this._toastr.info("Đã duyệt.", undefined, {
+            closeButton: true
+          });
         },
         err => {
           console.log(err);
@@ -127,7 +128,9 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
       return this._serviceClient.sendEmail(data).subscribe(
         rs1 => {
-          console.log(rs1);
+          this._toastr.error("Đã hủy.", undefined, {
+            closeButton: true
+          });
         },
         err => {
           console.log(err);
