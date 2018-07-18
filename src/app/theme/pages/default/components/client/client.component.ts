@@ -21,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   public list: Client[]
   public listRegions: any[];
+  private user: any
   private subsArr: Subscription[] = []
   public currentItem: Client = {
     fullName: undefined,
@@ -30,9 +31,11 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
     createdAt: undefined,
     updatedAt: undefined,
     clientId: undefined,
+    agencyId: undefined,
     identification: undefined,
     gender: false,
     region: undefined,
+    passport: undefined,
     birthPlace: undefined,
     country: undefined
   }
@@ -63,6 +66,9 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('currentUser'))
+    this.currentItem.agencyId = this.user.agencyId
+
     Helpers.setLoading(true)
     this.list = this._service.getClients();
     this.listRegions = this._service.getAllRegions()
@@ -88,8 +94,9 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     Helpers.setLoading(true)
-    this.currentItem.region = $("#m_select2_4_1").val().toString();
-
+    this.currentItem.region = $("#m_select2_4_2").val().toString();
+    if (!this.currentItem.identification)
+      this._toastr.warning('Bạn không có CMND', undefined, undefined);
     let sub: Subscription
     if (this.currentItem._id) {
       sub = this._service.putClient(this.currentItem).subscribe(
@@ -136,7 +143,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onEdit(id) {
     this.currentItem = find(this.list, (item) => { return item._id == id })
-    $("#m_select2_4_1")
+    $("#m_select2_4_2")
       .val(this.currentItem.region)
       .trigger("change");
   }
@@ -163,7 +170,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
       return { id: item.name, text: item.name };
     });
 
-    $("#m_select2_4_1").select2({ data: dataRegions });
+    $("#m_select2_4_2").select2({ data: dataRegions });
 
     this._script.loadScripts('app-client',
       [

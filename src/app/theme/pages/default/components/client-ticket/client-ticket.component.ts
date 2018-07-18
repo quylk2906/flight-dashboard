@@ -167,27 +167,40 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    Helpers.setLoading(true);
+    if (form.invalid) {
+      return
+    }
+
     const client = this.currentItem;
     client.agencyId = this.user.agencyId
     client.accountId = this.user._id
     client.tinhTrangVe = "Mới";
+
+    client.clientId = $("#m_select2_4_1")
+      .val()
+      .toString();
     client.ngayGioBay_chieuDi = $("#m_datetimepicker_1_1")
       .val()
       .toString();
     client.ngayGioDen_chieuDi = $("#m_datetimepicker_1_2")
       .val()
       .toString();
-    client.clientId = $("#m_select2_4_1")
-      .val()
-      .toString();
+
     client.sanBayDi_chieuDi = $("#m_select2_4_2")
       .val()
       .toString();
     client.sanBayDen_chieuDi = $("#m_select2_4_3")
       .val()
       .toString();
+    if (client.ngayGioBay_chieuDi == client.ngayGioDen_chieuDi) {
+      this._toastr.error("Giờ bay và giờ đến giống nhau", undefined, undefined);
+      return
+    }
 
+    else if (client.sanBayDi_chieuDi == client.sanBayDen_chieuDi) {
+      this._toastr.error("Sân bay đi và sân bay đến giống nhau", undefined, undefined);
+      return
+    }
     if (this.isReturn) {
       client.sanBayDi_chieuVe = $("#m_select2_4_4")
         .val()
@@ -201,7 +214,14 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       client.ngayGioDen_chieuVe = $("#m_datetimepicker_1_4")
         .val()
         .toString();
-
+      if (client.ngayGioBay_chieuVe == client.ngayGioDen_chieuVe) {
+        this._toastr.error("Giờ bay và giờ đến giống nhau", undefined, undefined);
+        return
+      }
+      else if (client.sanBayDi_chieuVe == client.sanBayDen_chieuVe) {
+        this._toastr.error("Sân bay đi và sân bay đến giống nhau", undefined, undefined);
+        return
+      }
     }
 
     client.hangBay = $("#m_select2_4_6")
@@ -211,6 +231,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     let subs: Subscription;
 
     if (this.currentItem._id) {
+      Helpers.setLoading(true);
       subs = this._serviceClientTicket.putClient(client).subscribe(
         rs => {
           this._serviceClientTicket.loadData();
@@ -340,7 +361,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   onExport() {
     this.PrintElem();
   }
-  
+
   onRequest() {
     this.modalItem.tinhTrangVe = this.listStatus[1];
     let data = { ...this.modalItem } as any;

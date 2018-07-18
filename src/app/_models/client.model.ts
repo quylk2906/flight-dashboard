@@ -5,10 +5,12 @@ export interface Client {
   _id: string,
   createdAt: string,
   updatedAt: string,
-  clientId: number,
+  clientId: string,
+  agencyId: string,
   identification: string,
   gender: boolean,
   region: string,
+  passport: string,
   birthPlace: string,
   country: string
 }

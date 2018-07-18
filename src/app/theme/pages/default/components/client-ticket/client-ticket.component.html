@@ -224,7 +224,7 @@
           </div>
         </div>
 
-        <div class="form-group m-form__group row" *ngIf="isReturn">
+        <div class="form-group m-form__group row" [hidden]="!isReturn">
           <div class="col-lg-5">
             <label>
               Ngày giờ đi (chiều về)

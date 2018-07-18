@@ -72,7 +72,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAgency: AgencyService,
     private _serviceAccount: AccountService,
     private _servicePosition: PositionService
-  ) {}
+  ) { }
 
   ngOnInit() {
     Helpers.setLoading(true);
@@ -106,9 +106,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid) {
-      return;
-    }
     const account = this.currentItem;
     if (this.currentItem.role !== 0) {
       account.agencyId = $("#m_select2_4_1")
@@ -170,7 +167,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subsArr.push(sub);
   }
 
-  onActive(id, status) {}
 
   onEdit(id) {
     this.currentItem = find(this.list, item => {
@@ -191,7 +187,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this._script.loadScripts("app-account", [
       "assets/vendors/custom/datatables/datatables.bundle.js",
-      "assets/demo/default/custom/crud/datatables/standard/paginations.js",
       "assets/demo/default/custom/crud/forms/validation/form-controls.js"
     ]);
     this.dtTrigger.next();
