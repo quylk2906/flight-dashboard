@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewEncapsulation,
-  OnDestroy
-} from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from "@angular/core";
 import { ScriptLoaderService } from "../../../../../_services/script-loader.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs/Subscription";
@@ -33,10 +27,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   public listAgency: Agency[];
   public listPositions: Position[];
   private subsArr: Subscription[] = [];
-  public listStatus = [
-    { title: "Kíck hoạt", value: true },
-    { title: "Ẩn", value: false }
-  ];
+  public listStatus = [{ title: "Kíck hoạt", value: true }, { title: "Ẩn", value: false }];
   public listRole = [{ title: "Quản tri", value: 0 }, { title: "Người dùng", value: 1 }];
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: any = {
@@ -45,13 +36,13 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     columnDefs: [],
     order: [[0, "desc"]],
     oLanguage: {
-      "sSearch": "Tìm kiếm",
-      "sProcessing": "Đang tải ...",
-      "sLengthMenu": "Xem _MENU_",
-      "sZeroRecords": "Không tìm thấy mục nào phù hợp",
-      "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
-      "sInfoEmpty": "Đang xem 0 đến 0 trong tổng 0",
-      "sInfoFiltered": "(Xem _MAX_)"
+      sSearch: "Tìm kiếm",
+      sProcessing: "Đang tải ...",
+      sLengthMenu: "Xem _MENU_",
+      sZeroRecords: "Không tìm thấy mục nào phù hợp",
+      sInfo: "Đang xem _START_ đến _END_ trong tổng số _TOTAL_",
+      sInfoEmpty: "Đang xem 0 đến 0 trong tổng 0",
+      sInfoFiltered: "(Xem _MAX_)"
     }
   };
   dtTrigger = new Subject();
@@ -74,7 +65,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     timeJoin: undefined,
     degree: undefined,
     languages: undefined
-
   };
   constructor(
     private _script: ScriptLoaderService,
@@ -82,7 +72,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAgency: AgencyService,
     private _serviceAccount: AccountService,
     private _servicePosition: PositionService
-  ) { }
+  ) {}
 
   ngOnInit() {
     Helpers.setLoading(true);
@@ -98,8 +88,8 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     );
 
-    const agentApi = this._serviceAgency.getAgenciesObservable()
-    const positionApi = this._servicePosition.getPositionsObservable()
+    const agentApi = this._serviceAgency.getAgenciesObservable();
+    const positionApi = this._servicePosition.getPositionsObservable();
     const sub2 = forkJoin([agentApi, positionApi]).subscribe(rs => {
       console.log(rs);
       this.listAgency = rs[0]["data"];
@@ -112,12 +102,12 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSelectionChange(value) {
-    this.currentItem.gender = value
+    this.currentItem.gender = value;
   }
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
-      return
+      return;
     }
     const account = this.currentItem;
     if (this.currentItem.role !== 0) {
@@ -139,7 +129,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         },
         err => {
-          this._toastr.info("Thêm thành công", undefined, {
+          this._toastr.error(err.error.msg, undefined, {
             closeButton: true
           });
           Helpers.setLoading(false);
@@ -155,7 +145,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         },
         err => {
-          this._toastr.info("Thêm thành công", undefined, {
+          this._toastr.error(err.error.msg, undefined, {
             closeButton: true
           });
           Helpers.setLoading(false);
@@ -166,7 +156,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     $("#m_select2_4_1")
       .val(0)
       .trigger("change");
-
     this.subsArr.push(sub);
   }
 
@@ -174,20 +163,20 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(id);
     const sub = this._serviceAccount.deletetAccount(id).subscribe(rs => {
       if (rs["count"] !== 0) {
-        this._toastr.info("Xóa thành công", undefined, { closeButton: true });
+        this._toastr.success("Xóa thành công", undefined, { closeButton: true });
         this._serviceAccount.loadData();
       }
     });
     this.subsArr.push(sub);
   }
 
-  onActive(id, status) { }
+  onActive(id, status) {}
 
   onEdit(id) {
     this.currentItem = find(this.list, item => {
       return item._id == id;
     });
-    let obj = this.currentItem.agencyId as any
+    let obj = this.currentItem.agencyId as any;
     $("#m_select2_4_1")
       .val(obj ? obj._id : 0)
       .trigger("change");
@@ -213,9 +202,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
       return { id: item._id, text: `${item.agencyCode} - ${item.agencyName}` };
     });
     $("#m_select2_4_1").select2({ data: dataAgency });
-    this._script.loadScripts("app-account", [
-      "assets/demo/default/custom/crud/forms/widgets/select2.js"
-    ]);
+    this._script.loadScripts("app-account", ["assets/demo/default/custom/crud/forms/widgets/select2.js"]);
   }
 
   rerender() {

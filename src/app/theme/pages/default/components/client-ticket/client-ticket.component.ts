@@ -130,7 +130,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const sub2 = forkJoin(airportApi, airlineApi, clientApi, agencyApi).subscribe(
       res => {
-        console.log("object", res);
         this.listAirports = res[0]["data"] as Airport[];
         this.listAirlines = res[1]["data"] as Airline[];
         this.listClients = res[2]["data"] as Client[];
@@ -160,7 +159,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     Helpers.setLoading(true);
     const sub = this._serviceClientTicket.deleteClient(id).subscribe(rs => {
       if (rs["count"] !== 0) {
-        this._toastr.info("Xóa thành công", undefined, { closeButton: true });
+        this._toastr.success("Xóa thành công", undefined, { closeButton: true });
         this._serviceClientTicket.loadData();
       }
     });
@@ -168,9 +167,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    // if (form.invalid) {
-    //   return
-    // }
     Helpers.setLoading(true);
     const client = this.currentItem;
     client.agencyId = this.user.agencyId
@@ -344,6 +340,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   onExport() {
     this.PrintElem();
   }
+  
   onRequest() {
     this.modalItem.tinhTrangVe = this.listStatus[1];
     let data = { ...this.modalItem } as any;

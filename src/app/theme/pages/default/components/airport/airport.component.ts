@@ -129,7 +129,7 @@ export class AirportComponent implements OnInit, OnDestroy, AfterViewInit {
   onDelete(id) {
     const sub = this._service.deleteAirport(id).subscribe(rs => {
       if (rs["count"] !== 0) {
-        this._toastr.info("Xóa thành công", undefined, { closeButton: true });
+        this._toastr.success("Xóa thành công", undefined, { closeButton: true });
         this._service.loadData();
         this.clearSelect2()
       }

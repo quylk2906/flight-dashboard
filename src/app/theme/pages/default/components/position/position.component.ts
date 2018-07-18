@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewEncapsulation,
-  OnDestroy
-} from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from "@angular/core";
 import { ScriptLoaderService } from "../../../../../_services/script-loader.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs/Subscription";
@@ -21,7 +15,6 @@ import { Position } from "../../../../../_models/position.model";
   templateUrl: "./position.component.html",
   encapsulation: ViewEncapsulation.None
 })
-
 export class PositionComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[] = [];
   public list: Position[];
@@ -39,7 +32,7 @@ export class PositionComponent implements OnInit, OnDestroy, AfterViewInit {
     private _script: ScriptLoaderService,
     private _service: PositionService,
     private _toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     Helpers.setLoading(true);
@@ -106,7 +99,7 @@ export class PositionComponent implements OnInit, OnDestroy, AfterViewInit {
   onDelete(id) {
     const sub = this._service.deletePosition(id).subscribe(rs => {
       if (rs["count"] !== 0) {
-        this._toastr.info("Xóa thành công", undefined, { closeButton: true });
+        this._toastr.success("Xóa thành công", undefined, { closeButton: true });
         this._service.loadData();
       }
     });
@@ -125,9 +118,6 @@ export class PositionComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._script.loadScripts("app-position", [
-      "assets/demo/default/custom/crud/forms/validation/form-controls.js"
-    ]);
-
+    this._script.loadScripts("app-position", ["assets/demo/default/custom/crud/forms/validation/form-controls.js"]);
   }
 }

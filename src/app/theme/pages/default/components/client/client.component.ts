@@ -83,10 +83,10 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-
     if (form.invalid) {
       return
     }
+
     Helpers.setLoading(true)
     this.currentItem.region = $("#m_select2_4_1").val().toString();
 
@@ -127,7 +127,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
     Helpers.setLoading(true)
     const sub = this._service.deleteClient(id).subscribe(rs => {
       if (rs['count'] !== 0) {
-        this._toastr.info('Xóa thành công', undefined, { closeButton: true });
+        this._toastr.success('Xóa thành công', undefined, { closeButton: true });
         this._service.loadData()
       }
     })

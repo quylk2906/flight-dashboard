@@ -11,8 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: "index",
-        loadChildren:
-          "./pages/aside-left-display-disabled/index/index.module#IndexModule"
+        loadChildren: "./pages/aside-left-display-disabled/index/index.module#IndexModule"
       },
       {
         path: "profile",
@@ -20,23 +19,19 @@ const routes: Routes = [
       },
       {
         path: "components/airport",
-        loadChildren:
-          "./pages/default/components/airport/airport.module#AirportModule"
+        loadChildren: "./pages/default/components/airport/airport.module#AirportModule"
       },
       {
         path: "components/airline",
-        loadChildren:
-          "./pages/default/components/airline/airline.module#AirlineModule"
+        loadChildren: "./pages/default/components/airline/airline.module#AirlineModule"
       },
       {
         path: "components/client",
-        loadChildren:
-          "./pages/default/components/client/client.module#ClientModule"
+        loadChildren: "./pages/default/components/client/client.module#ClientModule"
       },
       {
         path: "components/client-ticket",
-        loadChildren:
-          "./pages/default/components/client-ticket/client-ticket.module#ClientTicketModule"
+        loadChildren: "./pages/default/components/client-ticket/client-ticket.module#ClientTicketModule"
       },
       // {
       //    'path': 'components\/deposit',
@@ -44,38 +39,27 @@ const routes: Routes = [
       // },
       {
         path: "components/approve",
-        loadChildren:
-          "./pages/default/components/approve/approve.module#ApproveModule"
+        loadChildren: "./pages/default/components/approve/approve.module#ApproveModule"
       },
       {
         path: "components/position",
-        loadChildren:
-          "./pages/default/components/position/position.module#PositionModule"
+        loadChildren: "./pages/default/components/position/position.module#PositionModule"
       },
       {
         path: "components/agency",
-        loadChildren:
-          "./pages/default/components/agency/agency.module#AgencyModule"
+        loadChildren: "./pages/default/components/agency/agency.module#AgencyModule"
       },
       {
         path: "components/account",
-        loadChildren:
-          "./pages/default/components/account/account.module#AccountModule"
-      },
-      {
-        path: "components/deposit-progress",
-        loadChildren:
-          "./pages/default/components/deposit-progress/deposit-progress.module#DepositProgressModule"
+        loadChildren: "./pages/default/components/account/account.module#AccountModule"
       },
       {
         path: "components/payment-detail",
-        loadChildren:
-          "./pages/default/components/payment-detail/payment-detail.module#PaymentDetailModule"
+        loadChildren: "./pages/default/components/payment-detail/payment-detail.module#PaymentDetailModule"
       },
       {
         path: "components/payment-detail/:id",
-        loadChildren:
-          "./pages/default/components/payment-detail/payment-detail.module#PaymentDetailModule"
+        loadChildren: "./pages/default/components/payment-detail/payment-detail.module#PaymentDetailModule"
       }
       // {
       //    'path': 'components\/payment',

@@ -127,7 +127,7 @@ export class AirlineComponent implements OnInit, OnDestroy, AfterViewInit {
     const sub = this._service.deleteAirline(id).subscribe(rs => {
       if (rs["count"] !== 0) {
         // you have to call api to reload datable without reload page
-        this._toastr.info("Xóa thành công", undefined, { closeButton: true });
+        this._toastr.success("Xóa thành công", undefined, { closeButton: true });
         this._service.loadData();
       }
     });
