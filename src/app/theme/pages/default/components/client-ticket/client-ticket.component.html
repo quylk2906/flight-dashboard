@@ -399,8 +399,8 @@
       <ng-container *ngIf="modalItem; else elseTemplate">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Chi tiết vé - KH: {{modalItem.clientId | slice: 18: 24}}
+            <h5 class="modal-title text-uppercase" id="exampleModalLabel">
+              Chi tiết vé - KH{{modalItem.clientId | slice: 18: 24}}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">
@@ -413,7 +413,7 @@
               <div>
                 <span>
                   <strong>Số tiền</strong>: </span>
-                <span class="pull-right">{{modalItem.soTien | currency:'VND':true}}</span>
+                <span class="pull-right">{{modalItem.soTien | number: '3.0-3'}} VNĐ</span>
               </div>
               <div>
                 <span>

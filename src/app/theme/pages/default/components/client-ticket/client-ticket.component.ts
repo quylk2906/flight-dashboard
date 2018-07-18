@@ -376,7 +376,17 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     <html>
       <head>
         <title>Print tab</title>
-        <link rel=\"stylesheet\" href=\"./client-ticket.style\" type=\"text/css\" media=\"print\"/>
+        <link rel=\"stylesheet\" href=\"assets/scss/print.css\" type=\"text/css\" media=\"print\"/>
+        <style>
+        @media print {
+          body {
+            width: 80vw;
+            font-size: 20px;
+            line-height: 30px; }
+            body span.pull-right {
+              float: right;
+              color: #4f4f4f; } }        
+        </style>
       </head>
       <body onload="window.print();window.close()">${printContents}</body>
     </html>`);
