@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import webControl from "./webControl";
 import { Agency } from "../_models/agency.model";
 import { Subject } from "rxjs";
@@ -22,21 +22,13 @@ export class AgencyService {
     });
   }
 
-  getAgenciesInclude() {
-    return this.http.get(webControl.baseURL + "Agency/Agencies-included");
-  }
-
   getAgenciesObservable() {
     return this.http.get(webControl.baseURL + this.endPoint);
   }
 
   postAgencies(agency) {
     const body = agency;
-    return this.http.post(
-      webControl.baseURL + this.endPoint,
-      body,
-      webControl.httpOptions
-    );
+    return this.http.post(webControl.baseURL + this.endPoint, body, webControl.httpOptions);
   }
 
   deleteAgency(id) {
@@ -45,10 +37,6 @@ export class AgencyService {
 
   putAgencies(agency) {
     const body = agency;
-    return this.http.put(
-      `${webControl.baseURL}${this.endPoint}`,
-      body,
-      webControl.httpOptions
-    );
+    return this.http.put(`${webControl.baseURL}${this.endPoint}`, body, webControl.httpOptions);
   }
 }
