@@ -20,8 +20,7 @@ import { emailApprove } from "../../../../../auth/_helpers/fake-email";
 })
 export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[];
-  list: ClientTicket[];
-
+  private list: ClientTicket[];
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   private listStatus: string[] = ["Mới", "Đang xử lý", "Duyệt", "Từ chối"];
 
@@ -68,22 +67,22 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     private _script: ScriptLoaderService,
     private _serviceClient: ClientTicketService,
     private _toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.subsArr = [];
     Helpers.setLoading(true);
-
-    const sub = this._serviceClient.listClientTicketsChanged.subscribe(
+    this.list = []
+    this.subsArr = []
+    const sub = this._serviceClient.getNew().subscribe(
       rs => {
-        this.list = rs;
+        this.list = rs['data'] as ClientTicket[];
         this.rerender();
       },
       err => {
         console.log(err);
       }
     );
-    this._serviceClient.loadData();
+
     this.subsArr.push(sub);
   }
 
@@ -94,16 +93,16 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    Helpers.setLoading(true);
+    Helpers.setLoading(false);
     this.subsArr.forEach(sub => sub.unsubscribe());
     this.dtTrigger.unsubscribe();
   }
 
   ngAfterViewInit() {
     this._script.loadScripts("app-approve", ["assets/vendors/custom/datatables/datatables.bundle.js"]);
-    this.dtTrigger.next();
+    // this.dtTrigger.next();
   }
-  
+
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2];
     let data = { ...this.currentItem } as any;

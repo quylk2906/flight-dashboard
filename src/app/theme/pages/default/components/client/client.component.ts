@@ -12,6 +12,8 @@ import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy, ViewChi
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/Subject';
 import { ToastrService } from 'ngx-toastr';
+import { AgencyService } from '../../../../../_services/agency.service';
+import { Agency } from '../../../../../_models/agency.model';
 
 @Component({
   selector: 'app-client',
@@ -21,6 +23,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   public list: Client[]
   public listRegions: any[];
+  public listAgencies: Agency[];
   private user: any
   private subsArr: Subscription[] = []
   public currentItem: Client = {
@@ -61,14 +64,13 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private _script: ScriptLoaderService,
     private _service: ClientService,
+    private _serviceAgency: AgencyService,
     private _toastr: ToastrService
   ) {
   }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'))
-    this.currentItem.agencyId = this.user.agencyId
-
     Helpers.setLoading(true)
     this.list = this._service.getClients();
     this.listRegions = this._service.getAllRegions()
@@ -81,7 +83,12 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
         this._toastr.error(err, undefined, { closeButton: true });
       })
     this._service.loadData()
+    const sub1 = this._serviceAgency.getAgenciesObservable().subscribe(rs => {
+      this.listAgencies = rs['data'] as Agency[]
+      this.loadScript()
+    })
     this.subsArr.push(sub)
+    this.subsArr.push(sub1)
   }
 
   onSelectionChange(value) {
@@ -92,12 +99,13 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
     if (form.invalid) {
       return
     }
-
     Helpers.setLoading(true)
     this.currentItem.region = $("#m_select2_4_2").val().toString();
     if (!this.currentItem.identification)
       this._toastr.warning('Bạn không có CMND', undefined, undefined);
+
     let sub: Subscription
+
     if (this.currentItem._id) {
       sub = this._service.putClient(this.currentItem).subscribe(
         rs => {
@@ -165,10 +173,10 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
     const dataRegions = this.listRegions.map(item => {
       return { id: item.name, text: item.name };
     });
+
 
     $("#m_select2_4_2").select2({ data: dataRegions });
 
@@ -181,5 +189,20 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
       ]);
 
     this.dtTrigger.next();
+  }
+
+  loadScript() {
+    const dataAgencies = this.listAgencies.map(item => {
+      return { id: item._id, text: `${item.agencyCode} - ${item.agencyName}` };
+    });
+    $("#m_select2_4_1").select2({
+      data: dataAgencies, width: "100%",
+      placeholder: "Chọn một option",
+      allowClear: !0
+    });
+    $("#m_select2_4_1")
+      .val(this.user.agencyId)
+      .trigger("change");
+
   }
 }

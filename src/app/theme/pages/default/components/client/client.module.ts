@@ -8,6 +8,7 @@ import { ClientComponent } from './client.component';
 import { FormsModule } from '@angular/forms';
 import { ClientService } from '../../../../../_services/client.service';
 import { DataTablesModule } from 'angular-datatables';
+import { AgencyService } from '../../../../../_services/agency.service';
 
 
 const routes: Routes = [
@@ -30,7 +31,8 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    ClientService
+    ClientService,
+    AgencyService
   ],
   declarations: [
     ClientComponent

@@ -486,22 +486,6 @@
                         </span>
                       </a>
                     </li>
-                    <!-- <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                      <a routerLink="/components/deposit" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-exclamation-1"></i>
-                        <span class="m-menu__link-text">
-                          Ký quỹ
-                        </span>
-                      </a>
-                    </li> -->
-                    <!-- <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                      <a routerLink="/components/deposit-progress" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-exclamation-1"></i>
-                        <span class="m-menu__link-text">
-                          Giai đoạn ký quỹ
-                        </span>
-                      </a>
-                    </li> -->
                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                       <a routerLink="/components/payment-detail" class="m-menu__link">
                         <i class="m-menu__link-icon flaticon-exclamation-1"></i>
@@ -513,6 +497,17 @@
                   </ul>
                 </div>
               </li>
+              <li *ngIf="user.role === 0" class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
+                m-menu-submenu-toggle="click" aria-haspopup="true">
+                <a routerLink="/components/approve" class="m-menu__link">
+                  <i class="m-menu__link-icon flaticon-menu"></i>
+                  <span class="m-menu__item-here"></span>
+                  <span class="m-menu__link-text">
+                    Duyệt vé
+                  </span>
+                </a>
+              </li>
+
               <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
                 routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a href="javascript:;" class="m-menu__link m-menu__toggle">
@@ -527,14 +522,6 @@
                 <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
                   <span class="m-menu__arrow m-menu__arrow--adjust"></span>
                   <ul class="m-menu__subnav">
-                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                      <a routerLink="/components/approve" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-menu"></i>
-                        <span class="m-menu__link-text">
-                          Duyệt vé
-                        </span>
-                      </a>
-                    </li>
                     <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
                       <a routerLink="/components/account" class="m-menu__link">
                         <i class="m-menu__link-icon flaticon-menu"></i>

@@ -9,7 +9,7 @@ export class ClientTicketService {
   listClientTicketsChanged = new Subject<ClientTicket[]>();
   private listClientTickets: ClientTicket[] = [];
   private endPoint: string = "tickets";
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getClients() {
     return this.listClientTickets;
@@ -21,8 +21,8 @@ export class ClientTicketService {
     });
   }
 
-  getClientsIncluded() {
-    return this.http.get(webControl.baseURL + this.endPoint);
+  getNew() {
+    return this.http.get(webControl.baseURL + this.endPoint + "/getNew");
   }
 
   sendEmail(data) {
