@@ -410,6 +410,11 @@
           </div>
           <div class="modal-body">
             <div class=" d-flex flex-column" id="ticket-content">
+              <div class="text-center">
+                <span>
+                  <strong>Phiếu thu đại lý : {{theAgency || "Quản trị"}} </strong>
+                </span>
+              </div>
               <div>
                 <span>
                   <strong>Số tiền</strong>: </span>
@@ -469,6 +474,21 @@
                 <span>
                   <strong>Ngày tạo</strong>: </span>
                 <span class="pull-right">{{modalItem.createdAt | date: 'yyyy-MM-dd hh:mm'}} </span>
+              </div>
+              <div class="text-center">
+                <p>
+                  ----------------------------------------------------------
+                </p>
+              </div>
+              <div>
+                <span>Nhân viên: </span>
+                <span class="pull-right">Khách hàng</span>
+              </div>
+              <div>
+                <strong>
+                  <span>{{user.fullName}}</span>
+                  <span class="pull-right">{{modalItem.clientName}}</span>
+                </strong>
               </div>
             </div>
           </div>

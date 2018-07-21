@@ -26,6 +26,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   public list: Account[];
   public listAgency: Agency[];
   public listPositions: Position[];
+  public dataAgency: any[];
   private subsArr: Subscription[] = [];
   public listStatus = [{ title: "Kíck hoạt", value: true }, { title: "Ẩn", value: false }];
   public listRole = [{ title: "Quản tri", value: 0 }, { title: "Người dùng", value: 1 }];
@@ -49,6 +50,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public currentItem: Account = {
     _id: undefined,
+    ownedAgency: undefined,
     agencyId: undefined,
     fullName: undefined,
     role: 1,
@@ -79,7 +81,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     this.list = this._serviceAccount.getAccounts();
     const sub1 = this._serviceAccount.listAccountshanged.subscribe(
       rs => {
-        console.log(rs);
         this.list = rs;
         this.rerender();
       },
@@ -91,7 +92,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     const agentApi = this._serviceAgency.getAgenciesObservable();
     const positionApi = this._servicePosition.getPositionsObservable();
     const sub2 = forkJoin([agentApi, positionApi]).subscribe(rs => {
-      console.log(rs);
       this.listAgency = rs[0]["data"];
       this.listPositions = rs[1]["data"];
       this.loadScript();
@@ -105,16 +105,23 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem.gender = value;
   }
 
+  changeRole(newValue) {
+    this.currentItem.role = ~~newValue
+    if (newValue === '0') {
+      $("#m_select2_4_7").select2({ data: this.dataAgency, multiple: true });
+    } else {
+      $("#m_select2_4_7").select2({ data: this.dataAgency, multiple: false });
+    }
+  }
   onSubmit(form: NgForm) {
     const account = this.currentItem;
-    if (this.currentItem.role !== 0) {
-      account.agencyId = $("#m_select2_4_1")
-        .val()
-        .toString();
+    const dataSelect = $("#m_select2_4_7").val()
+    if (this.currentItem.role === 0) {
+      this.currentItem.ownedAgency = dataSelect as string[]
+    } else {
+      this.currentItem.agencyId = dataSelect as string
     }
-
     Helpers.setLoading(true);
-
     let sub: Subscription;
     if (account._id) {
       sub = this._serviceAccount.putAccount(account).subscribe(
@@ -150,14 +157,13 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
       );
     }
 
-    $("#m_select2_4_1")
+    $("#m_select2_4_7")
       .val(0)
       .trigger("change");
     this.subsArr.push(sub);
   }
 
   onDelete(id) {
-    console.log(id);
     const sub = this._serviceAccount.deletetAccount(id).subscribe(rs => {
       if (rs["count"] !== 0) {
         this._toastr.success("Xóa thành công", undefined, { closeButton: true });
@@ -172,10 +178,20 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentItem = find(this.list, item => {
       return item._id == id;
     });
-    let obj = this.currentItem.agencyId as any;
-    $("#m_select2_4_1")
-      .val(obj ? obj._id : 0)
-      .trigger("change");
+
+    if (this.currentItem.role !== 0) {
+      let obj = this.currentItem.agencyId as any;
+      $("#m_select2_4_7")
+        .select2({ multiple: false })
+        .val(obj ? obj._id : 0)
+        .trigger("change");
+    } else {
+      $("#m_select2_4_7")
+        .select2({ multiple: true })
+        .val(this.currentItem ? this.currentItem.ownedAgency : 0)
+        .trigger("change");
+    }
+
   }
 
   ngOnDestroy() {
@@ -193,10 +209,10 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadScript() {
-    const dataAgency = this.listAgency.map(item => {
+    this.dataAgency = this.listAgency.map(item => {
       return { id: item._id, text: `${item.agencyCode} - ${item.agencyName}` };
     });
-    $("#m_select2_4_1").select2({ data: dataAgency });
+    $("#m_select2_4_7").select2({ data: this.dataAgency });
     this._script.loadScripts("app-account", ["assets/demo/default/custom/crud/forms/widgets/select2.js"]);
   }
 

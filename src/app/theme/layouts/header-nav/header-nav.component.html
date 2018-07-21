@@ -454,13 +454,23 @@
                   </span>
                 </a>
               </li>
-              <li *ngIf="user.role !== 0" class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
+              <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
                 m-menu-submenu-toggle="click" aria-haspopup="true">
                 <a routerLink="/components/client-ticket" class="m-menu__link">
                   <i class="m-menu__link-icon flaticon-menu"></i>
                   <span class="m-menu__item-here"></span>
                   <span class="m-menu__link-text">
                     Đặt vé
+                  </span>
+                </a>
+              </li>
+              <li *ngIf="user.role === 0" class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
+                m-menu-submenu-toggle="click" aria-haspopup="true">
+                <a routerLink="/components/approve" class="m-menu__link">
+                  <i class="m-menu__link-icon flaticon-menu"></i>
+                  <span class="m-menu__item-here"></span>
+                  <span class="m-menu__link-text">
+                    Duyệt vé
                   </span>
                 </a>
               </li>
@@ -497,17 +507,6 @@
                   </ul>
                 </div>
               </li>
-              <li *ngIf="user.role === 0" class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
-                m-menu-submenu-toggle="click" aria-haspopup="true">
-                <a routerLink="/components/approve" class="m-menu__link">
-                  <i class="m-menu__link-icon flaticon-menu"></i>
-                  <span class="m-menu__item-here"></span>
-                  <span class="m-menu__link-text">
-                    Duyệt vé
-                  </span>
-                </a>
-              </li>
-
               <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
                 routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a href="javascript:;" class="m-menu__link m-menu__toggle">

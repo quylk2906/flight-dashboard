@@ -133,18 +133,10 @@
         <div class="form-group m-form__group row">
           <div class="col-lg-5">
             <label>
-              Đại lý *
-            </label>
-            <select class="form-control m-select2" id="m_select2_4_1">
-              <option></option>
-            </select>
-          </div>
-          <div class="col-lg-5">
-            <label>
               Quyền*
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-input" name="role" [(ngModel)]="currentItem.role">
+              <select class="form-control m-input" name="role" [ngModel]="currentItem.role" (ngModelChange)="changeRole($event)">
                 <option *ngFor="let item of listRole" [value]="item.value">
                   {{item.title}}
                 </option>
@@ -156,6 +148,20 @@
               </span>
             </div>
           </div>
+          <div class="col-lg-5">
+            <label>
+              Đại lý *
+            </label>
+            <select class="form-control m-select2" id="m_select2_4_7">
+            </select>
+          </div>
+          <!-- <div class="col-lg-5" [hidden]="currentItem.role == '0'">
+            <label>
+              Các đại lý *
+            </label>
+            <select class="form-control m-select2" id="m_select2_4_2" name="agencyId " multiple="multiple">
+            </select>
+          </div> -->
         </div>
         <div class="form-group m-form__group row">
           <div class="col-lg-5">

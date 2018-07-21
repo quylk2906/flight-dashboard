@@ -20,7 +20,7 @@ import { emailApprove } from "../../../../../auth/_helpers/fake-email";
 })
 export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[];
-  private list: ClientTicket[];
+  list: ClientTicket[];
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   private listStatus: string[] = ["Mới", "Đang xử lý", "Duyệt", "Từ chối"];
 
@@ -42,6 +42,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   dtTrigger = new Subject();
   public currentItem: ClientTicket = {
     clientId: undefined,
+    clientName: undefined,
     agencyId: undefined,
     accountId: undefined,
     ticketId: undefined,
@@ -76,6 +77,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     const sub = this._serviceClient.getNew().subscribe(
       rs => {
         this.list = rs['data'] as ClientTicket[];
+        Helpers.setLoading(false);
         this.rerender();
       },
       err => {
@@ -105,9 +107,8 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2];
-    let data = { ...this.currentItem } as any;
     const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
-      return this._serviceClient.sendEmail(data).subscribe(
+      return this._serviceClient.sendEmail(this.currentItem).subscribe(
         rs => {
           this._toastr.info("Đã duyệt.", undefined, {
             closeButton: true
@@ -140,7 +141,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   rerender() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    this.dtElement && this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
       this.dtTrigger.next();
       Helpers.setLoading(false);

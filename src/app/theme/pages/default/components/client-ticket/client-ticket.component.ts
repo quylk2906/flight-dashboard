@@ -3,6 +3,7 @@ import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs/Subject";
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { Subscription } from "rxjs/Subscription";
+import { Observable } from "rxjs/Observable";
 import { Select2 } from "select2";
 import { Helpers } from "../../../../../helpers";
 import { NgForm } from "@angular/forms";
@@ -48,10 +49,12 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   isRequest: boolean = false;
   isExport: boolean = false;
   dataAirport = undefined;
+  theAgency = ''
   private user: any
   public modalItem: ClientTicket;
   public currentItem: ClientTicket = {
     clientId: undefined,
+    clientName: undefined,
     agencyId: undefined,
     accountId: undefined,
     ticketId: undefined,
@@ -102,9 +105,16 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.subsArr = [];
-
     this.user = JSON.parse(localStorage.getItem('currentUser'))
+    this.subsArr = [];
+    let sub3 
+    if ( this.user.agencyId) {
+      sub3 = this._serviceAgency.getAgencyById(this.user.agencyId).subscribe(rs => {
+        this.theAgency = rs['data'].agenyName
+      })
+    }
+  
+
 
     Helpers.setLoading(true);
 
@@ -229,9 +239,9 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       .toString();
 
     let subs: Subscription;
-
+    Helpers.setLoading(true);
     if (this.currentItem._id) {
-      Helpers.setLoading(true);
+
       subs = this._serviceClientTicket.putClient(client).subscribe(
         rs => {
           this._serviceClientTicket.loadData();
@@ -352,10 +362,15 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
   onExportClick(id) {
+  
     this.isExport = true;
     this.modalItem = find(this.list, item => {
       return item._id == id;
     });
+    console.log(this.modalItem.clientId)
+    console.log(this.listClients);
+    console.log(find(this.listClients, { _id: this.modalItem.clientId }));
+    this.modalItem.clientName = find(this.listClients, { _id: this.modalItem.clientId }).fullName
   }
 
   onExport() {
@@ -365,7 +380,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   onRequest() {
     this.modalItem.tinhTrangVe = this.listStatus[1];
     let data = { ...this.modalItem } as any;
-    data.agencyCode = this.user.agencyId.agencyCode
     data.isRequest = true;
     const sub = this._serviceClientTicket.putClient(this.modalItem).subscribe(rs => {
       return this._serviceClientTicket.sendEmail(data).subscribe(
@@ -403,7 +417,11 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
             line-height: 30px; }
             body span.pull-right {
               float: right;
-              color: #4f4f4f; } }        
+              color: #4f4f4f; } 
+            }
+            body div.text-center {
+              text-align: center;
+            }        
         </style>
       </head>
       <body onload="window.print();window.close()">${printContents}</body>

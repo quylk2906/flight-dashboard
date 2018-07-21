@@ -264,11 +264,10 @@
             <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">
               Đóng
             </button>
-            <button type="button" class="btn btn-primary" *ngIf="currentItem.tinhTrangVe=='Đang xử lý'" data-dismiss="modal" (click)="onApprove()">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" *ngIf="currentItem.tinhTrangVe=='Đang xử lý'"(click)="onApprove()">
               Duyệt
             </button>
-            <button type="button" class="btn btn-danger" *ngIf="currentItem.tinhTrangVe=='Đang xử lý'" data-dismiss=" modal
-              " (click)="onReject()">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" *ngIf="currentItem.tinhTrangVe=='Đang xử lý'" (click)="onReject()">
               Từ chối
             </button>
           </div>

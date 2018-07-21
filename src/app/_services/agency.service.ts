@@ -22,6 +22,10 @@ export class AgencyService {
     });
   }
 
+  getAgencyById(id) {
+    return this.http.get(`${webControl.baseURL}${this.endPoint}/${id}`)
+  }
+
   getAgenciesObservable() {
     return this.http.get(webControl.baseURL + this.endPoint);
   }

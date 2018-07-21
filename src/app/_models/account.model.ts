@@ -1,5 +1,6 @@
 export interface Account {
   _id: string;
+  ownedAgency: string[];
   agencyId: string;
   fullName: string;
   role: number;
