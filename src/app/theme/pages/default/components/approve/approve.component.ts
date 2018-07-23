@@ -68,15 +68,15 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     private _script: ScriptLoaderService,
     private _serviceClient: ClientTicketService,
     private _toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     Helpers.setLoading(true);
-    this.list = []
-    this.subsArr = []
+    this.list = [];
+    this.subsArr = [];
     const sub = this._serviceClient.getNew().subscribe(
       rs => {
-        this.list = rs['data'] as ClientTicket[];
+        this.list = rs["data"] as ClientTicket[];
         Helpers.setLoading(false);
         this.rerender();
       },
@@ -141,10 +141,11 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   rerender() {
-    this.dtElement && this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
-      Helpers.setLoading(false);
-    });
+    this.dtElement &&
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+        this.dtTrigger.next();
+        Helpers.setLoading(false);
+      });
   }
 }

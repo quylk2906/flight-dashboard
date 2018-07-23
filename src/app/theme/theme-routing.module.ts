@@ -18,6 +18,14 @@ const routes: Routes = [
         loadChildren: "./pages/default/profile/profile.module#ProfileModule"
       },
       {
+        path: "404-not-found",
+        loadChildren: "../default/not-found/not-found.module#NotFoundModule"
+      },
+      {
+        path: "500-internal-server-error",
+        loadChildren: "./pages/server-error/server-error.module#ServerErrorModule"
+      },
+      {
         path: "components/airport",
         loadChildren: "./pages/default/components/airport/airport.module#AirportModule"
       },

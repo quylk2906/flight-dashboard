@@ -402,12 +402,14 @@
               {{item.emailNotification}}
             </td>
             <ng-container *ngIf="item.isActived; else second">
-              <span class="m-badge m-badge--success m-badge--dot"></span>&nbsp;
-              <span class="m--font-bold m--font-success">Kích hoạt</span>
+              <td>
+                <span class="m-badge m-badge--success m-badge--wide">Kích hoạt</span>
+              </td>
             </ng-container>
             <ng-template #second>
-              <span class="m-badge m-badge--danger m-badge--dot"></span>&nbsp;
-              <span class="m--font-bold m--font-danger">Chưa kích hoạt</span>
+              <td>
+                <span class="m-badge m-badge--danger m-badge--wide">Chưa kích hoạt</span>
+              </td>
             </ng-template>
             <td>
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
