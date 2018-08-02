@@ -3,8 +3,6 @@ import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs/Subject";
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
-import { Select2 } from "select2";
 import { Helpers } from "../../../../../helpers";
 import { NgForm } from "@angular/forms";
 
@@ -19,11 +17,10 @@ import { Airport } from "../../../../../_models/airport.model";
 import { Client } from "../../../../../_models/client.model";
 import { Airline } from "../../../../../_models/airline.module";
 import { AirlineService } from "../../../../../_services/airline.service";
-import { find, cloneDeep } from "lodash";
-import randomstring from "randomstring-ng";
+import { find } from "lodash";
 import { AgencyService } from "../../../../../_services/agency.service";
 import { Agency } from "../../../../../_models/agency.model";
-import { emailRequest } from "../../../../../auth/_helpers/fake-email";
+
 @Component({
   selector: "app-client-ticket",
   templateUrl: "./client-ticket.component.html",
@@ -107,13 +104,13 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('currentUser'))
     this.subsArr = [];
-    let sub3 
-    if ( this.user.agencyId) {
+    let sub3
+    if (this.user.agencyId) {
       sub3 = this._serviceAgency.getAgencyById(this.user.agencyId).subscribe(rs => {
         this.theAgency = rs['data'].agenyName
       })
     }
-  
+
 
 
     Helpers.setLoading(true);
@@ -304,7 +301,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this._script.loadScripts("app-client-ticket", [
       "assets/vendors/custom/datatables/datatables.bundle.js",
-      "assets/demo/default/custom/crud/datatables/basic/paginations.js",
       "assets/demo/default/custom/crud/forms/validation/form-controls.js",
       "assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js"
     ]);
@@ -362,7 +358,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
   onExportClick(id) {
-  
+
     this.isExport = true;
     this.modalItem = find(this.list, item => {
       return item._id == id;

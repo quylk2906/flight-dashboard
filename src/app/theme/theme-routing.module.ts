@@ -18,14 +18,6 @@ const routes: Routes = [
         loadChildren: "./pages/default/profile/profile.module#ProfileModule"
       },
       {
-        path: "404-not-found",
-        loadChildren: "./pages/default/not-found/not-found.module#NotFoundModule"
-      },
-      {
-        path: "500-internal-server-error",
-        loadChildren: "./pages/default/server-error/server-error.module#ServerErrorModule"
-      },
-      {
         path: "components/airport",
         loadChildren: "./pages/default/components/airport/airport.module#AirportModule"
       },
@@ -68,7 +60,15 @@ const routes: Routes = [
       {
         path: "components/payment-detail/:id",
         loadChildren: "./pages/default/components/payment-detail/payment-detail.module#PaymentDetailModule"
-      }
+      },
+      {
+        path: "404-not-found",
+        loadChildren: "./pages/default/not-found/not-found.module#NotFoundModule"
+      },
+      {
+        path: "500-internal-server-error",
+        loadChildren: "./pages/default/server-error/server-error.module#ServerErrorModule"
+      },
       // {
       //    'path': 'components\/payment',
       //    'loadChildren': '.\/pages\/default\/components\/payment\/payment.module#PaymentModule'
@@ -90,4 +90,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ThemeRoutingModule {}
+export class ThemeRoutingModule { }
