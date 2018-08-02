@@ -19,11 +19,11 @@ const routes: Routes = [
       },
       {
         path: "404-not-found",
-        loadChildren: "../default/not-found/not-found.module#NotFoundModule"
+        loadChildren: "./pages/default/not-found/not-found.module#NotFoundModule"
       },
       {
         path: "500-internal-server-error",
-        loadChildren: "./pages/server-error/server-error.module#ServerErrorModule"
+        loadChildren: "./pages/default/server-error/server-error.module#ServerErrorModule"
       },
       {
         path: "components/airport",
@@ -81,7 +81,7 @@ const routes: Routes = [
   },
   {
     path: "**",
-    redirectTo: "index",
+    redirectTo: "404-not-found",
     pathMatch: "full"
   }
 ];
