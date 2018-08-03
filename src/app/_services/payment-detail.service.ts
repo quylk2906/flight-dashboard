@@ -20,6 +20,13 @@ export class PaymentDetailService {
     });
   }
 
+  getPaymentDetailObservable() {
+    return this.http.get(webControl.baseURL + this.endPoint)
+  }
+
+  getPaymentByCondition(data) {
+    return this.http.post(webControl.baseURL + this.endPoint + '/findByCondition', data, webControl.httpOptions)
+  }
   getClients() {
     return this.listPayment;
   }

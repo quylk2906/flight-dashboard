@@ -45,7 +45,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   listStatus: string[] = ["Mới", "Đang xử lý", "Duyệt", "Từ chối"];
   isRequest: boolean = false;
   isExport: boolean = false;
-  dataAirport = undefined;
   theAgency = "";
   private user: any;
   public modalItem: ClientTicket;

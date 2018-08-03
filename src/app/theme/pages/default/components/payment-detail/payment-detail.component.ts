@@ -10,6 +10,8 @@ import * as moment from "moment";
 import { ViewChild } from "@angular/core";
 import { Helpers } from "../../../../../helpers";
 import { ActivatedRoute } from "@angular/router";
+import { Agency } from "../../../../../_models/agency.model";
+import { AgencyService } from "../../../../../_services/agency.service";
 
 @Component({
   selector: "app-payment-detail",
@@ -20,8 +22,20 @@ import { ActivatedRoute } from "@angular/router";
 export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[];
   public list: PaymentDetail[];
+  // public listStatus: string[] = ["Mới", "Đang xử lý", "Duyệt", "Từ chối"];
+  public listStatus = [{ title: "Duyệt", checked: false }, { title: "Từ chối", checked: false }];
+  public listReport = [
+    { title: "Tất cả", value: 0 },
+    { title: "Báo cáo giao dịch đại lý", value: 1 },
+    { title: "Báo cáo chi tiết doanh thu", value: 2 },
+    { title: "Báo cáo tình trạng đại lý", value: 3 },
+    { title: "Báo cáo quỹ đại lý", value: 4 },
+    { title: "Báo cáo số tình trạng vé", value: 5 }]
+  private listAgencies: Agency[];
+  public defaultReport = this.listReport[0]
   public currentItem: PaymentDetail = {
     agencyId: undefined,
+    accountId: undefined,
     tacDong: undefined,
     firstBalance: undefined,
     lastBalance: undefined,
@@ -31,7 +45,6 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   };
 
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  private listStatus: string[] = ["None", "In Process", "Approved", "Rejected"];
   myMoment: moment.Moment = moment(Date.now());
   dtOptions: any = {
     responsive: true,
@@ -60,7 +73,7 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
           columns: [0, 1, 2, 3, 4, 5]
         },
         exportData: { decodeEntities: true },
-        customize: function(win) {
+        customize: function (win) {
           $(win.document.body).css("padding", "10px");
         }
       },
@@ -85,25 +98,86 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     ]
   };
   dtTrigger = new Subject();
-  constructor(private _script: ScriptLoaderService, private _service: PaymentDetailService, private route: ActivatedRoute) {}
+  constructor(private _script: ScriptLoaderService, private _service: PaymentDetailService, private route: ActivatedRoute,
+    private _serviceAgency: AgencyService) { }
 
   ngOnInit() {
     this.subsArr = [];
     this.list = this._service.getClients();
-    const sub = this._service.listPaymentChanged.subscribe(rs => {
+    const sub1 = this._service.listPaymentChanged.subscribe(rs => {
       this.list = rs;
-      console.log(rs);
       this.rerender();
     });
+
+    const sub2 = this._serviceAgency.getAgenciesObservable().subscribe(rs => {
+      this.listAgencies = rs['data']
+      this.loadScript()
+    })
+
     this._service.loadData();
-    this.subsArr.push(sub);
+    this.subsArr.push(sub1);
+    this.subsArr.push(sub2)
     // this.subsArr.push(sub2)
+  }
+
+  changeTypeReport(type) {
+    if (type.value === 0) {
+      this.onReset()
+    }
+    this.defaultReport = type
   }
 
   ngOnDestroy() {
     this.subsArr.forEach(sub => sub.unsubscribe());
     this.dtTrigger.unsubscribe();
   }
+
+  onSelectAll() {
+  }
+
+  onSearch() {
+    Helpers.setLoading(true);
+    const agencies = $('#m_select2_4_1').val()
+    const start = $('input[name=start]').val()
+    const end = $('input[name=end]').val()
+    const gtlt = $('input[name=gtlt]:checked').val()
+    const amount = $('input[name=amount]').val()
+    const status = this.listStatus.filter(el => el.checked == true).map(el => el.title)
+    const data = {
+      agencies: agencies,
+      start,
+      end,
+      gtlt,
+      amount,
+      status: status
+    }
+
+    if (this.defaultReport.value === 0) {
+      console.log('this.defaultReport.value');
+      const sub6 = this._service.getPaymentDetailObservable().subscribe(rs => {
+        this.list = rs["data"] as PaymentDetail[];
+        this.rerender();
+      })
+      this.subsArr.push(sub6)
+    } else {
+      console.log('else...');
+      const sub7 = this._service.getPaymentByCondition(data).subscribe(rs => {
+        this.list = rs["data"] as PaymentDetail[];
+        this.rerender();
+      })
+      this.subsArr.push(sub7)
+    }
+
+  }
+  onReset() {
+    this.defaultReport = this.listReport[0]
+    $("#m_select2_4_1")
+      .val(0)
+      .trigger("change");
+    $('input[name=start]').val("")
+    $('input[name=end]').val("")
+  }
+
 
   rerender() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -118,8 +192,17 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
       "assets/vendors/custom/datatables/datatables.bundle.js",
       "assets/demo/default/custom/crud/datatables/search-options/advanced-search.js"
     ]);
-    console.log(this.route.snapshot.params["id"]);
     this.dtOptions.search.search = this.route.snapshot.params["id"];
     this.dtTrigger.next();
   }
+
+  loadScript() {
+    const dataAgencies = this.listAgencies.map(item => {
+      return { id: item._id, text: `${item.agencyCode} - ${item.agencyName}` };
+    });
+
+    $("#m_select2_4_1").select2({ data: dataAgencies });
+    this._script.loadScripts("app-client-ticket", ["assets/demo/default/custom/crud/forms/widgets/select2.js"]);
+  }
+
 }

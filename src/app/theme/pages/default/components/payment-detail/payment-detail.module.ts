@@ -7,6 +7,7 @@ import { DefaultComponent } from '../../../default/default.component';
 import { FormsModule } from '@angular/forms';
 import { PaymentDetailService } from '../../../../../_services/payment-detail.service';
 import { DataTablesModule } from 'angular-datatables';
+import { AgencyService } from '../../../../../_services/agency.service';
 
 const routes: Routes = [
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    PaymentDetailService
+    PaymentDetailService, AgencyService
   ],
   declarations: [
     PaymentDetailComponent

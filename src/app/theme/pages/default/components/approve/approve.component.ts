@@ -64,7 +64,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     updatedAt: undefined
   };
 
-  constructor(private _script: ScriptLoaderService, private _serviceClient: ClientTicketService, private _toastr: ToastrService) {}
+  constructor(private _script: ScriptLoaderService, private _serviceClient: ClientTicketService, private _toastr: ToastrService) { }
 
   ngOnInit() {
     Helpers.setLoading(true);
@@ -103,18 +103,18 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2];
-    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
-      console.log(rs);
-      // return this._serviceClient.sendEmail(this.currentItem).subscribe(
-      //   rs => {
-      //     this._toastr.info("Đã duyệt.", undefined, {
-      //       closeButton: true
-      //     });
-      //   },
-      //   err => {
-      //     console.log(err);
-      //   }
-      // );
+    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(() => {
+      return this._serviceClient.sendEmail(this.currentItem).subscribe(
+        rs => {
+          console.log(rs);
+          this._toastr.info("Đã duyệt.", undefined, {
+            closeButton: true
+          });
+        },
+        err => {
+          console.log(err);
+        }
+      );
     });
     this.subsArr.push(sub);
   }

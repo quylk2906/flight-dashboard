@@ -1,6 +1,7 @@
 
 export interface PaymentDetail {
    agencyId: string,
+   accountId:  string,
    tacDong: string,
    firstBalance: number,
    lastBalance: number,
