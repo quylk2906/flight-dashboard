@@ -35,7 +35,7 @@ import { Agency } from "../../../../../_models/agency.model";
   styleUrls: []
 })
 export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
-  private subsArr: Subscription[];
+  private subsArr: Subscription[] = [];
   listAirports: Airport[];
   listAirlines: Airline[];
   listClients: Client[];
@@ -46,8 +46,8 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   isRequest: boolean = false;
   isExport: boolean = false;
   dataAirport = undefined;
-  theAgency = ''
-  private user: any
+  theAgency = "";
+  private user: any;
   public modalItem: ClientTicket;
   public currentItem: ClientTicket = {
     clientId: undefined,
@@ -99,19 +99,18 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAirline: AirlineService,
     private _serviceAgency: AgencyService,
     private _toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'))
-    this.subsArr = [];
-    let sub3
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
+    let sub3;
     if (this.user.agencyId) {
       sub3 = this._serviceAgency.getAgencyById(this.user.agencyId).subscribe(rs => {
-        this.theAgency = rs['data'].agenyName
-      })
+        console.log("rs", rs);
+        this.theAgency = rs["data"].agenyName;
+      });
+      this.subsArr.push(sub3);
     }
-
-
 
     Helpers.setLoading(true);
 
@@ -122,7 +121,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     const sub1 = this._serviceClientTicket.listClientTicketsChanged.subscribe(
       rs => {
         this.list = rs;
-        console.log(rs);
         this.rerender();
       },
       err => {
@@ -174,13 +172,9 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid) {
-      return
-    }
-
     const client = this.currentItem;
-    client.agencyId = this.user.agencyId
-    client.accountId = this.user._id
+    client.agencyId = this.user.agencyId;
+    client.accountId = this.user._id;
     client.tinhTrangVe = "Mới";
 
     client.clientId = $("#m_select2_4_1")
@@ -192,21 +186,21 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     client.ngayGioDen_chieuDi = $("#m_datetimepicker_1_2")
       .val()
       .toString();
-
     client.sanBayDi_chieuDi = $("#m_select2_4_2")
       .val()
       .toString();
     client.sanBayDen_chieuDi = $("#m_select2_4_3")
       .val()
       .toString();
-    if (client.ngayGioBay_chieuDi == client.ngayGioDen_chieuDi) {
-      this._toastr.error("Giờ bay và giờ đến giống nhau", undefined, undefined);
-      return
-    }
-
-    else if (client.sanBayDi_chieuDi == client.sanBayDen_chieuDi) {
-      this._toastr.error("Sân bay đi và sân bay đến giống nhau", undefined, undefined);
-      return
+    if (!client.ngayGioBay_chieuDi || !client.ngayGioDen_chieuDi) {
+      this._toastr.error("Kiểm tra lại thông tin");
+      return;
+    } else if (client.ngayGioBay_chieuDi == client.ngayGioDen_chieuDi) {
+      this._toastr.error("Giờ bay và giờ đến giống nhau");
+      return;
+    } else if (client.sanBayDi_chieuDi == client.sanBayDen_chieuDi) {
+      this._toastr.error("Sân bay đi và sân bay đến giống nhau");
+      return;
     }
     if (this.isReturn) {
       client.sanBayDi_chieuVe = $("#m_select2_4_4")
@@ -221,13 +215,15 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       client.ngayGioDen_chieuVe = $("#m_datetimepicker_1_4")
         .val()
         .toString();
-      if (client.ngayGioBay_chieuVe == client.ngayGioDen_chieuVe) {
-        this._toastr.error("Giờ bay và giờ đến giống nhau", undefined, undefined);
-        return
-      }
-      else if (client.sanBayDi_chieuVe == client.sanBayDen_chieuVe) {
-        this._toastr.error("Sân bay đi và sân bay đến giống nhau", undefined, undefined);
-        return
+      if (!client.ngayGioBay_chieuVe || !client.ngayGioDen_chieuVe) {
+        this._toastr.error("Kiểm tra lại thông tin");
+        return;
+      } else if (client.ngayGioBay_chieuVe == client.ngayGioDen_chieuVe) {
+        this._toastr.error("Giờ bay và giờ đến giống nhau");
+        return;
+      } else if (client.sanBayDi_chieuVe == client.sanBayDen_chieuVe) {
+        this._toastr.error("Sân bay đi và sân bay đến giống nhau");
+        return;
       }
     }
 
@@ -238,9 +234,8 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     let subs: Subscription;
     Helpers.setLoading(true);
     if (this.currentItem._id) {
-
       subs = this._serviceClientTicket.putClient(client).subscribe(
-        rs => {
+        () => {
           this._serviceClientTicket.loadData();
           form.resetForm();
           this._toastr.info("Thay đổi thành công", undefined, {
@@ -257,7 +252,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       );
     } else {
       subs = this._serviceClientTicket.postClient(client).subscribe(
-        rs => {
+        () => {
           this._toastr.info("Thêm thành công", undefined, {
             closeButton: true
           });
@@ -358,15 +353,11 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
   onExportClick(id) {
-
     this.isExport = true;
     this.modalItem = find(this.list, item => {
       return item._id == id;
     });
-    console.log(this.modalItem.clientId)
-    console.log(this.listClients);
-    console.log(find(this.listClients, { _id: this.modalItem.clientId }));
-    this.modalItem.clientName = find(this.listClients, { _id: this.modalItem.clientId }).fullName
+    this.modalItem.clientName = find(this.listClients, { _id: this.modalItem.clientId }).fullName;
   }
 
   onExport() {
@@ -379,9 +370,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     data.isRequest = true;
     const sub = this._serviceClientTicket.putClient(this.modalItem).subscribe(rs => {
       return this._serviceClientTicket.sendEmail(data).subscribe(
-        rs1 => {
-          console.log(rs1);
-        },
+        rs1 => {},
         err => {
           console.log(err);
         }

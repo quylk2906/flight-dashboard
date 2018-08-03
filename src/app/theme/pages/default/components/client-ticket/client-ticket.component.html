@@ -112,7 +112,7 @@
               Tình trạng vé *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-input" id="exampleSelect1" disabled name="tinhTrangVe" [(ngModel)]="currentItem.tinhTrangVe">
+              <select class="form-control m-input" id="exampleSelect1" name="tinhTrangVe" [(ngModel)]="currentItem.tinhTrangVe">
                 <option *ngFor="let item of listStatus" [value]="item">
                   {{item}}
                 </option>

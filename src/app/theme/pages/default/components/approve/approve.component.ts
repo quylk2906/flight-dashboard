@@ -64,11 +64,7 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
     updatedAt: undefined
   };
 
-  constructor(
-    private _script: ScriptLoaderService,
-    private _serviceClient: ClientTicketService,
-    private _toastr: ToastrService
-  ) {}
+  constructor(private _script: ScriptLoaderService, private _serviceClient: ClientTicketService, private _toastr: ToastrService) {}
 
   ngOnInit() {
     Helpers.setLoading(true);
@@ -108,16 +104,17 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   onApprove() {
     this.currentItem.tinhTrangVe = this.listStatus[2];
     const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
-      return this._serviceClient.sendEmail(this.currentItem).subscribe(
-        rs => {
-          this._toastr.info("Đã duyệt.", undefined, {
-            closeButton: true
-          });
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      console.log(rs);
+      // return this._serviceClient.sendEmail(this.currentItem).subscribe(
+      //   rs => {
+      //     this._toastr.info("Đã duyệt.", undefined, {
+      //       closeButton: true
+      //     });
+      //   },
+      //   err => {
+      //     console.log(err);
+      //   }
+      // );
     });
     this.subsArr.push(sub);
   }
@@ -125,9 +122,9 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   onReject() {
     this.currentItem.tinhTrangVe = this.listStatus[3];
     let data = { ...this.currentItem } as any;
-    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(rs => {
+    const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(() => {
       return this._serviceClient.sendEmail(data).subscribe(
-        rs1 => {
+        () => {
           this._toastr.error("Đã hủy.", undefined, {
             closeButton: true
           });
