@@ -84,6 +84,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     this._service.loadData()
     const sub1 = this._serviceAgency.getAgenciesObservable().subscribe(rs => {
+      console.log('rs', rs);
       this.listAgencies = rs['data'] as Agency[]
       this.loadScript()
     })
@@ -96,11 +97,13 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(form: NgForm) {
-    if (form.invalid) {
-      return
-    }
+    // if (form.invalid) {
+    //   return
+    // }
     Helpers.setLoading(true)
     this.currentItem.region = $("#m_select2_4_2").val().toString();
+    this.currentItem.agencyId = $("#m_select2_4_1").val() ? $("#m_select2_4_1").val().toString() : this.user.agencyId;
+
     if (!this.currentItem.identification)
       this._toastr.warning('Bạn không có CMND', undefined, undefined);
 
@@ -122,7 +125,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
       )
     } else {
       sub = this._service.postClient(this.currentItem).subscribe(
-        rs => {
+        () => {
           this._service.loadData()
           form.resetForm()
           this._toastr.info('Thêm thành công', undefined, { closeButton: true });
@@ -173,12 +176,6 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const dataRegions = this.listRegions.map(item => {
-      return { id: item.name, text: item.name };
-    });
-
-
-    $("#m_select2_4_2").select2({ data: dataRegions });
 
     this._script.loadScripts('app-client',
       [
@@ -192,18 +189,23 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadScript() {
+    const dataRegions = this.listRegions.map(item => {
+      return { id: item.name, text: item.name };
+    });
+
     const dataAgencies = this.listAgencies.map(item => {
       return { id: item._id, text: `${item.agencyCode} - ${item.agencyName}` };
     });
-    $("#m_select2_4_1").select2({
-      data: dataAgencies, width: "100%",
-      placeholder: "Chọn một option",
-      allowClear: !0
-    });
 
-    $("#m_select2_4_1")
-      .val(this.user.agencyId)
-      .trigger("change");
+    $("#m_select2_4_2").select2({ data: dataRegions });
+    $("#m_select2_4_1").select2({ data: dataAgencies });
+
+    this._script.loadScripts('app-client',
+      ["assets/demo/default/custom/crud/forms/widgets/select2.js"]);
+
+    // $("#m_select2_4_1")
+    //   .val(this.user.agencyId)
+    //   .trigger("change");
   }
 
 }

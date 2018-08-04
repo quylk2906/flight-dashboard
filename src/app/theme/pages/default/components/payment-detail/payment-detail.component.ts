@@ -133,6 +133,13 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   onSelectAll() {
+    if ($("#checkbox-all").is(':checked')) {
+      $("#m_select2_4_1 > option").prop("selected", "selected");
+      $("#m_select2_4_1").trigger("change");
+    } else {
+      $("#m_select2_4_1 > option").prop("selected", false);
+      $("#m_select2_4_1").trigger("change");
+    }
   }
 
   onSearch() {
@@ -141,7 +148,7 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     const start = $('input[name=start]').val()
     const end = $('input[name=end]').val()
     const gtlt = $('input[name=gtlt]:checked').val()
-    const amount = $('input[name=amount]').val()
+    const amount = ~~($('#m_inputmask_7').val().toString().replace(/,/g, ''));
     const status = this.listStatus.filter(el => el.checked == true).map(el => el.title)
     const data = {
       agencies: agencies,
@@ -174,6 +181,8 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
       .trigger("change");
     $('input[name=start]').val("")
     $('input[name=end]').val("")
+    $('#checkbox-all').prop("checked", false)
+
   }
 
 
@@ -188,7 +197,8 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
   ngAfterViewInit() {
     this._script.loadScripts("app-payment-detail", [
       "assets/vendors/custom/datatables/datatables.bundle.js",
-      "assets/demo/default/custom/crud/datatables/search-options/advanced-search.js"
+      "assets/demo/default/custom/crud/datatables/search-options/advanced-search.js",
+      "assets/demo/default/custom/crud/forms/widgets/input-mask.js"
     ]);
     this.dtOptions.search.search = this.route.snapshot.params["id"];
     this.dtTrigger.next();

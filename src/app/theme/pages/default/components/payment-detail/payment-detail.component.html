@@ -110,8 +110,8 @@
         </div>
         <div class="m-portlet__body">
           <div class="row">
-            <div class="col-lg-6 m--margin-bottom-10-tablet-and-mobile">
-              <div class="m--space-10"></div>
+            <div class="col-lg-12 col m--margin-bottom-10-tablet-and-mobile">
+              <!-- <div class="m--space-10"></div> -->
               <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--large m-dropdown--align-left" m-dropdown-toggle="hover">
                 <a href="#" class="m-dropdown__toggle btn btn-info dropdown-toggle">
                   {{defaultReport.title}}
@@ -136,24 +136,42 @@
                   </div>
                 </div>
               </div>
+              &nbsp;&nbsp;
+              <button class="btn btn-brand m-btn m-btn--icon" (click)="onSearch()">
+                <span>
+                  <i class="la la-search"></i>
+                  <span>
+                    Tìm kiếm
+                  </span>
+                </span>
+              </button>
+              &nbsp;&nbsp;
+              <button class="btn btn-secondary m-btn m-btn--icon" (click)="onReset()" type="reset">
+                <span>
+                  <i class="la la-close"></i>
+                  <span>
+                    Xóa
+                  </span>
+                </span>
+              </button>
             </div>
           </div>
-          <form class="m-form m-form--fit m--margin-bottom-20">
-            <div class="m-separator m-separator--md m-separator--dashed"></div>
-            <div class="row m--margin-bottom-20">
+          <form class="m-form m-form--fit">
+            <div class="m-separator m-separator--sm m-separator--dashed"></div>
+            <div class="row">
               <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
-                <div class="form-group row">
+                <div class="form-group">
                   <label>
                     Đại lý:
                   </label>
                   <label class="m-checkbox m-checkbox--bold m-checkbox--state-success ml-3">
-                    <input type="checkbox" (change)="onSelectAll()"> Tất cả
+                    <input type="checkbox" id="checkbox-all" (change)="onSelectAll()"> Tất cả
                     <span></span>
                   </label>
                   <select class="form-control m-select2" id="m_select2_4_1" multiple>
                   </select>
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                   <label>
                     Ngày tháng:
                   </label>
@@ -187,7 +205,7 @@
                 </div>
               </div>
               <div class="col-lg-5 ml-5 m--margin-bottom-10-tablet-and-mobile" *ngIf="defaultReport.value === 4 || defaultReport.value === 3">
-                <div class="form-group row">
+                <div class="form-group">
                   <label>
                     Số tiền:
                   </label>
@@ -201,30 +219,9 @@
                       <span></span>
                     </label>
                   </div>
-                  <input type="number" name="amount" class="form-control m-input">
+                  <input type='text' class="form-control m-input" name="amount" id="m_inputmask_7" required>
+                  <!-- <input type="number" name="amount" class="form-control m-input"> -->
                 </div>
-              </div>
-            </div>
-            <div class="m-separator m-separator--md m-separator--dashed"></div>
-            <div class="row">
-              <div class="col-lg-12">
-                <button class="btn btn-brand m-btn m-btn--icon" (click)="onSearch()">
-                  <span>
-                    <i class="la la-search"></i>
-                    <span>
-                      Tìm kiếm
-                    </span>
-                  </span>
-                </button>
-                &nbsp;&nbsp;
-                <button class="btn btn-secondary m-btn m-btn--icon" (click)="onReset()" type="reset">
-                  <span>
-                    <i class="la la-close"></i>
-                    <span>
-                      Xóa
-                    </span>
-                  </span>
-                </button>
               </div>
             </div>
           </form>
@@ -243,7 +240,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Danh sách chi tiết giao dịch.
+            {{defaultReport.title}}
           </h3>
         </div>
       </div>
@@ -284,7 +281,7 @@
             <th *ngIf="defaultReport.value === 2">
               Số tiền tăng giảm
             </th>
-            <th style="width: 15%"> 
+            <th style="width: 15%">
               Ngày giao dịch
             </th>
             <th style="width: 15%">

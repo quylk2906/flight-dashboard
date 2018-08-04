@@ -229,6 +229,8 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
     let subs: Subscription;
     Helpers.setLoading(true);
+    this.currentItem.soTien = ~~($('#m_inputmask_7').val().toString().replace(/,/g, ''));
+
     if (this.currentItem._id) {
       subs = this._serviceClientTicket.putClient(client).subscribe(
         () => {
@@ -267,7 +269,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.subsArr.push(subs);
   }
-  
+
   clearSelect2() {
     $("#m_select2_4_1")
       .val(0)
@@ -296,14 +298,15 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     this._script.loadScripts("app-client-ticket", [
       "assets/vendors/custom/datatables/datatables.bundle.js",
       "assets/demo/default/custom/crud/forms/validation/form-controls.js",
-      "assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js"
+      "assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js",
+      "assets/demo/default/custom/crud/forms/widgets/input-mask.js"
     ]);
     this.dtTrigger.next();
   }
 
   loadScript() {
     const dataAirport = this.listAirports.map(item => {
-      return { id: item.airportCode, text: item.airportName };
+      return { id: item.airportName, text: item.airportName };
     });
     const dataAirline = this.listAirlines.map(item => {
       return { id: item._id, text: item.airlineName };
@@ -361,8 +364,9 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isExport = true;
     this.modalItem = find(this.list, item => {
       return item._id == id;
-    });
-    this.modalItem.clientName = find(this.listClients, { _id: this.modalItem.clientId }).fullName;
+    })
+    const _clientId = (<any>this.modalItem.clientId)._id;
+    this.modalItem.clientName = find(this.listClients, { _id: _clientId }).fullName;
   }
 
   onExport() {

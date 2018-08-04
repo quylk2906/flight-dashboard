@@ -49,12 +49,11 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
     address: undefined,
     _id: undefined,
     initialBudget: undefined,
-    currentBudget: undefined,
     createdAt: undefined,
     updatedAt: undefined
   };
 
-  constructor(private _script: ScriptLoaderService, private _toastr: ToastrService, private _service: AgencyService) {}
+  constructor(private _script: ScriptLoaderService, private _toastr: ToastrService, private _service: AgencyService) { }
 
   ngOnInit() {
     Helpers.setLoading(true);
@@ -78,6 +77,7 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     Helpers.setLoading(true);
     this.currentItem = form.value;
+    this.currentItem.initialBudget = ~~($('#m_inputmask_7').val().toString().replace(/,/g, ''));
     let sub: Subscription;
     if (this.currentItem._id) {
       sub = this._service.putAgencies(this.currentItem).subscribe(
@@ -137,7 +137,8 @@ export class AgencyComponent implements OnInit, OnDestroy, AfterViewInit {
     this._script.loadScripts("app-agency", [
       "assets/vendors/custom/datatables/datatables.bundle.js",
       "assets/demo/default/custom/crud/datatables/standard/paginations.js",
-      "assets/demo/default/custom/crud/forms/validation/form-controls.js"
+      "assets/demo/default/custom/crud/forms/validation/form-controls.js",
+      "assets/demo/default/custom/crud/forms/widgets/input-mask.js"
     ]);
     this.dtTrigger.next();
   }

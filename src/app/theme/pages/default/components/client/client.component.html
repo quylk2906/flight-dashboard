@@ -26,60 +26,6 @@
           <i class="la la-plus m--hide"></i>
           <i class="la la-ellipsis-h"></i>
         </a>
-        <div class="m-dropdown__wrapper">
-          <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-          <div class="m-dropdown__inner">
-            <div class="m-dropdown__body">
-              <div class="m-dropdown__content">
-                <ul class="m-nav">
-                  <li class="m-nav__section m-nav__section--first m--hide">
-                    <span class="m-nav__section-text">
-                      Quick Actions
-                    </span>
-                  </li>
-                  <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                      <i class="m-nav__link-icon flaticon-share"></i>
-                      <span class="m-nav__link-text">
-                        Activity
-                      </span>
-                    </a>
-                  </li>
-                  <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                      <i class="m-nav__link-icon flaticon-chat-1"></i>
-                      <span class="m-nav__link-text">
-                        Messages
-                      </span>
-                    </a>
-                  </li>
-                  <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                      <i class="m-nav__link-icon flaticon-info"></i>
-                      <span class="m-nav__link-text">
-                        FAQ
-                      </span>
-                    </a>
-                  </li>
-                  <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                      <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                      <span class="m-nav__link-text">
-                        Support
-                      </span>
-                    </a>
-                  </li>
-                  <li class="m-nav__separator m-nav__separator--fit"></li>
-                  <li class="m-nav__item">
-                    <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
-                      Submit
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -129,14 +75,15 @@
             </div>
           </div>
         </div>
-
-        <div class="form-group m-form__group row">
-          <div class="col-lg-5">
+        <!-- *ngIf="user.role === 0" -->
+        <div class="form-group m-form__group row" *ngIf="user.role === 0">
+          <div class=" col-lg-5">
             <label>
               Đại lý *
             </label>
             <div class="m-input-icon m-input-icon--right">
               <select class="form-control m-select2" id="m_select2_4_1">
+                <option class="text-uppercase"></option>
               </select>
             </div>
           </div>
@@ -162,7 +109,8 @@
               Số ĐT *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber" required placeholder="Nhập số điện thoại">
+              <input type="number" class="form-control m-input" name="phoneNumber" [(ngModel)]="currentItem.phoneNumber
+        " required placeholder="Nhập số điện thoại">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -178,7 +126,8 @@
               CMND (tùy chọn)
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" [(ngModel)]="currentItem.identification" name="identification" placeholder="Nhập số CMND">
+              <input type="number" class="form-control m-input" [(ngModel)]="currentItem.identification" name="identification
+        " placeholder="Nhập số CMND">
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
                   <i class="la la-edit"></i>
@@ -299,7 +248,8 @@
     </div>
     <div class="m-portlet__body">
       <!--begin: Datatable -->
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped- table-bordered table-hover table-checkable">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped- table-bordered table-hover
+          table-checkable">
         <thead>
           <tr>
             <th>
@@ -365,8 +315,8 @@
               {{item.createdAt | date: 'yyyy-MM-dd hh:mm'}}
             </td>
             <td>
-              <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click"
-                aria-expanded="true">
+              <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push
+        " m-dropdown-toggle="click" aria-expanded="true">
                 <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
                   <i class="la la-ellipsis-h"></i>
                 </a>

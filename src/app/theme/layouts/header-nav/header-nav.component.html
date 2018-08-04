@@ -454,8 +454,8 @@
                   </span>
                 </a>
               </li>
-              <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
-                m-menu-submenu-toggle="click" aria-haspopup="true">
+              <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" m-menu-submenu-toggle="click"
+                aria-haspopup="true">
                 <a routerLink="/components/client-ticket" class="m-menu__link">
                   <i class="m-menu__link-icon flaticon-menu"></i>
                   <span class="m-menu__item-here"></span>
@@ -474,7 +474,27 @@
                   </span>
                 </a>
               </li>
-              <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
+              <li *ngIf="user.role === 0" class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
+                m-menu-submenu-toggle="click" aria-haspopup="true">
+                <a routerLink="/components/agency" class="m-menu__link">
+                  <i class="m-menu__link-icon flaticon-menu"></i>
+                  <span class="m-menu__item-here"></span>
+                  <span class="m-menu__link-text">
+                    Đại lý
+                  </span>
+                </a>
+              </li>
+              <li *ngIf="user.role === 0" class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
+                m-menu-submenu-toggle="click" aria-haspopup="true">
+                <a routerLink="/components/payment-detail" class="m-menu__link">
+                  <i class="m-menu__link-icon flaticon-menu"></i>
+                  <span class="m-menu__item-here"></span>
+                  <span class="m-menu__link-text">
+                    Giao dịch
+                  </span>
+                </a>
+              </li>
+              <!-- <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
                 routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a href="javascript:;" class="m-menu__link m-menu__toggle">
                   <i class="m-menu__link-icon flaticon-menu"></i>
@@ -506,7 +526,7 @@
                     </li>
                   </ul>
                 </div>
-              </li>
+              </li> -->
               <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
                 routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a href="javascript:;" class="m-menu__link m-menu__toggle">
@@ -546,9 +566,8 @@
         </div>
         <!-- end::Horizontal Menu -->
         <!--begin::Search-->
-        <div class="m-stack__item m-stack__item--middle m-dropdown m-dropdown--arrow m-dropdown--large m-dropdown--mobile-full-width m-dropdown--align-right m-dropdown--skin-light m-header-search m-header-search--expandable m-header-search--skin-"
+        <!-- <div class="m-stack__item m-stack__item--middle m-dropdown m-dropdown--arrow m-dropdown--large m-dropdown--mobile-full-width m-dropdown--align-right m-dropdown--skin-light m-header-search m-header-search--expandable m-header-search--skin-"
           id="m_quicksearch" m-quicksearch-mode="default">
-          <!--begin::Search Form -->
           <form class="m-header-search__form">
             <div class="m-header-search__wrapper">
               <span class="m-header-search__icon-search" id="m_quicksearch_search">
@@ -565,8 +584,6 @@
               </span>
             </div>
           </form>
-          <!--end::Search Form -->
-          <!--begin::Search Results -->
           <div class="m-dropdown__wrapper">
             <div class="m-dropdown__arrow m-dropdown__arrow--center"></div>
             <div class="m-dropdown__inner">
@@ -577,8 +594,7 @@
               </div>
             </div>
           </div>
-          <!--end::Search Results -->
-        </div>
+        </div> -->
         <!--end::Search-->
       </div>
     </div>

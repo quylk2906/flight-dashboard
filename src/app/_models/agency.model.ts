@@ -6,7 +6,6 @@ export interface Agency {
    phoneNumber: string,
    address: string,
    initialBudget: number,
-   currentBudget: number,
    _id: string,
    createdAt: string,
    updatedAt: string
