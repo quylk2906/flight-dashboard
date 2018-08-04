@@ -159,7 +159,7 @@
           <form class="m-form m-form--fit">
             <div class="m-separator m-separator--sm m-separator--dashed"></div>
             <div class="row">
-              <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+              <div class="col-lg-5 m--margin-bottom-10-tablet-and-mobile">
                 <div class="form-group">
                   <label>
                     Đại lý:
@@ -171,6 +171,8 @@
                   <select class="form-control m-select2" id="m_select2_4_1" multiple>
                   </select>
                 </div>
+              </div>
+              <div class="col-lg-5 ml-5 m--margin-bottom-10-tablet-and-mobile">
                 <div class="form-group">
                   <label>
                     Ngày tháng:
@@ -186,26 +188,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-5 ml-5 m--margin-bottom-10-tablet-and-mobile" *ngIf="defaultReport.value === 5">
-                <div class="row">
-                  <label> Trạng thái:</label>
-                </div>
-                <div class="row" *ngFor="let item of listStatus; let i = index">
-                  <label class="col-3 col-form-label">
-                    {{item.title}}
-                  </label>
-                  <div class="col-3">
-                    <span class="m-switch m-switch--icon">
-                      <label>
-                        <input type="checkbox" value="{{item.title}}" [(ngModel)]="item.checked" [name]="item.title" />
-                        <span></span>
-                      </label>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-5 ml-5 m--margin-bottom-10-tablet-and-mobile" *ngIf="defaultReport.value === 4 || defaultReport.value === 3">
-                <div class="form-group">
+            </div>
+            <div class="row">
+              <div class="col-lg-7 m--margin-bottom-10-tablet-and-mobile">
+                <div class="form-group" *ngIf="defaultReport.value === 4 || defaultReport.value === 3">
                   <label>
                     Số tiền:
                   </label>
@@ -220,7 +206,21 @@
                     </label>
                   </div>
                   <input type='text' class="form-control m-input" name="amount" id="m_inputmask_7" required>
-                  <!-- <input type="number" name="amount" class="form-control m-input"> -->
+                </div>
+
+                <div class="form-group" *ngIf="defaultReport.value === 5">
+                  <label> Trạng thái:</label>
+                  <div class="row">
+                    <div class="col-md-3 col" *ngFor="let item of listStatus; let i = index">
+                      {{item.title}}
+                      <span class="m-switch m-switch--icon">
+                        <label>
+                          <input type="checkbox" value="{{item.title}}" [(ngModel)]="item.checked" [name]="item.title" />
+                          <span></span>
+                        </label>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

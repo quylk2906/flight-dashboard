@@ -24,7 +24,7 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
   public list: Client[]
   public listRegions: any[];
   public listAgencies: Agency[];
-  private user: any
+  public user: any
   private subsArr: Subscription[] = []
   public currentItem: Client = {
     fullName: undefined,
