@@ -46,7 +46,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   isRequest: boolean = false;
   isExport: boolean = false;
   theAgency = "";
-  private user: any;
+  public user: any;
   public modalItem: ClientTicket;
   public currentItem: ClientTicket = {
     clientId: undefined,
@@ -98,15 +98,14 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAirline: AirlineService,
     private _serviceAgency: AgencyService,
     private _toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("currentUser"));
     let sub3;
     if (this.user.agencyId) {
       sub3 = this._serviceAgency.getAgencyById(this.user.agencyId).subscribe(rs => {
-        console.log("rs", rs);
-        this.theAgency = rs["data"].agenyName;
+        this.theAgency = rs["data"].agencyName;
       });
       this.subsArr.push(sub3);
     }
@@ -172,10 +171,9 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onSubmit(form: NgForm) {
     const client = this.currentItem;
-    client.agencyId = this.user.agencyId;
+    client.agencyId = $("#m_select2_4_7").val() ? $("#m_select2_4_7").val().toString() : this.user.agencyId;
     client.accountId = this.user._id;
     client.tinhTrangVe = "Mới";
-
     client.clientId = $("#m_select2_4_1")
       .val()
       .toString();
@@ -225,7 +223,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
         return;
       }
     }
-
     client.hangBay = $("#m_select2_4_6")
       .val()
       .toString();
@@ -270,7 +267,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.subsArr.push(subs);
   }
-
+  
   clearSelect2() {
     $("#m_select2_4_1")
       .val(0)
@@ -288,6 +285,9 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       .val(0)
       .trigger("change");
     $("#m_select2_4_6")
+      .val(0)
+      .trigger("change");
+    $("#m_select2_4_7")
       .val(0)
       .trigger("change");
   }
@@ -311,14 +311,20 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     const dataClient = this.listClients.map(item => {
       return { id: item._id, text: `${item.fullName} - KH${item._id.slice(18, 24).toUpperCase()}` };
     });
+    const dataAgencies = this.listAgencies.map(item => {
+      return { id: item._id, text: `${item.agencyCode} - ${item.agencyName}` };
+    });
+
     $("#m_select2_4_1").select2({ data: dataClient });
     $("#m_select2_4_2").select2({ data: dataAirport });
     $("#m_select2_4_3").select2({ data: dataAirport });
     $("#m_select2_4_4").select2({ data: dataAirport });
     $("#m_select2_4_5").select2({ data: dataAirport });
     $("#m_select2_4_6").select2({ data: dataAirline });
+    $("#m_select2_4_7").select2({ data: dataAgencies });
 
     this._script.loadScripts("app-client-ticket", ["assets/demo/default/custom/crud/forms/widgets/select2.js"]);
+
   }
 
   ngOnDestroy() {
@@ -369,7 +375,7 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     data.isRequest = true;
     const sub = this._serviceClientTicket.putClient(this.modalItem).subscribe(rs => {
       return this._serviceClientTicket.sendEmail(data).subscribe(
-        rs1 => {},
+        rs1 => { },
         err => {
           console.log(err);
         }

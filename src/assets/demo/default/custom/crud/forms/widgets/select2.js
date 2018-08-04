@@ -6,12 +6,15 @@ var Select2 = {
          placeholder: "Select a state"
       }), $("#m_select2_3, #m_select2_3_validate").select2({
          placeholder: "Select a state"
-      }), $("#m_select2_4_1, #m_select2_4_2, #m_select2_4_3, #m_select2_4_4, #m_select2_4_5, #m_select2_4_6").select2({
+      }), $("#m_select2_4_1, #m_select2_4_2, #m_select2_4_3, #m_select2_4_4, #m_select2_4_5, #m_select2_4_6, #m_select2_4_7").select2({
          placeholder: "Chọn một option",
          allowClear: !0
-      }), $("#m_select2_4_7").select2({
-         placeholder: "Chọn một option"
-      }), $("#m_select2_5").select2({
+      }),
+      //  $("#m_select2_4_7").select2({
+      //    pplaceholder: "Chọn một option",
+      //    allowClear: !0
+      // }), 
+      $("#m_select2_5").select2({
          placeholder: "Select a value",
          data: [{
             id: 0,

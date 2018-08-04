@@ -153,14 +153,12 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     }
 
     if (this.defaultReport.value === 0) {
-      console.log('this.defaultReport.value');
       const sub6 = this._service.getPaymentDetailObservable().subscribe(rs => {
         this.list = rs["data"] as PaymentDetail[];
         this.rerender();
       })
       this.subsArr.push(sub6)
     } else {
-      console.log('else...');
       const sub7 = this._service.getPaymentByCondition(data).subscribe(rs => {
         this.list = rs["data"] as PaymentDetail[];
         this.rerender();

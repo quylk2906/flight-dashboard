@@ -200,9 +200,10 @@ export class ClientComponent implements OnInit, OnDestroy, AfterViewInit {
       placeholder: "Chọn một option",
       allowClear: !0
     });
+
     $("#m_select2_4_1")
       .val(this.user.agencyId)
       .trigger("change");
-
   }
+
 }

@@ -61,12 +61,22 @@
             </div>
           </div>
         </div>
+        <div class="form-group m-form__group row" *ngIf="user.role === 0">
+          <div class="col-lg-5">
+            <label>
+              Đại lý xuất vé *
+            </label>
+            <select class="form-control m-select2" id="m_select2_4_7">
+              <option class="text-uppercase"></option>
+            </select>
+          </div>
+        </div>
         <div class="form-group m-form__group row">
           <div class="col-lg-5">
             <label>
               Mã khách hàng *
             </label>
-            <select class="form-control m-select2" id="m_select2_4_1" [(ngModel)]="currentItem.clientId" name="clientId">
+            <select class="form-control m-select2" id="m_select2_4_1">
               <option class="text-uppercase"></option>
             </select>
           </div>
@@ -105,7 +115,7 @@
               Tình trạng vé *
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-input" id="exampleSelect1" name="tinhTrangVe" [(ngModel)]="currentItem.tinhTrangVe">
+              <select class="form-control m-input" id="exampleSelect1" disabled name="tinhTrangVe" [(ngModel)]="currentItem.tinhTrangVe">
                 <option *ngFor="let item of listStatus" [value]="item">
                   {{item}}
                 </option>
@@ -256,7 +266,7 @@
               <button type="submit" class="btn m-btn--pill m-btn--air btn-info mr-2">
                 Xác nhận
               </button>
-              <button type="reset" class="btn m-btn--pill m-btn--air btn-danger">
+              <button type="reset" class="btn m-btn--pill m-btn--air btn-danger" (click)="clearSelect2()">
                 Hủy
               </button>
             </div>
@@ -289,6 +299,9 @@
               Mã Khách hàng
             </th>
             <th>
+              Tên Khách hàng
+            </th>
+            <th>
               Mã đặt chỗ
             </th>
             <th>
@@ -311,13 +324,16 @@
               {{i + 1}}
             </td>
             <td class="text-uppercase">
-              KH{{item.clientId | slice: 18: 24}}
+              KH{{item.clientId._id | slice: 18: 24}}
+            </td>
+            <td class="text-uppercase">
+              {{item.fullName}}
             </td>
             <td>
               {{item.maDatCho}}
             </td>
             <td>
-              {{item.maXuatVe ? 'TICKET_' + item.maXuatVe : ''}}
+              {{item.maXuatVe ? item.maXuatVe : ''}}
             </td>
             <td [ngSwitch]="item.tinhTrangVe">
               <span *ngSwitchCase="'Đang xử lý'" class="m-badge m-badge--warning m-badge--wide">{{item.tinhTrangVe}}</span>
@@ -393,7 +409,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-uppercase" id="exampleModalLabel">
-              Chi tiết vé - KH{{modalItem.clientId | slice: 18: 24}}
+              Chi tiết vé - KH{{modalItem.clientId._id | slice: 18: 24}}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">
@@ -480,7 +496,7 @@
               <div>
                 <strong>
                   <span>{{user.fullName}}</span>
-                  <span class="pull-right">{{modalItem.clientName}}</span>
+                  <span class="pull-right">{{modalItem.fullName}}</span>
                 </strong>
               </div>
             </div>
