@@ -56,10 +56,14 @@ export class AuthComponent implements OnInit {
   }
 
   signin() {
-    console.log('signin');
     this.loading = true;
     this._authService.login(this.model.email, this.model.password).subscribe(
       data => {
+        // if (data.role === 0) {
+        //   this._router.navigate(["/components/approve"]);
+        // } else {
+        //   this._router.navigate(["/components/client-ticket"]);
+        // }
         this._router.navigate([this.returnUrl]);
       },
       error => {

@@ -17,7 +17,7 @@ export class AgencyService {
   }
 
   loadData() {
-    this.http.get(webControl.baseURL + this.endPoint, webControl.httpOptions).subscribe(res => {
+    this.http.get(webControl.baseURL + this.endPoint + '/getOwnedAgency').subscribe(res => {
       this.listAgencyhanged.next(res["data"] as Agency[]);
     });
   }

@@ -8,14 +8,24 @@
         <div class="m-stack__item m-brand">
           <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
             <div class="m-stack__item m-stack__item--middle m-brand__logo">
-              <a routerLink="/index" class="m-brand__logo-wrapper">
-                <img alt="" src="./assets/demo/demo5/media/img/logo/logo.png" />
+              <a href="index.html" class="m-brand__logo-wrapper">
+                <img alt="" src="assets/demo/demo5/media/img/logo/logo.png" />
               </a>
+            </div>
+            <div class="m-stack__item m-stack__item--middle m-brand__tools">
+              <!-- begin::Responsive Header Menu Toggler-->
+              <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
+                <span></span>
+              </a>
+              <!-- end::Responsive Header Menu Toggler-->
+              <!-- begin::Topbar Toggler-->
+              <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                <i class="flaticon-more"></i>
+              </a>
+              <!--end::Topbar Toggler-->
             </div>
           </div>
         </div>
-        <!-- end::Brand -->
-        <!-- begin::Topbar -->
         <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
           <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
             <div class="m-stack__item m-topbar__nav-wrapper">
@@ -410,6 +420,8 @@
       </div>
     </div>
   </div>
+
+
   <div class="m-header__bottom">
     <div class="m-container m-container--responsive m-container--xxl m-container--full-height m-page__container">
       <div class="m-stack m-stack--ver m-stack--desktop">
@@ -495,38 +507,38 @@
                 </a>
               </li>
               <!-- <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
-                routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
-                <a href="javascript:;" class="m-menu__link m-menu__toggle">
-                  <i class="m-menu__link-icon flaticon-menu"></i>
-                  <span class="m-menu__item-here"></span>
-                  <span class="m-menu__link-text">
-                    Quỹ - Đại lý
-                  </span>
-                  <i class="m-menu__hor-arrow la la-angle-down"></i>
-                  <i class="m-menu__ver-arrow la la-angle-right"></i>
-                </a>
-                <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
-                  <span class="m-menu__arrow m-menu__arrow--adjust"></span>
-                  <ul class="m-menu__subnav">
-                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                      <a routerLink="/components/agency" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-exclamation-1"></i>
-                        <span class="m-menu__link-text">
-                          Đại lý
-                        </span>
-                      </a>
-                    </li>
-                    <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
-                      <a routerLink="/components/payment-detail" class="m-menu__link">
-                        <i class="m-menu__link-icon flaticon-exclamation-1"></i>
-                        <span class="m-menu__link-text">
-                          Chi tiết giao dịch
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li> -->
+                  routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                  <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-menu"></i>
+                    <span class="m-menu__item-here"></span>
+                    <span class="m-menu__link-text">
+                      Quỹ - Đại lý
+                    </span>
+                    <i class="m-menu__hor-arrow la la-angle-down"></i>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                  </a>
+                  <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
+                    <span class="m-menu__arrow m-menu__arrow--adjust"></span>
+                    <ul class="m-menu__subnav">
+                      <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
+                        <a routerLink="/components/agency" class="m-menu__link">
+                          <i class="m-menu__link-icon flaticon-exclamation-1"></i>
+                          <span class="m-menu__link-text">
+                            Đại lý
+                          </span>
+                        </a>
+                      </li>
+                      <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
+                        <a routerLink="/components/payment-detail" class="m-menu__link">
+                          <i class="m-menu__link-icon flaticon-exclamation-1"></i>
+                          <span class="m-menu__link-text">
+                            Chi tiết giao dịch
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li> -->
               <li *ngIf="user.role === 0" class="m-menu__item m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" routerLinkActive="m-menu__item--active"
                 routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
                 <a href="javascript:;" class="m-menu__link m-menu__toggle">
@@ -565,37 +577,6 @@
           </div>
         </div>
         <!-- end::Horizontal Menu -->
-        <!--begin::Search-->
-        <!-- <div class="m-stack__item m-stack__item--middle m-dropdown m-dropdown--arrow m-dropdown--large m-dropdown--mobile-full-width m-dropdown--align-right m-dropdown--skin-light m-header-search m-header-search--expandable m-header-search--skin-"
-          id="m_quicksearch" m-quicksearch-mode="default">
-          <form class="m-header-search__form">
-            <div class="m-header-search__wrapper">
-              <span class="m-header-search__icon-search" id="m_quicksearch_search">
-                <i class="la la-search"></i>
-              </span>
-              <span class="m-header-search__input-wrapper">
-                <input autocomplete="off" type="text" name="q" class="m-header-search__input" value="" placeholder="Tìm kiếm..." id="m_quicksearch_input">
-              </span>
-              <span class="m-header-search__icon-close" id="m_quicksearch_close">
-                <i class="la la-remove"></i>
-              </span>
-              <span class="m-header-search__icon-cancel" id="m_quicksearch_cancel">
-                <i class="la la-remove"></i>
-              </span>
-            </div>
-          </form>
-          <div class="m-dropdown__wrapper">
-            <div class="m-dropdown__arrow m-dropdown__arrow--center"></div>
-            <div class="m-dropdown__inner">
-              <div class="m-dropdown__body">
-                <div class="m-dropdown__scrollable m-scrollable" data-scrollable="true" data-max-height="300" data-mobile-max-height="200">
-                  <div class="m-dropdown__content m-list-search m-list-search--skin-light"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <!--end::Search-->
       </div>
     </div>
   </div>

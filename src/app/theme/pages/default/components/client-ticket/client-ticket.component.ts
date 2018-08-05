@@ -17,7 +17,7 @@ import { Airport } from "../../../../../_models/airport.model";
 import { Client } from "../../../../../_models/client.model";
 import { Airline } from "../../../../../_models/airline.module";
 import { AirlineService } from "../../../../../_services/airline.service";
-import { find } from "lodash";
+import { find, cloneDeep } from "lodash";
 import { AgencyService } from "../../../../../_services/agency.service";
 import { Agency } from "../../../../../_models/agency.model";
 
@@ -46,6 +46,9 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
   isRequest: boolean = false;
   isExport: boolean = false;
   theAgency = "";
+  private prevState = ""
+  public dataAirport1: { id: string, text: string, disabled: boolean }[]
+  public dataAirport2: { id: string, text: string, disabled: boolean }[]
   public user: any;
   public modalItem: ClientTicket;
   public currentItem: ClientTicket = {
@@ -294,20 +297,71 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       .trigger("change");
   }
 
+  onSelectChange = (e) => {
+    const value = e.target.value;
+    $('#m_select2_4_3').val(undefined).trigger('change')
+    this.dataAirport1 = this.listAirports.map(item => {
+      if (item.airportName === value) {
+        return { id: item.airportName, text: item.airportName, disabled: true };
+      } else {
+        return { id: item.airportName, text: item.airportName, disabled: false };
+      }
+    });
+  }
+
+  onSelectChange1 = (e) => {
+    $('#m_select2_4_5').val(undefined).trigger('change')
+    const value = e.target.value;
+    this.dataAirport2 = this.listAirports.map(item => {
+      if (item.airportName === value) {
+        return { id: item.airportName, text: item.airportName, disabled: true };
+      } else {
+        return { id: item.airportName, text: item.airportName, disabled: false };
+      }
+    });
+  }
+
+  onChangeDate1(e) {
+    const date = e.target.value
+    $("#m_datetimepicker_1_2").datetimepicker('setStartDate', new Date(date));
+  }
+  onChangeDate2(e) {
+    const date = e.target.value
+    $("#m_datetimepicker_1_4").datetimepicker('setStartDate', new Date(date));
+  }
+
   ngAfterViewInit() {
+    const config = {
+      todayHighlight: !0,
+      autoclose: true,
+      format: "yyyy-mm-dd hh:ii",
+    }
+    $("#m_datetimepicker_1_1").datetimepicker({
+      config
+    }).on('changeDate', this.onChangeDate1)
+
+    $("#m_datetimepicker_1_3").datetimepicker({
+      config
+    }).on('changeDate', this.onChangeDate2)
+
+    $("#m_datetimepicker_1_2, #m_datetimepicker_1_4").datetimepicker({
+      config
+    })
+
     this._script.loadScripts("app-client-ticket", [
       "assets/vendors/custom/datatables/datatables.bundle.js",
       "assets/demo/default/custom/crud/forms/validation/form-controls.js",
-      "assets/demo/default/custom/crud/forms/widgets/bootstrap-datetimepicker.js",
       "assets/demo/default/custom/crud/forms/widgets/input-mask.js"
     ]);
     this.dtTrigger.next();
   }
 
   loadScript() {
-    const dataAirport = this.listAirports.map(item => {
-      return { id: item.airportName, text: item.airportName };
+    this.dataAirport1 = this.listAirports.map(item => {
+      return { id: item.airportName, text: item.airportName, disabled: false };
     });
+    this.dataAirport2 = cloneDeep(this.dataAirport1)
+
     const dataAirline = this.listAirlines.map(item => {
       return { id: item._id, text: item.airlineName };
     });
@@ -318,11 +372,13 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
       return { id: item._id, text: `${item.agencyCode} - ${item.agencyName}` };
     });
 
+
+
     $("#m_select2_4_1").select2({ data: dataClient });
-    $("#m_select2_4_2").select2({ data: dataAirport });
-    $("#m_select2_4_3").select2({ data: dataAirport });
-    $("#m_select2_4_4").select2({ data: dataAirport });
-    $("#m_select2_4_5").select2({ data: dataAirport });
+    $("#m_select2_4_2").select2({ data: this.dataAirport1 }).on('change', this.onSelectChange)
+    // $("#m_select2_4_3").select2({ data: this.dataAirport })
+    $("#m_select2_4_4").select2({ data: this.dataAirport2 }).on('change', this.onSelectChange1);
+    // $("#m_select2_4_5").select2({ data: this.dataAirport1 })
     $("#m_select2_4_6").select2({ data: dataAirline });
     $("#m_select2_4_7").select2({ data: dataAgencies });
 

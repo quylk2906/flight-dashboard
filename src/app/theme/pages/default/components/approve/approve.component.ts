@@ -102,6 +102,12 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onApprove() {
+    if (!this.currentItem.maXuatVe) {
+      this._toastr.error("Chưa nhập mã xuất vé.", undefined, {
+        closeButton: true
+      });
+      return
+    }
     this.currentItem.tinhTrangVe = this.listStatus[2];
     const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(() => {
       return this._serviceClient.sendEmail(this.currentItem).subscribe(
@@ -120,6 +126,12 @@ export class ApproveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onReject() {
+    if (!this.currentItem.maXuatVe) {
+      this._toastr.error("Chưa nhập mã xuất vé.", undefined, {
+        closeButton: true
+      });
+      return
+    }
     this.currentItem.tinhTrangVe = this.listStatus[3];
     let data = { ...this.currentItem } as any;
     const sub = this._serviceClient.changeStatus(this.currentItem).subscribe(() => {

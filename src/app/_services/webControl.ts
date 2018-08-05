@@ -6,5 +6,5 @@ export default class WebControl {
 
   static baseURL = "https://vast-journey-12423.herokuapp.com/api/v1/";
 
-//   static baseURL = "http://localhost:4200/api/v1/";
+  // static baseURL = "http://localhost:4200/api/v1/";
 }

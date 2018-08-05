@@ -11,7 +11,8 @@ const routes: Routes = [
     children: [
       {
         path: "index",
-        loadChildren: "./pages/aside-left-display-disabled/index/index.module#IndexModule"
+        // loadChildren: "./pages/aside-left-display-disabled/index/index.module#IndexModule"
+        loadChildren: "./pages/default/components/client-ticket/client-ticket.module#ClientTicketModule"
       },
       {
         path: "profile",
