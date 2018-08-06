@@ -4,3 +4,8 @@
   box-shadow: 0 1px 15px 1px rgba(2, 2, 2, 0.15) !important;
   background-color: #fff !important;
 }
+
+@font-face {
+  font-family: myFirstFont;
+  src: url("../fonts/Futura.otf") format("opentype");
+}

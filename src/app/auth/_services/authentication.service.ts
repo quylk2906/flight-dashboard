@@ -20,7 +20,11 @@ export class AuthenticationService {
       })
       .map((res: any) => {
         Helpers.setLoading(false);
+        console.log(res.data.user);
         if (res.data.user && res.data.token) {
+          if (!res.data.user.root) {
+            delete res.data.user["root"];
+          }
           localStorage.setItem("currentUser", JSON.stringify(res.data.user));
           localStorage.setItem("token", res.data.token);
           this._router.navigate(["/"]);

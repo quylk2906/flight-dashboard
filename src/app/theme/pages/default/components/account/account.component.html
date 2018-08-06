@@ -27,60 +27,6 @@
           <i class="la la-plus m--hide"></i>
           <i class="la la-ellipsis-h"></i>
         </a>
-        <div class="m-dropdown__wrapper">
-          <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-          <div class="m-dropdown__inner">
-            <div class="m-dropdown__body">
-              <div class="m-dropdown__content">
-                <ul class="m-nav">
-                  <li class="m-nav__section m-nav__section--first m--hide">
-                    <span class="m-nav__section-text">
-                      Quick Actions
-                    </span>
-                  </li>
-                  <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                      <i class="m-nav__link-icon flaticon-share"></i>
-                      <span class="m-nav__link-text">
-                        Activity
-                      </span>
-                    </a>
-                  </li>
-                  <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                      <i class="m-nav__link-icon flaticon-chat-1"></i>
-                      <span class="m-nav__link-text">
-                        Messages
-                      </span>
-                    </a>
-                  </li>
-                  <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                      <i class="m-nav__link-icon flaticon-info"></i>
-                      <span class="m-nav__link-text">
-                        FAQ
-                      </span>
-                    </a>
-                  </li>
-                  <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                      <i class="m-nav__link-icon flaticon-lifebuoy"></i>
-                      <span class="m-nav__link-text">
-                        Support
-                      </span>
-                    </a>
-                  </li>
-                  <li class="m-nav__separator m-nav__separator--fit"></li>
-                  <li class="m-nav__item">
-                    <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
-                      Submit
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -94,7 +40,7 @@
       <div class="m-portlet__head-caption">
         <div class="m-portlet__head-title">
           <h3 class="m-portlet__head-text">
-            Thêm mới tài khoản.
+            {{currentItem._id ? 'Cập nhập' : 'Thêm mới'}} tài khoản.
           </h3>
         </div>
       </div>
@@ -222,6 +168,16 @@
         <div class="form-group m-form__group row">
           <div class="col-lg-5">
             <label>
+              Vị trí
+            </label>
+            <select class="form-control m-input" name="positionId" [(ngModel)]="currentItem.positionId">
+              <option *ngFor="let item of listPositions" [value]="item._id">
+                {{item.codeDivision}} - {{item.titleDivision}}
+              </option>
+            </select>
+          </div>
+          <div class="col-lg-5">
+            <label>
               Trạng thái.
             </label>
             <select class="form-control m-input" name="isActived" [(ngModel)]="currentItem.isActived">
@@ -229,21 +185,6 @@
                 {{item.title}}
               </option>
             </select>
-          </div>
-          <div class="col-lg-5">
-            <label>
-              Giới tính.
-            </label>
-            <div class="m-radio-inline">
-              <label class="m-radio m-radio--bold m-radio--state-success">
-                <input type="radio" name="example_3" checked (change)="onSelectionChange(false)"> Nam
-                <span></span>
-              </label>
-              <label class="m-radio m-radio--bold m-radio--state-brand">
-                <input type="radio" name="example_3" (change)="onSelectionChange(true)"> Nữ
-                <span></span>
-              </label>
-            </div>
           </div>
         </div>
         <div class="form-group m-form__group row">
@@ -262,15 +203,17 @@
           </div>
           <div class="col-lg-5">
             <label>
-              Số Fax *
+              Giới tính.
             </label>
-            <div class="m-input-icon m-input-icon--right">
-              <input type="number" class="form-control m-input" [(ngModel)]="currentItem.faxNumber" name="faxNumber">
-              <span class="m-input-icon__icon m-input-icon__icon--right">
-                <span>
-                  <i class="la la-edit"></i>
-                </span>
-              </span>
+            <div class="m-radio-inline">
+              <label class="m-radio m-radio--bold m-radio--state-success">
+                <input type="radio" name="example_3" checked (change)="onSelectionChange(false)"> Nam
+                <span></span>
+              </label>
+              <label class="m-radio m-radio--bold m-radio--state-brand">
+                <input type="radio" name="example_3" (change)="onSelectionChange(true)"> Nữ
+                <span></span>
+              </label>
             </div>
           </div>
         </div>
@@ -303,6 +246,19 @@
           </div>
         </div>
         <div class="form-group m-form__group row">
+          <div class="col-lg-5">
+            <label>
+              Số Fax *
+            </label>
+            <div class="m-input-icon m-input-icon--right">
+              <input type="number" class="form-control m-input" [(ngModel)]="currentItem.faxNumber" name="faxNumber">
+              <span class="m-input-icon__icon m-input-icon__icon--right">
+                <span>
+                  <i class="la la-edit"></i>
+                </span>
+              </span>
+            </div>
+          </div>
           <div class="col-lg-5">
             <label>
               Email nhận thông báo *

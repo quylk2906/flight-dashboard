@@ -10,20 +10,20 @@ export class AgencyService {
   listAgencyhanged = new Subject<Agency[]>();
   private listAgencies: Agency[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAgencies() {
     return this.listAgencies;
   }
 
   loadData() {
-    this.http.get(webControl.baseURL + this.endPoint, webControl.httpOptions).subscribe(res => {
+    this.http.get(webControl.baseURL + this.endPoint).subscribe(res => {
       this.listAgencyhanged.next(res["data"] as Agency[]);
     });
   }
 
   getAgencyById(id) {
-    return this.http.get(`${webControl.baseURL}${this.endPoint}/${id}`)
+    return this.http.get(`${webControl.baseURL}${this.endPoint}/${id}`);
   }
 
   getAgenciesObservable() {

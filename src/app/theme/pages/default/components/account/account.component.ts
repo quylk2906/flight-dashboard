@@ -2,9 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewEncapsulation, OnDestroy } from "
 import { ScriptLoaderService } from "../../../../../_services/script-loader.service";
 import { NgForm } from "@angular/forms";
 import { Subscription } from "rxjs/Subscription";
-import { trimObjectAfterSave } from "../../../../../_utils/trimObject";
 import { find } from "lodash";
-import { ObjectUnsubscribedError, Subject, forkJoin } from "rxjs";
+import { Subject, forkJoin } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { Helpers } from "../../../../../helpers";
 import { Agency } from "../../../../../_models/agency.model";
@@ -30,6 +29,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   private subsArr: Subscription[] = [];
   public listStatus = [{ title: "Kíck hoạt", value: true }, { title: "Ẩn", value: false }];
   public listRole = [{ title: "Quản tri", value: 0 }, { title: "Người dùng", value: 1 }];
+  public user: any;
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: any = {
     responsive: true,
@@ -74,9 +74,10 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     private _serviceAgency: AgencyService,
     private _serviceAccount: AccountService,
     private _servicePosition: PositionService
-  ) { }
+  ) {}
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
     Helpers.setLoading(true);
     this.list = this._serviceAccount.getAccounts();
     const sub1 = this._serviceAccount.listAccountshanged.subscribe(
@@ -106,8 +107,8 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   changeRole(newValue) {
-    this.currentItem.role = ~~newValue
-    if (newValue === '0') {
+    this.currentItem.role = ~~newValue;
+    if (newValue === "0") {
       $("#m_select2_4_7").select2({ data: this.dataAgency, multiple: true });
     } else {
       $("#m_select2_4_7").select2({ data: this.dataAgency, multiple: false });
@@ -115,11 +116,11 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   onSubmit(form: NgForm) {
     const account = this.currentItem;
-    const dataSelect = $("#m_select2_4_7").val()
+    const dataSelect = $("#m_select2_4_7").val();
     if (this.currentItem.role === 0) {
-      this.currentItem.ownedAgency = dataSelect as string[]
+      this.currentItem.ownedAgency = dataSelect as string[];
     } else {
-      this.currentItem.agencyId = dataSelect as string
+      this.currentItem.agencyId = dataSelect as string;
     }
     Helpers.setLoading(true);
     let sub: Subscription;
@@ -173,7 +174,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subsArr.push(sub);
   }
 
-
   onEdit(id) {
     this.currentItem = find(this.list, item => {
       return item._id == id;
@@ -191,7 +191,6 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
         .val(this.currentItem ? this.currentItem.ownedAgency : 0)
         .trigger("change");
     }
-
   }
 
   ngOnDestroy() {
@@ -201,10 +200,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._script.loadScripts("app-account", [
-      "assets/vendors/custom/datatables/datatables.bundle.js",
-      "assets/demo/default/custom/crud/forms/validation/form-controls.js"
-    ]);
+    this._script.loadScripts("app-account", ["assets/vendors/custom/datatables/datatables.bundle.js", "assets/demo/default/custom/crud/forms/validation/form-controls.js"]);
     this.dtTrigger.next();
   }
 

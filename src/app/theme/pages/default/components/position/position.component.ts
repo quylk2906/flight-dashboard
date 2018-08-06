@@ -28,11 +28,7 @@ export class PositionComponent implements OnInit, OnDestroy, AfterViewInit {
     createdAt: undefined
   };
 
-  constructor(
-    private _script: ScriptLoaderService,
-    private _service: PositionService,
-    private _toastr: ToastrService
-  ) {}
+  constructor(private _script: ScriptLoaderService, private _service: PositionService, private _toastr: ToastrService) {}
 
   ngOnInit() {
     Helpers.setLoading(true);
