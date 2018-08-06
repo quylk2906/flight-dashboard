@@ -8,7 +8,7 @@ import { Helpers } from "../../helpers";
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private http: HttpClient, private _router: Router) { }
+  constructor(private http: HttpClient, private _router: Router) {}
 
   login(email: string, password: string) {
     const body = { email, password };
@@ -20,7 +20,6 @@ export class AuthenticationService {
       })
       .map((res: any) => {
         Helpers.setLoading(false);
-        console.log(res.data.user);
         if (res.data.user && res.data.token) {
           if (!res.data.user.root) {
             delete res.data.user["root"];
@@ -29,7 +28,7 @@ export class AuthenticationService {
           localStorage.setItem("token", res.data.token);
           this._router.navigate(["/"]);
         }
-        return res.data.user
+        return res.data.user;
       });
   }
 

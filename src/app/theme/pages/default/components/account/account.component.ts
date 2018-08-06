@@ -51,6 +51,7 @@ export class AccountComponent implements OnInit, OnDestroy, AfterViewInit {
   public currentItem: Account = {
     _id: undefined,
     ownedAgency: undefined,
+    positionId: undefined,
     agencyId: undefined,
     fullName: undefined,
     role: 1,
