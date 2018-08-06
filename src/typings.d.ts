@@ -14,4 +14,8 @@ interface JQuery {
 	valid(): JQuery;
 	resetForm(): JQuery;
 	markdown(): JQuery;
+	datepicker(item: any): JQuery;
+	datetimepicker(item1: any, item2?: any): JQuery;
+	// select2(item1?: any): JQuery;
+	// datetimepicker(item: any): JQuery
 }

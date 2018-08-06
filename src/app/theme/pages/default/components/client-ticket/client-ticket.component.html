@@ -156,7 +156,7 @@
               Sân bay đi (chiều đi)
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-" id="m_select2_4_2" [ngModel]="currentItem.sanBayDi_chieuDi" name="sanBayDi_chieuDi">
+              <select class="form-control m-select2" id="m_select2_4_2">
                 <option></option>
               </select>
             </div>
@@ -166,8 +166,9 @@
               Sân bay đến (chiều đi)
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-select2" id="m_select2_4_3" [ngModel]="currentItem.sanBayDen_chieuDi" name="sanBayDen_chieuDi">
+              <select class="form-control m-select2" id="m_select2_4_3">
                 <option></option>
+                <option [value]="item.id" *ngFor="let item of dataAirport1" [disabled]="item.disabled">{{item.text}}</option>
               </select>
             </div>
           </div>
@@ -179,7 +180,7 @@
               Sân bay đi (chiều về)
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-select2" id="m_select2_4_4" [ngModel]="currentItem.sanBayDi_chieuVe" name="sanBayDi_chieuVe">
+              <select class="form-control m-select2" id="m_select2_4_4">
                 <option></option>
               </select>
             </div>
@@ -189,8 +190,9 @@
               Sân bay đến (chiều về)
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <select class="form-control m-select2" id="m_select2_4_5" [ngModel]="currentItem.sanBayDen_chieuVe" name="sanBayDen_chieuVe">
+              <select class="form-control m-select2" id="m_select2_4_5">
                 <option></option>
+                <option [value]="item.id" *ngFor="let item of dataAirport2" [disabled]="item.disabled">{{item.text}}</option>
               </select>
             </div>
           </div>
@@ -203,7 +205,7 @@
               Ngày giờ đi (chiều đi)
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="ngayGioBay_chieuDi" [ngModel]="currentItem.ngayGioBay_chieuDi | date: 'yyyy-MM-dd hh:mm'"
+              <input type="text" class="form-control m-input" (change)="onChangeDate1($event)" name="ngayGioBay_chieuDi" [ngModel]="currentItem.ngayGioBay_chieuDi | date: 'yyyy-MM-dd hh:mm'"
                 required placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_1" />
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>
@@ -234,7 +236,7 @@
               Ngày giờ đi (chiều về)
             </label>
             <div class="m-input-icon m-input-icon--right">
-              <input type="text" class="form-control m-input" name="ngayGioBay_chieuVe" [ngModel]="currentItem.ngayGioBay_chieuVe | date: 'yyyy-MM-dd hh:mm'"
+              <input type="text" class="form-control m-input" name="ngayGioBay_chieuVe" (change)="onChangeDate2($event)" [ngModel]="currentItem.ngayGioBay_chieuVe | date: 'yyyy-MM-dd hh:mm'"
                 placeholder="Chọn ngày và thời gian" id="m_datetimepicker_1_3" />
               <span class="m-input-icon__icon m-input-icon__icon--right">
                 <span>

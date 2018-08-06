@@ -148,7 +148,7 @@ export class PaymentDetailComponent implements OnInit, OnDestroy, AfterViewInit 
     const start = $('input[name=start]').val()
     const end = $('input[name=end]').val()
     const gtlt = $('input[name=gtlt]:checked').val()
-    const amount = ~~($('#m_inputmask_7').val().toString().replace(/,/g, ''));
+    const amount = $('#m_inputmask_7').val() ? ~~($('#m_inputmask_7').val().toString().replace(/,/g, '')) : undefined
     const status = this.listStatus.filter(el => el.checked == true).map(el => el.title)
     const data = {
       agencies: agencies,

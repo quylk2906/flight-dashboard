@@ -7,7 +7,7 @@ import { Observable } from "rxjs-compat";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.headers.get("No-auth") == "true") {
       return next.handle(req.clone());
@@ -30,11 +30,13 @@ export class AuthInterceptor implements HttpInterceptor {
             case 404:
               this.router.navigateByUrl("/404-not-found");
               break;
-            // default:
+            // case 500:
             //   this.router.navigateByUrl("/500-internal-server-error");
             //   break;
+            default:
+              this.router.navigateByUrl("/500-internal-server-error");
+              break;
           }
-          // if (err.status === 401)
         }
       );
     } else {

@@ -191,7 +191,7 @@
             </div>
             <div class="row">
               <div class="col-lg-7 m--margin-bottom-10-tablet-and-mobile">
-                <div class="form-group" *ngIf="defaultReport.value === 4 || defaultReport.value === 3">
+                <div class="form-group" [hidden]="defaultReport.value === 0 || defaultReport.value === 1 || defaultReport.value === 2">
                   <label>
                     Số tiền:
                   </label>
