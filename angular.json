@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo5": {
+    "flightSagodev": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -53,19 +53,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demo5:build",
+            "browserTarget": "flightSagodev:build",
             "port": 8080
           },
           "configurations": {
             "production": {
-              "browserTarget": "demo5:build:production"
+              "browserTarget": "flightSagodev:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo5:build"
+            "browserTarget": "flightSagodev:build"
           }
         },
         "test": {
@@ -103,7 +103,7 @@
         }
       }
     },
-    "demo5-e2e": {
+    "flight-sagodev-e2e": {
       "root": "",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -112,7 +112,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "demo5:serve"
+            "devServerTarget": "flightSagodev:serve"
           }
         },
         "lint": {
@@ -129,7 +129,7 @@
       }
     }
   },
-  "defaultProject": "demo5",
+  "defaultProject": "flight-sagodev",
   "schematics": {
     "@schematics/angular:class": {
       "spec": false
