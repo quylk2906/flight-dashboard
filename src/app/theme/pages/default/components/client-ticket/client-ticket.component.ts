@@ -114,8 +114,6 @@ export class ClientTicketComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     Helpers.setLoading(true);
-
-    // this.currentItem.maDatCho = randomstring.generate(6);
     this.list = this._serviceClientTicket.getClients();
     this._serviceClientTicket.loadData();
 

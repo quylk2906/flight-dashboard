@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, Inject, PLATFORM_ID, APP_ID } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ThemeComponent } from "./theme/theme.component";
 import { LayoutModule } from "./theme/layouts/layout.module";
@@ -15,11 +15,13 @@ import { AsideLeftMinimizeDefaultEnabledComponent } from "../app/theme/pages/asi
 import { DataTablesModule } from "angular-datatables";
 import { ToastrModule } from "ngx-toastr";
 import { AuthInterceptor } from "./auth/auth.interceptor";
+import { isPlatformBrowser } from "@angular/common";
+
 @NgModule({
   declarations: [AsideLeftMinimizeDefaultEnabledComponent, LayoutComponent, ThemeComponent, AppComponent],
   imports: [
     LayoutModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: "flight-universal-app" }),
     BrowserAnimationsModule,
     AppRoutingModule,
     ThemeRoutingModule,
@@ -38,4 +40,9 @@ import { AuthInterceptor } from "./auth/auth.interceptor";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, @Inject(APP_ID) private appId: string) {
+    const platform = isPlatformBrowser(this.platformId) ? " in the browser" : " on the server";
+    console.log(`Running ${platform} with AppId: ${this.appId}`);
+  }
+}
